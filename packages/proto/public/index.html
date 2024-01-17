@@ -1,100 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="stylesheet" href="styles/page.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
   </head>
   <body>
     <article>
-      <header>
-        <h1>Home</h1>
-        <a href="profile.html">My Profile</a>
-        <a href="groups.html">My Groups</a>
+      <header class="navbar">
+        <div class="navbar-content">
+          <div class="logo">
+            <img src="images/icon.png" alt="Cooked Logo" width="50px" />
+            <h1>COOKED</h1>
+          </div>
+
+          <section class="search-box">
+            <form>
+              <input
+                type="text"
+                name="search"
+                placeholder="Search for Recipes, Chefs, & More"
+              />
+            </form>
+          </section>
+
+          <div class="right-navbar">
+
+          
+          <a class="group-icon" href="groups.html">
+            <img src="images/groups.png" alt="Groups" width="40px" />
+          </a>
+
+          <a class="navbar-menu" href="profile.html">
+           <img id="menu" src="images/menu.png" alt="menu" width="20px" />
+
+            <img src="images/avatar.png" alt="Profile" width="40px" />
+          </a>
+        </div>
+        </div>
       </header>
 
-      <section>
-        <h2>Search</h2>
-        <div>
-          <form>
-            <input
-              type="text"
-              name="search"
-              placeholder="Recipes, Chefs, Groups"
-            />
-            <button>Search</button>
-          </form>
-        </div>
-      </section>
+      <div class="content">
+        <a href="profile.html">My Profile</a>
+        <a href="groups.html">My Groups</a>
 
-      <section>
-        <h2>Categories</h2>
-        <div>
-          <ul>
-            <li>
-              <a href="recipe-category.html">American</a>
-            </li>
-            <li>
-              <a href="recipe-category.html">Italian</a>
-            </li>
-            <li>
-              <a href="recipe-category.html">Mexican</a>
-            </li>
-            <li>
-              <a href="recipe-category.html">Chinese</a>
-            </li>
-            <li>
-              <a href="recipe-category.html">Japanese</a>
-            </li>
-            <li>
-              <a href="recipe-category.html">Indian</a>
-            </li>
-            <li>
-              <a href="recipe-category.html">French</a>
-            </li>
-            <li>
-              <a href="recipe-category.html">Thai</a>
-            </li>
-            <li>
-              <a href="recipe-category.html">More</a>
-            </li>
-          </ul>
-        </div>
-      </section>
+        <section>
+          <h2>Categories</h2>
+          <div>
+            <ul>
+              <li>
+                <a href="recipe-category.html">American</a>
+              </li>
+              <li>
+                <a href="recipe-category.html">Italian</a>
+              </li>
+              <li>
+                <a href="recipe-category.html">Mexican</a>
+              </li>
+              <li>
+                <a href="recipe-category.html">Chinese</a>
+              </li>
+              <li>
+                <a href="recipe-category.html">Japanese</a>
+              </li>
+              <li>
+                <a href="recipe-category.html">Indian</a>
+              </li>
+              <li>
+                <a href="recipe-category.html">French</a>
+              </li>
+              <li>
+                <a href="recipe-category.html">Thai</a>
+              </li>
+              <li>
+                <a href="recipe-category.html">More</a>
+              </li>
+            </ul>
+          </div>
+        </section>
 
-      <section>
-        <h2>Trending Recipes</h2>
-        <div>
-          <ul>
-            <li>
-              <a href="recipe.html">Recipe 1</a>
-            </li>
-            <li>
-              <a href="recipe.html">Recipe 2</a>
-            </li>
-            <li>
-              <a href="recipe.html">Recipe 3</a>
-            </li>
-          </ul>
-        </div>
-      </section>
+        <section>
+          <h2>Trending Recipes</h2>
+          <div>
+            <ul>
+              <li>
+                <a href="recipe.html">Recipe 1</a>
+              </li>
+              <li>
+                <a href="recipe.html">Recipe 2</a>
+              </li>
+              <li>
+                <a href="recipe.html">Recipe 3</a>
+              </li>
+            </ul>
+          </div>
+        </section>
 
-      <section>
-        <h2>Your Favorites</h2>
-        <div>
-          <ul>
-            <li>
-              <a href="recipe.html">Recipe 1</a>
-            </li>
-            <li>
-              <a href="recipe.html">Recipe 2</a>
-            </li>
-            <li>
-              <a href="recipe.html">Recipe 3</a>
-            </li>
-          </ul>
-        </div>
-      </section>
+        <section>
+          <h2>Your Favorites</h2>
+          <div>
+            <ul>
+              <li>
+                <a href="recipe.html">Recipe 1</a>
+              </li>
+              <li>
+                <a href="recipe.html">Recipe 2</a>
+              </li>
+              <li>
+                <a href="recipe.html">Recipe 3</a>
+              </li>
+            </ul>
+          </div>
+        </section>
+      </div>
     </article>
   </body>
 </html>

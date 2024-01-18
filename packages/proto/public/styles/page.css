@@ -242,13 +242,17 @@
     }
 
     .content{
-        margin-left: 33px;
-        margin-right: 33px;
+        margin-left: 31px;
+        margin-right: 31px;
     }
 
     .navbar-content{
-        margin-left: 33px;
-        margin-right: 33px;
+        margin-left: 31px;
+        margin-right: 31px;
+    }
+
+    .group-icon{
+        display: none;
     }
   }
 

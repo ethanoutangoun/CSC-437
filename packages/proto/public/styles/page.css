@@ -236,3 +236,20 @@
   }
 
 
+  @media screen and (max-width: 550px) {
+    .recipe-container {
+      width: 100%;
+    }
+
+    .content{
+        margin-left: 33px;
+        margin-right: 33px;
+    }
+
+    .navbar-content{
+        margin-left: 33px;
+        margin-right: 33px;
+    }
+  }
+
+

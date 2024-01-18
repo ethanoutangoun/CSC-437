@@ -1,4 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500&display=swap');
+
 
 * {
   font-family: "Raleway", sans-serif;
@@ -6,111 +8,194 @@
   margin: 0;
 }
 
+.navbar {
+  background-color: #fff;
+  padding: 20px 0;
+  border-bottom: 1px solid #d6d5d5;
+}
 
+.navbar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
+  margin-left: 60px;
+  margin-right: 60px;
+}
 
-.navbar{
-
-    
-
-
-    background-color: #fff;
-    padding: 20px 0;
-    border-bottom: 1px solid #d6d5d5;
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 
-.navbar-content{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 
-    margin-left: 60px;
-    margin-right: 60px;
+.logo h1 {
+  font-size: 28px;
+  font-weight: 300;
+  color: #ac0e0e;
+  text-shadow: 1px 1px 1px #d6d5d5;
 }
 
-
-.logo{
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.navbar-content a{
+    text-decoration: none;
 
 }
 
-.logo h1{
-    font-size: 28px;
-    font-weight: 300;
-    color: #C60404;
+.content {
+  margin-left: 60px;
+  margin-right: 60px;
 }
 
-.content{
-    background-color:gray;
-    margin-left: 60px;
-    margin-right: 60px;
-}
-
-
-.search-box{
+.search-box {
   margin-right: 100px;
 }
 
-.search-box input{
+.search-box input {
+  width: 100%;
+  padding-top: 13px;
+  padding-bottom: 13px;
+  padding-right: 80px;
+  padding-left: 20px;
 
-    width: 100%;
-    padding-top: 13px;
-    padding-bottom: 13px;
-    padding-right: 80px;
-    padding-left: 20px;
-
-    border-radius: 20px;
-    border: 1px solid #d6d5d5;
-    font-size: 16px;
-    font-weight: 300;
-    color: #333;
-
+  border-radius: 20px;
+  border: 1px solid #d6d5d5;
+  font-size: 16px;
+  font-weight: 300;
+  color: #333;
 }
 
-.right-navbar{
-    display: flex;
-    align-items: center;
-    gap: 25px;
+.right-navbar {
+  display: flex;
+  align-items: center;
+  gap: 25px;
 }
 
 /* On hover, ease in to make bigger */
-.group-icon img{
-    transition: transform 0.3s ease;
+.group-icon img {
+  transition: transform 0.3s ease;
 }
 
-.group-icon img:hover{
-    transform: scale(1.15);
+.group-icon img:hover {
+  transform: scale(1.15);
 }
 
-.navbar-menu{
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    border: 1px solid #d6d5d5;
-    padding: 5px;
-    padding-left: 8px;
-    padding-right: 8px;
-    border-radius: 20px;
-
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border: 1px solid #d6d5d5;
+  padding: 5px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 20px;
 }
 
 /* Add box shadow transition */
 .navbar-menu {
-    transition: box-shadow 0.3s ease; /* Add a transition for the box-shadow property */
+  transition: box-shadow 0.3s ease; /* Add a transition for the box-shadow property */
 }
 
 /*add a drop shadow upon hover, shadow in downward direction*/
-.navbar-menu:hover{
-    cursor: pointer;
-    box-shadow: 0px 5px 5px rgba(0,0,0,0.1);
+.navbar-menu:hover {
+  cursor: pointer;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
 }
 
 @media screen and (max-width: 868px) {
-    .search-box{
-        display: none;
-    }   
+  .search-box {
+    display: none;
+  }
 }
+
+.category {
+  margin-bottom: 10px;
+}
+
+.category-list {
+  margin-top: 10px;
+  display: flex;
+  list-style: none;
+  gap: 30px;
+  align-items: center;
+}
+
+.category-list a {
+  text-decoration: none;
+  color: #333;
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.category-item {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 3px;
+  border-bottom: 2px solid transparent;
+  transition: border-bottom 0.3s ease;
+}
+
+.category-item:hover {
+  border-bottom: 2px solid black;
+  cursor: pointer;
+}
+
+.image-border {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.trending{
+    margin-bottom: 20px;
+}
+
+
+.trending h2 {
+  font-size: 20px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.recipe-list h4{
+    font-size: 15px;
+    font-weight: 550;
+    color: #333;
+}
+
+.recipe-list {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Montserrat', sans-serif;
+  flex-wrap: wrap;
+}
+
+.recipe-list li {
+  list-style: none;
+}
+
+.recipe-list a {
+  text-decoration: none;
+  color: #333;
+}
+
+.recipe-list p{
+    font-size: 15px;
+    font-weight: 300;
+    color: #827f7f;
+}
+
+
+.recipe-container img{
+    width: 20vw;
+}
+
+
 

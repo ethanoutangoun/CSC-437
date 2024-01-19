@@ -1,66 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="stylesheet" href="styles/page.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
+    <title>Cooked</title>
+    <link rel="icon" href="images/icon.png" type="image/x-icon" />
   </head>
   <body>
     <article>
-        <header>
-            <h1>Recipe Name</h1>
-            <p>Type (Gluten Free, Vegan, etc.)</p>
-            <a href="index.html">Back to Home</a>
-        </header>
+      <header class="navbar">
+        <div class="navbar-content">
+          <a class="logo" href="index.html">
+            <img src="images/icon.png" alt="Cooked Logo" width="50px" />
+            <h1>COOKED</h1>
+          </a>
 
-       
-        <section>
-            <img src="https://via.placeholder.com/150" alt="Recipe Image">
-           
-            
-            <div class="recipe-info">
-                <h3>Overview</h3>
-                <p class="recipe-description">Description: Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur dolorum laudantium officia reprehenderit laboriosam quos quae laborum, voluptates ratione aspernatur.</p>
-                <p>Cost: $10</p>
-                <p>Prep Time: 30 minutes</p>
-                <p>Cook Time: 1 hour</p>
-                <p>Yield: 4 servings</p>
-            
-            <div class="ingredients">
-                <h3>Ingredients</h3>
-                <ul>
-                    <li>Ingredient 1</li>
-                    <li>Ingredient 2</li>
-                    <li>Ingredient 3</li>
-                    <li>Ingredient 4</li>
-                    <li>Ingredient 5</li>
-                </ul>
-            </div>
+          <section class="search-box">
+            <form>
+              <input
+                type="text"
+                name="search"
+                placeholder="Search for Recipes, Chefs, & More"
+              />
+            </form>
+          </section>
 
-            <div class="required-tools">
-                <h3>Required Tools</h3>
-                <ul>
-                    <li>Tool 1</li>
-                    <li>Tool 2</li>
-                    <li>Tool 3</li>
-                    <li>Tool 4</li>
-                    <li>Tool 5</li>
-                </ul>
-            </div>
+          <div class="right-navbar">
+            <a class="group-icon" href="groups.html">
+              <img src="images/groups.png" alt="Groups" width="40px" />
+            </a>
 
-            <div class="instructions">
-                <h3>Instructions</h3>
-                <ol>
-                    <li>Step 1</li>
-                    <li>Step 2</li>
-                    <li>Step 3</li>
-                    <li>Step 4</li>
-                    <li>Step 5</li>
-                </ol>
-            </div>
+            <a class="navbar-menu" href="profile.html">
+              <img id="menu" src="images/menu.png" alt="menu" width="20px" />
+
+              <img src="images/avatar.png" alt="Profile" width="40px" />
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <section class="recipe-content">
+          <h2>Recipe Name</h2>
+
+          <div class="rating-container">
+            <img src="icons/rating-star-a.svg" alt="star" width="20px" />
+            <img src="icons/rating-star-a.svg" alt="star" width="20px" />
+            <img src="icons/rating-star-a.svg" alt="star" width="20px" />
+            <img src="icons/rating-star-a.svg" alt="star" width="20px" />
+            <img src="icons/rating-star-a.svg" alt="star" width="20px" />
+          </div>
+
+          <div class="recipe-intro">
+            <p class="recipe-description">
+              Description: Lorem ipsum dolor sit amet consectetur adipisicing
+              elit. Tenetur dolorum laudantium officia reprehenderit laboriosam
+              quos quae laborum, voluptates ratione aspernatur.
+            </p>
+
+            <img src="images/steak.jpeg" alt="Recipe Image" />
+          </div>
+
+          <div class="recipe-info">
+            <h3>Overview</h3>
+
+            <p>Cost: $10</p>
+            <p>Prep Time: 30 minutes</p>
+            <p>Cook Time: 1 hour</p>
+            <p>Yield: 4 servings</p>
+          </div>
+
+          <div class="ingredients">
+            <h3>Ingredients</h3>
+            <ul>
+              <li>Ingredient 1</li>
+              <li>Ingredient 2</li>
+              <li>Ingredient 3</li>
+              <li>Ingredient 4</li>
+              <li>Ingredient 5</li>
+            </ul>
+          </div>
+
+          <div class="required-tools">
+            <h3>Required Tools</h3>
+            <ul>
+              <li>Tool 1</li>
+              <li>Tool 2</li>
+              <li>Tool 3</li>
+              <li>Tool 4</li>
+              <li>Tool 5</li>
+            </ul>
+          </div>
+
+          <div class="instructions">
+            <h3>Instructions</h3>
+            <ol>
+              <li>Step 1</li>
+              <li>Step 2</li>
+              <li>Step 3</li>
+              <li>Step 4</li>
+              <li>Step 5</li>
+            </ol>
+          </div>
         </section>
-        
-   
+      </div>
     </article>
+
+    <footer>
+      <p>© 2024 Ethan Outangoun</p>
+    </footer>
   </body>
 </html>

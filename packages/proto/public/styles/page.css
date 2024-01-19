@@ -1,13 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500&display=swap");
 
 /* Hide the scrollbar in Webkit browsers (including Safari and Chrome) */
 ::-webkit-scrollbar {
-    display: none;
-  }
-  
-
-  
+  display: none;
+}
 
 * {
   font-family: "Raleway", sans-serif;
@@ -18,7 +15,10 @@
 .navbar {
   background-color: #fff;
   padding: 20px 0;
-  border-bottom: 1px solid #d6d5d5;
+  border-bottom: 1px solid #e9e7e7;
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 
 .navbar-content {
@@ -36,21 +36,19 @@
   gap: 10px;
 }
 
-
-
 .logo h1 {
   font-size: 28px;
   font-weight: 300;
-  color: #ac0e0e;
+  color: #000000;
   text-shadow: 1px 1px 1px #d6d5d5;
 }
 
-.navbar-content a{
-    text-decoration: none;
-
+.navbar-content a {
+  text-decoration: none;
 }
 
 .content {
+  margin-top: 100px;
   margin-left: 80px;
   margin-right: 80px;
 }
@@ -110,14 +108,45 @@
   box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
 }
 
-@media screen and (max-width: 968px) {
+.favorite-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #d6d5d5;
+  background-color: rgb(18, 155, 18);
+  margin-left: 30px
+
+}
+
+@media screen and (max-width: 988px) {
   .search-box {
     display: none;
   }
-}
 
+  .favorite-container{
+    display: none;
+  }
+
+
+}
+ 
 .category {
+  display: flex;
   margin-bottom: 10px;
+  align-items: center;
+  justify-content: space-between;
+  overflow-x: scroll;
+}  
+
+
+
+.favorite-container h4{
+    font-size: 15px;
+    font-weight: 500;
+    color: white;
 }
 
 .category-list {
@@ -126,7 +155,9 @@
   list-style: none;
   gap: 30px;
   align-items: center;
-    overflow-x: scroll;
+ 
+
+
 }
 
 .category-list a {
@@ -148,8 +179,18 @@
 }
 
 .category-item:hover {
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid rgb(190, 187, 187);
   cursor: pointer;
+}
+
+.more-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #d6d5d5;
+  padding: 6px;
+  padding-left: 8px;
+  border-radius: 50%;
 }
 
 .image-border {
@@ -160,10 +201,9 @@
   align-items: center;
 }
 
-.trending{
-    margin-bottom: 20px;
+.trending {
+  margin-bottom: 20px;
 }
-
 
 .trending h2 {
   font-size: 20px;
@@ -172,19 +212,23 @@
   margin-bottom: 10px;
 }
 
-.recipe-list h4{
-    font-size: 15px;
-    font-weight: 550;
-    color: #333;
+.recipe-list h4 {
+  font-size: 15px;
+  font-weight: 550;
+  color: #333;
 }
 
 .recipe-list {
-  display: flex;
-  justify-content: space-between;
-  font-family: 'Montserrat', sans-serif;
-  flex-wrap: wrap;
-    gap: 20px;
+  /* display: flex;
+  justify-content: space-between; */
 
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+
+  font-family: "Montserrat", sans-serif;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 .recipe-list li {
@@ -196,64 +240,45 @@
   color: #333;
 }
 
-.recipe-list p{
-    font-size: 15px;
-    font-weight: 300;
-    color: #827f7f;
+.recipe-list p {
+  font-size: 15px;
+  font-weight: 300;
+  color: #827f7f;
 }
 
-.recipe-container{
-
-    margin-bottom: 25px;
-    width: 20vw;
+.recipe-container {
+  margin-bottom: 25px;
+  width: 100%;
 }
 
-.recipe-container img{
-   width: 100%;
+.recipe-container img {
+  width: 100%;
 }
-@media screen and (max-width: 1100px) {
-    .recipe-container {
-      width: 25vw;
-    }
 
-    
+@media screen and (max-width: 800px) {
+  .content {
+    margin-left: 50px;
+    margin-right: 50px;
   }
 
-  @media screen and (max-width: 800px) {
-    .recipe-container {
-      width: 39vw;
-    }
+  .navbar-content {
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+}
 
-    .content{
-        margin-left: 50px;
-        margin-right: 50px;
-    }
-
-    .navbar-content{
-        margin-left: 50px;
-        margin-right: 50px;
-    }
+@media screen and (max-width: 500px) {
+  .content {
+    margin-left: 31px;
+    margin-right: 31px;
   }
 
-
-  @media screen and (max-width: 550px) {
-    .recipe-container {
-      width: 100%;
-    }
-
-    .content{
-        margin-left: 31px;
-        margin-right: 31px;
-    }
-
-    .navbar-content{
-        margin-left: 31px;
-        margin-right: 31px;
-    }
-
-    .group-icon{
-        display: none;
-    }
+  .navbar-content {
+    margin-left: 31px;
+    margin-right: 31px;
   }
 
-
+  .group-icon {
+    display: none;
+  }
+}

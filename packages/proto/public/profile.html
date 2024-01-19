@@ -1,27 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="stylesheet" href="styles/page.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Profile</title>
+    <title>Cooked</title>
+    <link rel="icon" href="images/icon.png" type="image/x-icon">
   </head>
   <body>
     <article>
-      <header>
-        <h1>Profile</h1>
-        <a href="index.html">Back to Home</a>
+      <header class="navbar">
+        <div class="navbar-content">
+          <a class="logo" href="index.html">
+            <img src="images/icon.png" alt="Cooked Logo" width="50px" />
+            <h1>COOKED</h1>
+          </a>
+
+       
+
+          <div class="right-navbar">
+            <a class="group-icon" href="groups.html">
+              <img src="images/groups.png" alt="Groups" width="40px" />
+            </a>
+
+            <a class="navbar-menu" href="profile.html">
+              <img id="menu" src="images/menu.png" alt="menu" width="20px" />
+
+              <img src="images/avatar.png" alt="Profile" width="40px" />
+            </a>
+          </div>
+        </div>
+
+
+        
       </header>
 
-        <section>
-            <img src="https://via.placeholder.com/150" alt="Profile Picture" />
-        </section>
-
-      <section>
-        <div>
-          <a href="user-recipes.html">My Recipes</a>
-          <a href="groups.html">My Groups</a>
-        </div>
-      </section>
+      <div class="content">
+       <a href="groups.html">Groups</a>
+       <a href="user-recipes.html">My Recipes</a>
+      
+      </div>
     </article>
   </body>
 </html>

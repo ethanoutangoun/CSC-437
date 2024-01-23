@@ -2,9 +2,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500&display=swap");
 
 /* Hide the scrollbar in Webkit browsers (including Safari and Chrome) */
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   display: none;
-}
+} */
 
 * {
   font-family: "Raleway", sans-serif;
@@ -13,6 +13,7 @@
 }
 
 .navbar {
+  z-index: 2;
   background-color: #fff;
   padding: 20px 0;
   border-bottom: 1px solid #e9e7e7;
@@ -51,7 +52,6 @@
   margin-top: 100px;
   margin-left: 80px;
   margin-right: 80px;
- 
 }
 
 .search-box {
@@ -109,7 +109,7 @@
   box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
 }
 
-.favorite-container{
+.favorite-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -118,18 +118,16 @@
   border-radius: 10px;
   border: 1px solid #d6d5d5;
   background-color: rgb(18, 155, 18);
-  margin-left: 30px
-
+  margin-left: 30px;
 }
 
-.favorite-container h4{
+.favorite-container h4 {
   font-size: 15px;
   font-weight: 500;
   color: white;
 }
 
-
-.favorite-container:hover{
+.favorite-container:hover {
   cursor: pointer;
   background-color: green;
 }
@@ -139,24 +137,22 @@
     display: none;
   }
 
-  .favorite-container{
+  .favorite-container {
     display: none;
   }
-
-
 }
- 
+
 .category {
   display: flex;
   margin-bottom: 10px;
   align-items: center;
   justify-content: space-between;
   overflow-x: scroll;
+}
 
-}  
-
-
-
+.category::-webkit-scrollbar {
+  display: none;
+}
 
 .category-list {
   margin-top: 10px;
@@ -164,9 +160,6 @@
   list-style: none;
   gap: 30px;
   align-items: center;
- 
-
-
 }
 
 .category-list a {
@@ -187,7 +180,7 @@
   transition: border-bottom 0.3s ease;
 }
 
-.category-item p{
+.category-item p {
   white-space: nowrap;
 }
 
@@ -216,6 +209,7 @@
 
 .trending {
   margin-bottom: 20px;
+
 }
 
 .trending h2 {
@@ -239,12 +233,11 @@
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   /* I want my rows to be the exact same height as my auto generated columns */
   grid-auto-rows: 1fr;
-  
+
   gap: 20px;
 
   font-family: "Montserrat", sans-serif;
   flex-wrap: wrap;
-
 }
 
 .recipe-list li {
@@ -263,29 +256,47 @@
 }
 
 .recipe-container {
- 
   margin-bottom: 25px;
   width: 100%;
-
-
-
-
 }
 
-.recipe-img-container{
+.recipe-container h4 {
+  margin-top: 10px;
+}
+
+.recipe-img-container {
   width: 100%;
-  
-  height:calc(100% - 30px);;
+  position: relative;
+  display: inline-block;
+  height: calc(100% - 70px);
+}
+
+#heart-svg {
+  width: 25px;
+  height: 25px;
+  fill: red;
+  position: absolute;
+  top: 20px; /* Adjust the top position as needed */
+  right: 20px; /* Adjust the right position as needed */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.recipe-img-container:hover #heart-svg {
+  opacity: 1;
 }
 
 .recipe-container img {
+  display: block;
   height: 100%;
   width: 100%;
   object-fit: cover;
   border-radius: 20px;
-  
 }
 
+article {
+  min-height: calc(100vh - 170px);
+}
 
 footer {
   border-top: 1px solid #d8d7d7;
@@ -294,13 +305,11 @@ footer {
   padding-left: 80px;
   padding-right: 80px;
   margin-top: 10px;
-
 }
 
-footer p{
+footer p {
   font-size: 14px;
 }
-
 
 @media screen and (max-width: 800px) {
   .content {
@@ -313,21 +322,20 @@ footer p{
     margin-right: 50px;
   }
 
-  .recipe-list{
+  .recipe-list {
     grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
   }
 
-  footer{
+  footer {
     padding-left: 50px;
     padding-right: 50px;
   }
 }
 
 @media screen and (max-width: 600px) {
-  .recipe-list{
+  .recipe-list {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
-  
 }
 
 @media screen and (max-width: 500px) {
@@ -345,60 +353,205 @@ footer p{
     display: none;
   }
 
-  .recipe-list{
+  .recipe-list {
     grid-template-columns: 1fr;
   }
 
-  footer{
+  footer {
     padding-left: 31px;
     padding-right: 31px;
   }
-
-
 }
 
-
-
-
-
-
-.recipe-content h2{
-  font-family: 'Montserrat', sans-serif;
+.recipe-content h2 {
+  font-family: "Montserrat", sans-serif;
   font-weight: 500;
   font-size: 26px;
   padding-top: 10px;
   padding-bottom: 10px;
 }
 
-.rating-container{
+.rating-container {
   display: flex;
   align-items: center;
   gap: 5px;
   margin-bottom: 10px;
-  
 }
 
-.rating-container svg{
+.rating-container svg {
   width: 24px;
   height: 24px;
   fill: rgb(255, 102, 0);
+}
 
+.recipe-intro {
+  margin-top: 15px;
+  display: grid;
+  grid-template-columns: 5fr 4fr;
+
+  grid-template-rows: 100%;
+  gap: 20px;
+}
+
+.recipe-card {
+  border: 2px solid #d6d5d5;
+  border-radius: 10px;
+  height: 70vh;
+  box-sizing: border-box;
  
 }
 
-.recipe-intro{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+.recipe-images{
+  width: 100%;
+  height: 70vh;
+
+}
+
+.recipe-intro img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  object-fit: cover;
 }
 
 
-.recipe-intro img{
+/* tab containers */
+.card-categories{
+  display: flex;
+  align-items: center;
+  gap: 10px;
 
-  width: 100%;
-  height: auto;
+  background-color: rgb(242, 242, 242);
+  border-radius: 8px 8px 0px 0px;
+  /* border-bottom: 1px solid #d6d5d5; */
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+/* tab elements */
+.card-categories p{
+  display: flex;
+  justify-content: center;
+  font-size: 17px;
+  font-weight: 600;
+  color: #333;
+  padding: 12px;
+  background-color: rgb(255, 255, 255);
+  /* make the radius 8px only on the top corners */
+  border-radius: 8px 8px 0px 0px;
+  margin-right: 10px;
+  width: 100px;
+
+}
+
+.card-categories p:hover{
+  cursor: pointer;
+}
+
+
+
+
+
+
+.card-categories #selected-tab{
+  background-color: rgb(247, 145, 1);
+  color: white;
+}
+
+.card-content-container{
+  height: calc(100% - 54px);
+  border-radius: 0px 0px 8px 8px;
+  background-color: rgb(242, 242, 242);
+ 
+ 
+}
+
+
+.card-content{
+  margin-left: 10px;
+  margin-right: 10px;
+  border-top: 2px solid rgb(247, 145, 1);
+  height: calc(100% - 35px);
+  border-radius: 0px 8px 8px 8px;
+  padding: 10px;
+  padding-top: 15px;
+  background-color: white;
+  overflow-y: scroll;
+ 
+
+}
+
+
+.recipe-stats{
+  display: inline-block;
+  display: flex;
+  gap: 10px;
+}
+
+.time-stat {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 3px;
+  background-color: rgb(255, 255, 204);
+  padding: 7px;
+  justify-content: center;
+}
+
+
+.cost-stat{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 3px;
+  background-color: rgb(193, 245, 193);
+  padding: 7px;
+  justify-content: center;
+}
+
+
+.heart-stat{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 3px;
+  background-color: rgb(255, 204, 204);
+  padding: 7px;
+  justify-content: center;
+}
+
+
+
+.card-directions h4{
+  font-size: 20px;
+  font-weight: 600;
+ 
+  margin-bottom: 5px;
+
+}
+
+
+.card-directions p{
+  font-size: 18px;
+  font-weight: 300;
+  color: #181818;
+  margin-bottom: 28px;
+}
+
+
+@media screen and (max-width: 1300px) {
+  .recipe-intro {
+    display: flex;
+    flex-direction: column-reverse;
+    ;
+  }
+
+
+
+  .recipe-images{
+    height: 30vh;
+  }
 
   
+  
 }
-
-
-

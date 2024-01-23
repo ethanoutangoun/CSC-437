@@ -552,6 +552,15 @@ footer p {
     height: 30vh;
   }
 
+ 
+
+  
+  
+}
+
+@media screen and (max-width: 500px) {
+  
+
   /* make recipe category smaller */
   .card-categories p{
     font-size: 12px;

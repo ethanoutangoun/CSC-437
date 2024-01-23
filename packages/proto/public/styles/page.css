@@ -384,6 +384,47 @@ footer p {
   fill: rgb(255, 102, 0);
 }
 
+
+.recipe-stats{
+  display: inline-block;
+  display: flex;
+  gap: 10px;
+}
+
+.time-stat {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 3px;
+  background-color: rgb(255, 255, 204);
+  padding: 7px;
+  justify-content: center;
+}
+
+
+.cost-stat{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 3px;
+  background-color: rgb(193, 245, 193);
+  padding: 7px;
+  justify-content: center;
+}
+
+
+.heart-stat{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 3px;
+  background-color: rgb(255, 204, 204);
+  padding: 7px;
+  justify-content: center;
+}
+
+
+
 .recipe-intro {
   margin-top: 15px;
   display: grid;
@@ -479,45 +520,6 @@ footer p {
   overflow-y: scroll;
  
 
-}
-
-
-.recipe-stats{
-  display: inline-block;
-  display: flex;
-  gap: 10px;
-}
-
-.time-stat {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  border-radius: 3px;
-  background-color: rgb(255, 255, 204);
-  padding: 7px;
-  justify-content: center;
-}
-
-
-.cost-stat{
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  border-radius: 3px;
-  background-color: rgb(193, 245, 193);
-  padding: 7px;
-  justify-content: center;
-}
-
-
-.heart-stat{
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  border-radius: 3px;
-  background-color: rgb(255, 204, 204);
-  padding: 7px;
-  justify-content: center;
 }
 
 

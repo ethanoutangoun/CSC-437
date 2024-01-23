@@ -578,6 +578,9 @@ footer p {
     font-size: 16px;
   }
 
+  .card-content-container{
+    height: calc(100% - 34px);
+  }
   
   
 }

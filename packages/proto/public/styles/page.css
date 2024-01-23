@@ -533,7 +533,7 @@ footer p {
 
 .card-directions p{
   font-size: 18px;
-  font-weight: 300;
+  font-weight: 400;
   color: #181818;
   margin-bottom: 28px;
 }
@@ -542,7 +542,7 @@ footer p {
 @media screen and (max-width: 1300px) {
   .recipe-intro {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     ;
   }
 

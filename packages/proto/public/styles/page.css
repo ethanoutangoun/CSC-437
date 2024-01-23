@@ -542,7 +542,7 @@ footer p {
 @media screen and (max-width: 1300px) {
   .recipe-intro {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     ;
   }
 
@@ -550,6 +550,23 @@ footer p {
 
   .recipe-images{
     height: 30vh;
+  }
+
+  /* make recipe category smaller */
+  .card-categories p{
+    font-size: 12px;
+    padding: 5px;
+    margin-right: 5px;
+    width: 80px;
+  }
+
+  /* make the recipe-instructions text smaller */
+  .card-directions h4{
+    font-size: 18px;
+  }
+  
+  .card-directions p{
+    font-size: 16px;
   }
 
   

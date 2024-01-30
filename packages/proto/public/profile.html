@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cooked</title>
-    <link rel="icon" href="images/icon.png" type="image/x-icon">
+    <link rel="icon" href="images/icon.png" type="image/x-icon" />
   </head>
   <body>
     <article>
@@ -16,11 +16,19 @@
             <h1>COOKED</h1>
           </a>
 
-       
+          <section class="search-box">
+            <form>
+              <input
+                type="text"
+                name="search"
+                placeholder="Search for Recipes, Chefs, & More"
+              />
+            </form>
+          </section>
 
           <div class="right-navbar">
-            <a class="group-icon" href="groups.html">
-              <img src="images/groups.png" alt="Groups" width="40px" />
+            <a class="group-icon" href="create.html">
+              <img src="icons/create.svg" alt="create-icon" width="40px" />
             </a>
 
             <a class="navbar-menu" href="profile.html">
@@ -30,17 +38,37 @@
             </a>
           </div>
         </div>
-
-
-        
       </header>
 
       <div class="content">
-       <a href="groups.html">Groups</a>
-       <a href="user-recipes.html">My Recipes</a>
-      
+        <div class="profile-content">
+          <div class="profile-header">
+            <h2>Account</h2>
+            <p>
+              Ethan Outangoun, ethanoutangoun@gmail.com · Go to
+              <a href="public-profile.html">profile</a>
+            </p>
+          </div>
+
+          <div class="profile-tabs">
+            <a href="account.html">
+              <img src="icons/profile.svg" alt="profile-icon" />
+              <h3>Personal Info</h3>
+              <p>Personal Details and Account information</p>
+            </a>
+            <a href="groups.html">
+              <img src="images/groups.png" alt="groups-icon" />
+              <h3>Groups</h3>
+              <p>Find and create groups</p>
+            </a>
+            <a href="user-recipes.html">
+              <img src="icons/notes.svg" alt="recipe-icon" />
+              <h3>My Recipes</h3>
+              <p>View your recipes of your own creation</p>
+            </a>
+          </div>
+        </div>
       </div>
     </article>
-  
   </body>
 </html>

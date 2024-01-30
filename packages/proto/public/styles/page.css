@@ -771,3 +771,247 @@ footer p {
   font-size: 15px;
   font-weight: 600;
 }
+
+
+/* Account.html */
+
+.profile-header h4{
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+} 
+
+.pi-all{
+  display: grid;
+  margin-top: 60px;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+
+
+.pi-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+ 
+}
+
+.pi-header h4{
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  text-decoration: underline;
+}
+
+.pi-header h4:hover{
+  cursor: pointer;
+}
+
+.pi-header h5{
+  font-size: 16px;
+  font-weight: 400;
+  color: #212121;
+}
+
+.pi-content p{
+  margin-top: 7px;
+  font-size: 15px;
+  font-weight: 300;
+  color: #6a6a6a;
+}
+
+.pi-block{
+  border-bottom: 1px solid #d6d5d5;
+  padding: 20px 0px 20px 0px;
+}
+
+.pi-img{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  
+  
+
+}
+
+.pi-img p{
+  text-decoration: underline;
+}
+
+.pi-img p:hover{
+  cursor: pointer;
+}
+
+.pi-img img{
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 100%;
+}
+
+.pi-img img:hover{
+  cursor: pointer;
+  opacity: 70%;
+}
+
+
+
+@media screen and (max-width: 988px) {
+  .pi-all{
+    grid-template-columns: 1fr;
+    gap: 50px;
+
+    /* reverse direction for grid*/
+    grid-template-rows: 1fr 1fr;
+  }
+
+  .pi-img{
+    grid-row: 1;
+    grid-column: 1;
+  }
+  
+}
+
+/* Groups Page */
+
+.groups-page{
+  margin-top: 130px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 50px;
+}
+
+
+
+.find-group form{
+  margin-top: 20px;;
+}
+
+.find-group input{
+  padding: 14px;
+  font-size: 16px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.find-group button{
+  margin-top: 20px;
+  padding: 14px;
+  border-radius: 4px;
+  border: none;
+  background-color: rgb(247, 145, 1);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.find-group button:hover{
+  cursor: pointer;
+  background-color: rgb(212, 126, 7);
+}
+
+
+.my-groups{
+  max-width: 800px;
+}
+
+.my-groups h2{
+  margin-bottom: 20px;
+}
+
+.my-groups li{
+  /* margin-top: 20px; */
+  list-style: none;
+  /* margin-bottom: 20px; */
+  /* padding: 30px; */
+  /* box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1); */
+
+}
+
+
+.my-groups li a{
+  display: block;
+  padding: 30px;
+
+  
+  text-decoration: none;
+  color: #333;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #d6d5d5;
+
+} 
+
+.my-groups li a:hover{
+  cursor: pointer;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
+
+}
+
+.my-groups button{
+  padding: 14px;
+  border-radius: 4px;
+  border: none;
+  background-color: rgb(247, 145, 1);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.my-groups button:hover{
+  cursor: pointer;
+  background-color: rgb(212, 126, 7);
+}
+
+
+
+/* My Recipes HTML */
+
+.my-recipes{
+  margin-top: 120px;
+  
+} 
+
+.my-recipes h2{
+  font-size: 20px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 10px;
+
+}
+
+
+/* Public profile */
+
+.public-profile{
+  margin-top: 120px;
+  margin-bottom: 80px;
+} 
+
+.public-profile-content{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.public-profile-content img{
+  margin-top: 50px;
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 100%;
+
+}
+
+.public-stats{
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}

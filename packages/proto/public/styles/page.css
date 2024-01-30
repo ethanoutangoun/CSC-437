@@ -660,6 +660,14 @@ footer p {
   margin-bottom: 10px;
 }
 
+@media screen and (max-width: 988px) {
+  .profile-tabs {
+    grid-template-columns: 1fr;
+  }
+  .profile-content{
+    margin: 0;
+  }
+}
 
 
 /* CREATE PAGE */
@@ -993,6 +1001,14 @@ footer p {
   margin-bottom: 80px;
 } 
 
+.public-profile h1{
+  font-size: 35px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 10px;
+
+}
+
 .public-profile-content{
   display: flex;
   flex-direction: column;
@@ -1001,7 +1017,7 @@ footer p {
 }
 
 .public-profile-content img{
-  margin-top: 50px;
+  margin-top: 30px;
   width: 300px;
   height: 300px;
   object-fit: cover;
@@ -1014,4 +1030,18 @@ footer p {
   display: flex;
   align-items: center;
   gap: 20px;
+}
+
+.public-stats p{
+  font-size: 15px;
+  font-weight: 300;
+  color: #333;
+}
+
+.public-bio{
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  max-width: 800px;
+
 }

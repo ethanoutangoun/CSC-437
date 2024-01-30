@@ -1,52 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="stylesheet" href="styles/page.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Recipes</title>
+    <link rel="icon" href="images/icon.png" type="image/x-icon" />
   </head>
   <body>
     <article>
-      <header>
-        <h1>My Recipes</h1>
-        <a href="index.html">Back to Home</a>
+      <header class="navbar">
+        <div class="navbar-content">
+          <a class="logo" href="index.html">
+            <img src="images/icon.png" alt="Cooked Logo" width="50px" />
+            <h1>COOKED</h1>
+          </a>
+
+          <section class="search-box">
+            <form>
+              <input
+                type="text"
+                name="search"
+                placeholder="Search for Recipes, Chefs, & More"
+              />
+            </form>
+          </section>
+
+          <div class="right-navbar">
+            <a class="group-icon" href="create.html">
+              <img src="icons/create.svg" alt="create-icon" width="40px" />
+            </a>
+
+            <a class="navbar-menu" href="profile.html">
+              <img id="menu" src="images/menu.png" alt="menu" width="20px" />
+
+              <img src="images/avatar.png" alt="Profile" width="40px" />
+            </a>
+          </div>
+        </div>
       </header>
 
-      <section>
-        <h2>Starred Recipes</h2>
-        <div>
-          <ul>
-            <li>
-              <a href="recipe.html">Recipe 1</a>
+      <div class="content">
+       
+
+        <section class="my-recipes">
+          <h2>My Recipes</h2>
+
+          <ul class="recipe-list">
+            <li class="recipe-container">
+              <a href="recipe.html">
+
+                <div class="recipe-img-container">
+                  
+                  <img src="images/steak.jpeg" alt="Recipe 1" />
+                </div>
+                
+                <h4>Steak and Bordelaise Sauce</h4>
+                <p>French</p>
+                <p>$$$</p>
+              </a>
             </li>
-            <li>
-              <a href="recipe.html">Recipe 2</a>
+
+          
+
+            <li class="recipe-container">
+              <a href="recipe.html">
+
+                <div class="recipe-img-container">
+                  <img src="images/pho.jpeg" alt="Recipe 1" />
+                </div>
+                <h4>Beef Pho</h4>
+                <p>Vietnamese</p>
+                <p>$$</p>
+              </a>
             </li>
-            <li>
-              <a href="recipe.html">Recipe 3</a>
+
+            <li class="recipe-container">
+              <a href="recipe.html">
+                <div class="recipe-img-container">
+                  <img src="images/potatoes.jpeg" alt="Recipe 1" />
+                </div>
+                <h4>Scalloped Potatoes</h4>
+                <p>American</p>
+                <p>$</p>
+              </a>
             </li>
+
+            <li class="recipe-container">
+              <a href="recipe.html">
+                <div class="recipe-img-container">
+                  <img src="images/lemon-chicken.png" alt="Recipe 1" />
+                </div>
+                <h4>Lemon Garlic Chicken Pasta</h4>
+                <p>American</p>
+                <p>$$</p>
+              </a>
+            </li>
+
+            
+
+            
           </ul>
-        </div>
-      </section>
-
-        <section>
-            <h2>Recently Viewed</h2>
-            <div>
-            <ul>
-                <li>
-                <a href="recipe.html">Recipe 1</a>
-                </li>
-                <li>
-                <a href="recipe.html">Recipe 2</a>
-                </li>
-                <li>
-                <a href="recipe.html">Recipe 3</a>
-                </li>
-            </ul>
-            </div>
-
-
-
+        </section>
+      </div>
     </article>
+
+    <footer>
+      <p>© 2024 Ethan Outangoun</p>
+      
+    </footer>
+   
   </body>
+
 </html>
+
+
+
+
+

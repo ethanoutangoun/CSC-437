@@ -1,46 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="stylesheet" href="styles/page.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Groups</title>
+    <title>Cooked</title>
+    <link rel="icon" href="images/icon.png" type="image/x-icon" />
   </head>
   <body>
     <article>
-      <header>
-        <h1>Group Page</h1>
-        <a href="index.html">Back to Home</a>
+      <header class="navbar">
+        <div class="navbar-content">
+          <a class="logo" href="index.html">
+            <img src="images/icon.png" alt="Cooked Logo" width="50px" />
+            <h1>COOKED</h1>
+          </a>
+
+          <section class="search-box">
+            <form>
+              <input
+                type="text"
+                name="search"
+                placeholder="Search for Recipes, Chefs, & More"
+              />
+            </form>
+          </section>
+
+          <div class="right-navbar">
+            <a class="group-icon" href="create.html">
+              <img src="icons/create.svg" alt="create-icon" width="40px" />
+            </a>
+
+            <a class="navbar-menu" href="profile.html">
+              <img id="menu" src="images/menu.png" alt="menu" width="20px" />
+
+              <img src="images/avatar.png" alt="Profile" width="40px" />
+            </a>
+          </div>
+        </div>
       </header>
 
-      <section>
-        <h2>Find Groups</h2>
-        <div>
-          <form action="">
-      
-            <input type="text" id="search" name="search" placeholder="Search for groups" />
-            <input type="submit" value="Search" />
-          </form>
-      </section>
+      <div class="content">
+        <div class="profile-content">
 
-      <section>
-        <h2>My Groups</h2>
-        <div>
-          <ul>
-            <li>
-              <a href="group.html">Group 1</a>
-            </li>
-            <li>
-              <a href="group.html">Group 2</a>
-            </li>
-            <li>
-              <a href="group.html">Group 3</a>
-            </li>
-          </ul>
+          <div class="groups-page">
+            <section class="find-group">
+              <h2>Find Groups</h2>
+            
+              <form action="">
+                <input
+                  type="text"
+                  id="search"
+                  name="search"
+                  placeholder="Search for groups"
+                />
+                
+              </form>
+              <button class="search-btn">Search</button>
+            </section>
+  
+            <section class="my-groups">
+              <h2>My Groups</h2>
+              <div>
+                <ul>
+                  <li>
+                    <a>Group 1</a>
+                  </li>
+                  <li>
+                    <a>Group 2</a>
+                  </li>
+                  <li>
+                    <a>Group 3</a>
+                  </li>
+                </ul>
+              </div>
+              <button onclick="alert('New group created')">
+                <p>Create New Group</p>
+              </button>
+            </section>
+          </div>
+        
         </div>
-        <button onclick="alert('New group created')">
-          <p>Create New Group</p>
-        </button>
-      </section>
+      </div>
     </article>
   </body>
 </html>

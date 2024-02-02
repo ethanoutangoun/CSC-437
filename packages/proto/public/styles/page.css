@@ -1,6 +1,7 @@
 /* @import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap"); */
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500&display=swap");
 
+
 /* Hide the scrollbar in Webkit browsers (including Safari and Chrome) */
 /* ::-webkit-scrollbar {
   display: none;
@@ -40,8 +41,10 @@
 .logo h1 {
   font-size: 28px;
   font-weight: 300;
-  color: #000000;
-  text-shadow: 1px 1px 1px #d6d5d5;
+  color: black;
+ 
+
+  text-shadow: 1px 1px 1px var(--color-light);
 }
 
 .navbar-content a {
@@ -66,7 +69,7 @@
   padding-left: 20px;
 
   border-radius: 20px;
-  border: 1px solid #d6d5d5;
+  border: 1px solid var(--color-light);
   font-size: 16px;
   font-weight: 300;
   color: #333;
@@ -91,7 +94,7 @@
   display: flex;
   align-items: center;
   gap: 20px;
-  border: 1px solid #d6d5d5;
+  border: 1px solid var(--color-light);
   padding: 5px;
   padding-left: 8px;
   padding-right: 8px;
@@ -116,7 +119,7 @@
   gap: 10px;
   padding: 10px;
   border-radius: 10px;
-  border: 1px solid #d6d5d5;
+  border: 1px solid var(--color-light);
   background-color: rgb(18, 155, 18);
   margin-left: 30px;
 }
@@ -193,7 +196,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #d6d5d5;
+  border: 1px solid var(--color-light);
   padding: 6px;
   padding-left: 8px;
   border-radius: 50%;
@@ -475,7 +478,7 @@ footer p {
 }
 
 .recipe-card {
-  border: 1px solid #d6d5d5;
+  border: 1px solid var(--color-light);
   border-radius: 10px;
   height: 70vh;
   box-sizing: border-box;
@@ -501,7 +504,7 @@ footer p {
 
   background-color: rgb(242, 242, 242);
   border-radius: 8px 8px 0px 0px;
-  /* border-bottom: 1px solid #d6d5d5; */
+  /* border-bottom: 1px solid var(--color-light); */
   padding-left: 10px;
   padding-top: 10px;
 }
@@ -526,7 +529,7 @@ footer p {
 }
 
 .card-categories #selected-tab {
-  background-color: rgb(247, 145, 1);
+  background-color: var(--color-primary-orange);
   color: white;
 }
 
@@ -539,7 +542,7 @@ footer p {
 .card-content {
   margin-left: 10px;
   margin-right: 10px;
-  border-top: 2px solid rgb(247, 145, 1);
+  border-top: 2px solid var(--color-primary-orange);
   height: calc(100% - 35px);
   border-radius: 0px 0px 8px 8px;
   padding: 10px;
@@ -609,7 +612,7 @@ footer p {
 
 .review-stat {
   height: 150px;
-  border-bottom: 1px solid #d6d5d5;
+  border-bottom: 1px solid var(--color-light);
 }
 
 /* PROFILE.HTML CSS */
@@ -695,7 +698,7 @@ svg.icon{
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px dashed #d6d5d5;
+  border: 1px dashed var(--color-light);
   border-radius: 10px;
   
 
@@ -731,7 +734,7 @@ svg.icon{
   padding: 20px;
   border-radius: 10px;
   border: none;
-  background-color: rgb(247, 145, 1);
+  background-color: var(--color-primary-orange);
   color: white;
   font-size: 15px;
   font-weight: 600;
@@ -746,7 +749,7 @@ svg.icon{
   align-items: center;
   gap: 10px;
   margin-top: 40px;
-  border-top: 1px solid #d6d5d5;
+  border-top: 1px solid var(--color-light);
   padding-top: 10px;
 
 }
@@ -781,7 +784,7 @@ svg.icon{
   padding: 10px;
   border-radius: 10px;
   border: none;
-  background-color: rgb(247, 145, 1);
+  background-color: var(--color-primary-orange);
   color: white;
   font-size: 15px;
   font-weight: 600;
@@ -838,7 +841,7 @@ svg.icon{
 }
 
 .pi-block{
-  border-bottom: 1px solid #d6d5d5;
+  border-bottom: 1px solid var(--color-light);
   padding: 20px 0px 20px 0px;
 }
 
@@ -918,7 +921,7 @@ svg.icon{
   padding: 14px;
   border-radius: 4px;
   border: none;
-  background-color: rgb(247, 145, 1);
+  background-color: var(--color-primary-orange);
   color: white;
   font-size: 16px;
   font-weight: 600;
@@ -972,7 +975,7 @@ svg.icon{
   padding: 14px;
   border-radius: 4px;
   border: none;
-  background-color: rgb(247, 145, 1);
+  background-color: var(--color-primary-orange);
   color: white;
   font-size: 16px;
   font-weight: 600;

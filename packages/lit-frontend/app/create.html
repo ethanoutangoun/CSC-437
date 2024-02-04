@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cooked</title>
     <link rel="icon" href="/images/icon.png" type="image/x-icon" />
+    <script type="module" src="./drop-down.ts"></script>
   </head>
   <body>
     <article>
@@ -33,29 +34,23 @@
               <img src="/icons/create.svg" alt="create-icon" width="40px" />
             </a>
 
-            <a class="navbar-menu" href="profile.html">
-              <img id="menu" src="/images/menu.png" alt="menu" width="20px" />
-
-              <img src="/images/avatar.png" alt="Profile" width="40px" />
-            </a>
+            <drop-down></drop-down>
           </div>
         </div>
       </header>
 
       <div class="content">
         <section class="recipe-content">
-
           <div class="space-between">
             <div class="create-class">
               <h2>Recipe Title</h2>
               <img src="/icons/edit.svg" alt="edit-icon" />
             </div>
-  
+
             <div class="post-container">
               <button class="save-button"><h3>Post</h3></button>
             </div>
           </div>
-         
 
           <!-- <div class="rating-container">
             <img src="/icons/rating-star-a.svg" alt="star" width="20px" />
@@ -120,8 +115,6 @@
             </div>
           </div>
         </section>
-
-       
       </div>
     </article>
 

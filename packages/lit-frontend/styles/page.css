@@ -1,0 +1,1057 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap"); */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500&display=swap");
+
+
+/* Hide the scrollbar in Webkit browsers (including Safari and Chrome) */
+/* ::-webkit-scrollbar {
+  display: none;
+} */
+
+/* * {
+  font-family: "Raleway", sans-serif;
+  padding: 0;
+  margin: 0;
+} */
+
+.navbar {
+  z-index: 2;
+  background-color: #fff;
+  padding: 20px 0;
+  border-bottom: 1px solid #e9e7e7;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.navbar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-left: 80px;
+  margin-right: 80px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo h1 {
+  font-size: 28px;
+  font-weight: 300;
+  color: black;
+ 
+
+  text-shadow: 1px 1px 1px var(--color-light);
+}
+
+.navbar-content a {
+  text-decoration: none;
+}
+
+.content {
+  margin-top: 100px;
+  margin-left: 80px;
+  margin-right: 80px;
+}
+
+.search-box {
+  margin-right: 100px;
+}
+
+.search-box input {
+  width: 100%;
+  padding-top: 13px;
+  padding-bottom: 13px;
+  padding-right: 80px;
+  padding-left: 20px;
+
+  border-radius: 20px;
+  border: 1px solid var(--color-light);
+  font-size: 16px;
+  font-weight: 300;
+  color: #333;
+}
+
+.right-navbar {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+/* On hover, ease in to make bigger */
+.group-icon img {
+  transition: transform 0.3s ease;
+}
+
+.group-icon img:hover {
+  transform: scale(1.15);
+}
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border: 1px solid var(--color-light);
+  padding: 5px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 20px;
+}
+
+/* Add box shadow transition */
+.navbar-menu {
+  transition: box-shadow 0.3s ease; /* Add a transition for the box-shadow property */
+}
+
+/*add a drop shadow upon hover, shadow in downward direction*/
+.navbar-menu:hover {
+  cursor: pointer;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
+}
+
+.favorite-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--color-light);
+  background-color: rgb(18, 155, 18);
+  margin-left: 30px;
+}
+
+.favorite-container h4 {
+  font-size: 15px;
+  font-weight: 500;
+  color: white;
+}
+
+.favorite-container:hover {
+  cursor: pointer;
+  background-color: green;
+}
+
+@media screen and (max-width: 988px) {
+  .search-box {
+    display: none;
+  }
+
+  .favorite-container {
+    display: none;
+  }
+}
+
+.category {
+  display: flex;
+  margin-bottom: 10px;
+  align-items: center;
+  justify-content: space-between;
+  overflow-x: scroll;
+}
+
+.category::-webkit-scrollbar {
+  display: none;
+}
+
+.category-list {
+  margin-top: 10px;
+  display: flex;
+  list-style: none;
+  gap: 30px;
+  align-items: center;
+}
+
+.category-list a {
+  text-decoration: none;
+  color: #333;
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.category-item {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 3px;
+  border-bottom: 2px solid transparent;
+  transition: border-bottom 0.3s ease;
+}
+
+.category-item p {
+  white-space: nowrap;
+}
+
+.category-item:hover {
+  border-bottom: 2px solid rgb(190, 187, 187);
+  cursor: pointer;
+}
+
+.more-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--color-light);
+  padding: 6px;
+  padding-left: 8px;
+  border-radius: 50%;
+}
+
+.image-border {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.trending {
+  margin-bottom: 20px;
+}
+
+.trending h2 {
+  font-size: 20px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.recipe-list h4 {
+  font-size: 15px;
+  font-weight: 550;
+  color: #333;
+}
+
+.recipe-list {
+  /* display: flex;
+  justify-content: space-between; */
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  /* I want my rows to be the exact same height as my auto generated columns */
+  grid-auto-rows: 1fr;
+
+  gap: 20px;
+
+  font-family: "Montserrat", sans-serif;
+  flex-wrap: wrap;
+}
+
+.recipe-list li {
+  list-style: none;
+}
+
+.recipe-list a {
+  text-decoration: none;
+  color: #333;
+}
+
+.recipe-list p {
+  font-size: 15px;
+  font-weight: 300;
+  color: #827f7f;
+}
+
+.recipe-container {
+  margin-bottom: 25px;
+  width: 100%;
+}
+
+.recipe-container h4 {
+  margin-top: 10px;
+}
+
+.recipe-img-container {
+  width: 100%;
+  position: relative;
+  display: inline-block;
+  height: calc(100% - 70px);
+}
+
+#heart-svg {
+  width: 25px;
+  height: 25px;
+  fill: red;
+  position: absolute;
+  top: 20px; /* Adjust the top position as needed */
+  right: 20px; /* Adjust the right position as needed */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.recipe-img-container:hover #heart-svg {
+  opacity: 1;
+}
+
+.recipe-container img {
+  display: block;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+article {
+  min-height: calc(100vh - 170px);
+}
+
+footer {
+  border-top: 1px solid #d8d7d7;
+  color: #333;
+  padding: 20px; /* Padding inside the footer */
+  padding-left: 80px;
+  padding-right: 80px;
+  margin-top: 10px;
+}
+
+footer p {
+  font-size: 14px;
+}
+
+@media screen and (max-width: 800px) {
+  .content {
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+
+  .navbar-content {
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+
+  .recipe-list {
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  }
+
+  footer {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .recipe-list {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .content {
+    margin-left: 31px;
+    margin-right: 31px;
+  }
+
+  .navbar-content {
+    margin-left: 31px;
+    margin-right: 31px;
+  }
+
+  .group-icon {
+    display: none;
+  }
+
+  .recipe-list {
+    grid-template-columns: 1fr;
+  }
+
+  footer {
+    padding-left: 31px;
+    padding-right: 31px;
+  }
+}
+
+.recipe-content h2 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 26px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.rating-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.rating-container svg {
+  width: 24px;
+  height: 24px;
+  fill: rgb(255, 102, 0);
+}
+
+.recipe-stats {
+  display: inline-block;
+  display: flex;
+  gap: 10px;
+}
+
+.time-stat {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 3px;
+  background-color: rgb(255, 255, 204);
+
+  padding: 7px;
+  justify-content: center;
+}
+
+.cost-stat {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 3px;
+  background-color: rgb(193, 245, 193);
+
+  padding: 7px;
+  justify-content: center;
+}
+
+.tags-container {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tag-title {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 3px;
+  /* border: 1px solid rgb(255, 204, 204); */
+  padding: 7px;
+}
+
+.tag-title h5 {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.tags {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  overflow-x: scroll;
+}
+
+.tags p {
+  font-size: 15px;
+  font-weight: 400;
+  color: #333;
+  padding: 7px;
+  border-radius: 3px;
+  background-color: rgb(242, 241, 241);
+}
+
+.tags p:hover {
+  cursor: pointer;
+  background-color: rgb(27, 33, 100);
+  color: white;
+}
+
+.heart-stat {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 3px;
+  background-color: rgb(255, 204, 204);
+  padding: 7px;
+  justify-content: center;
+}
+
+.recipe-intro {
+  margin-top: 15px;
+  display: grid;
+  grid-template-columns: 5fr 4fr;
+
+  grid-template-rows: 100%;
+  gap: 20px;
+}
+
+.recipe-card {
+  border: 1px solid var(--color-light);
+  border-radius: 10px;
+  height: 70vh;
+  box-sizing: border-box;
+}
+
+.recipe-images {
+  width: 100%;
+  height: 70vh;
+}
+
+.recipe-intro img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/* tab containers */
+.card-categories {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  background-color: rgb(242, 242, 242);
+  border-radius: 8px 8px 0px 0px;
+  /* border-bottom: 1px solid var(--color-light); */
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+/* tab elements */
+.card-categories p {
+  display: flex;
+  justify-content: center;
+  font-size: 17px;
+  font-weight: 600;
+  color: #333;
+  padding: 12px;
+  background-color: rgb(255, 255, 255);
+  /* make the radius 8px only on the top corners */
+  border-radius: 8px 8px 0px 0px;
+  margin-right: 10px;
+  width: 100px;
+}
+
+.card-categories p:hover {
+  cursor: pointer;
+}
+
+.card-categories #selected-tab {
+  background-color: var(--color-primary-orange);
+  color: white;
+}
+
+.card-content-container {
+  height: calc(100% - 54px);
+  border-radius: 0px 0px 8px 8px;
+  background-color: rgb(242, 242, 242);
+}
+
+.card-content {
+  margin-left: 10px;
+  margin-right: 10px;
+  border-top: 2px solid var(--color-primary-orange);
+  height: calc(100% - 35px);
+  border-radius: 0px 0px 8px 8px;
+  padding: 10px;
+  padding-top: 15px;
+  background-color: white;
+  overflow-y: scroll;
+}
+
+.card-directions h4 {
+  font-size: 20px;
+  font-weight: 600;
+
+  margin-bottom: 5px;
+}
+
+.card-directions p {
+  font-size: 16px;
+  font-weight: 400;
+  color: #181818;
+  margin-bottom: 28px;
+}
+
+@media screen and (max-width: 1300px) {
+  .recipe-intro {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .recipe-images {
+    height: 30vh;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  /* make recipe category smaller */
+  .card-categories p {
+    font-size: 12px;
+    padding: 5px;
+    margin-right: 5px;
+    width: 80px;
+  }
+
+  /* make the recipe-instructions text smaller */
+  .card-directions h4 {
+    font-size: 18px;
+  }
+
+  .card-directions p {
+    font-size: 16px;
+  }
+
+  .card-content-container {
+    height: calc(100% - 34px);
+  }
+}
+
+.review-content {
+  margin-top: 30px;
+}
+
+.review-content h3 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.review-stat {
+  height: 150px;
+  border-bottom: 1px solid var(--color-light);
+}
+
+/* PROFILE.HTML CSS */
+
+.profile-content {
+  margin-top: 100px;
+  margin-left: 80px;
+  margin-right: 80px;
+}
+
+.profile-header {
+  margin-top: 120px;
+}
+
+.profile-tabs {
+  margin-top: 40px;
+  display: grid;
+
+  grid-template-columns: 1fr 1fr 1fr;
+
+  gap: 20px;
+}
+
+.profile-tabs a {
+  /*add drop shadow */
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-decoration: none;
+}
+
+.profile-tabs h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333
+}
+
+.profile-tabs p {
+
+  margin-top: 15px;
+  font-size: 14px;
+  font-weight: 300;
+  color: #848484;
+}
+
+
+.profile-tabs img{
+  width: 40px;
+  margin-bottom: 10px;
+}
+
+svg.icon{
+  width: 40px;
+  height: 40px;
+  margin-bottom: 10px;
+
+}
+
+@media screen and (max-width: 988px) {
+  .profile-tabs {
+    grid-template-columns: 1fr;
+  }
+  .profile-content{
+    margin: 0;
+  }
+}
+
+
+/* CREATE PAGE */
+
+.create-class{
+  display: flex;
+  align-items: center;
+  color: gray;
+  gap: 10px;
+}
+
+.create-class img{
+  width: 25px;
+}
+
+.edit-recipe-image{
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed var(--color-light);
+  border-radius: 10px;
+  
+
+}
+
+.edit-recipe-image img{
+  width: 40%;
+  height: auto;
+  opacity: 20%;
+  object-fit: cover;
+}
+
+.edit-recipe-image:hover{
+  cursor: pointer;
+}
+
+
+.tag-input input{
+  padding:5px;
+  margin-left:10px;
+}
+
+.post-container{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+
+
+
+.post-container button{
+
+  padding: 20px;
+  border-radius: 10px;
+  border: none;
+  background-color: var(--color-primary-orange);
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.post-container button:hover{
+  cursor: pointer;
+}
+
+.add-directions{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 40px;
+  border-top: 1px solid var(--color-light);
+  padding-top: 10px;
+
+}
+
+.add-directions p{
+  margin: 0;
+  padding: 0;
+}
+
+.add-directions img{
+  width: 30px;
+
+}
+
+.add-directions img:hover{
+  cursor: pointer;
+}
+
+.space-between{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.directions-input input{
+  padding: 10px;
+  width: 400px;
+  border: 1px solid #949494;
+}
+
+.directions-input button{
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background-color: var(--color-primary-orange);
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+
+/* Account.html */
+
+.profile-header h4{
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+} 
+
+.pi-all{
+  display: grid;
+  margin-top: 60px;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+
+
+.pi-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+ 
+}
+
+.pi-header h4{
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  text-decoration: underline;
+}
+
+.pi-header h4:hover{
+  cursor: pointer;
+}
+
+.pi-header h5{
+  font-size: 16px;
+  font-weight: 400;
+  color: #212121;
+}
+
+.pi-content p{
+  margin-top: 7px;
+  font-size: 15px;
+  font-weight: 300;
+  color: #6a6a6a;
+}
+
+.pi-block{
+  border-bottom: 1px solid var(--color-light);
+  padding: 20px 0px 20px 0px;
+}
+
+.pi-img{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  
+  
+
+}
+
+.pi-img p{
+  text-decoration: underline;
+}
+
+.pi-img p:hover{
+  cursor: pointer;
+}
+
+.pi-img img{
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 100%;
+}
+
+.pi-img img:hover{
+  cursor: pointer;
+  opacity: 70%;
+}
+
+
+
+@media screen and (max-width: 988px) {
+  .pi-all{
+    grid-template-columns: 1fr;
+    gap: 50px;
+
+    /* reverse direction for grid*/
+    grid-template-rows: 1fr 1fr;
+  }
+
+  .pi-img{
+    grid-row: 1;
+    grid-column: 1;
+  }
+  
+}
+
+/* Groups Page */
+
+.groups-page{
+  margin-top: 130px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 50px;
+}
+
+
+
+.find-group form{
+  margin-top: 20px;;
+}
+
+.find-group input{
+  padding: 14px;
+  font-size: 16px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.find-group button{
+  margin-top: 20px;
+  padding: 14px;
+  border-radius: 4px;
+  border: none;
+  background-color: var(--color-primary-orange);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.find-group button:hover{
+  cursor: pointer;
+  background-color: rgb(212, 126, 7);
+}
+
+
+.my-groups{
+  max-width: 800px;
+}
+
+.my-groups h2{
+  margin-bottom: 20px;
+}
+
+.my-groups li{
+  /* margin-top: 20px; */
+  list-style: none;
+  /* margin-bottom: 20px; */
+  /* padding: 30px; */
+  /* box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1); */
+
+}
+
+
+.my-groups li a{
+  display: block;
+  padding: 30px;
+
+  
+  text-decoration: none;
+  color: #333;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #d6d5d5;
+
+} 
+
+.my-groups li a:hover{
+  cursor: pointer;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
+
+}
+
+.my-groups button{
+  padding: 14px;
+  border-radius: 4px;
+  border: none;
+  background-color: var(--color-primary-orange);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.my-groups button:hover{
+  cursor: pointer;
+  background-color: rgb(212, 126, 7);
+}
+
+
+
+/* My Recipes HTML */
+
+.my-recipes{
+  margin-top: 120px;
+  
+} 
+
+.my-recipes h2{
+  font-size: 20px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 10px;
+
+}
+
+
+/* Public profile */
+
+.public-profile{
+  margin-top: 120px;
+  margin-bottom: 80px;
+} 
+
+.public-profile h1{
+  font-size: 35px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 10px;
+
+}
+
+.public-profile-content{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.public-profile-content img{
+  margin-top: 30px;
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 100%;
+
+}
+
+.public-stats{
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.public-stats p{
+  font-size: 15px;
+  font-weight: 300;
+  color: #333;
+}
+
+.public-bio{
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  max-width: 800px;
+
+}

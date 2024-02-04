@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cooked</title>
     <link rel="icon" href="/images/icon.png" type="image/x-icon" />
+
+    <script type="module" src="./drop-down.ts"></script>
   </head>
   <body>
     <article>
@@ -16,6 +18,7 @@
           <a class="logo" href="index.html">
             <img src="/images/icon.png" alt="Cooked Logo" width="50px" />
             <h1>COOKED</h1>
+      
           </a>
 
           <section class="search-box">
@@ -33,11 +36,9 @@
               <img src="/icons/create.svg" alt="create-icon" width="40px" />
             </a>
 
-            <a class="navbar-menu" href="profile.html">
-              <img id="menu" src="/images/menu.png" alt="menu" width="20px" />
+            <drop-down></drop-down>
 
-              <img src="/images/avatar.png" alt="Profile" width="40px" />
-            </a>
+          
           </div>
         </div>
       </header>
@@ -152,6 +153,7 @@
 
         <section class="trending">
           <h2>Trending Recipes</h2>
+         
 
           <ul class="recipe-list">
             <li class="recipe-container">

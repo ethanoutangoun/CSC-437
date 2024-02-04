@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cooked</title>
     <link rel="icon" href="/images/icon.png" type="image/x-icon" />
+    <script type="module" src="./drop-down.ts"></script>
   </head>
   <body>
     <article>
@@ -33,11 +34,7 @@
               <img src="/icons/create.svg" alt="create-icon" width="40px" />
             </a>
 
-            <a class="navbar-menu" href="profile.html">
-              <img id="menu" src="/images/menu.png" alt="menu" width="20px" />
-
-              <img src="/images/avatar.png" alt="Profile" width="40px" />
-            </a>
+            <drop-down></drop-down>
           </div>
         </div>
       </header>
@@ -45,29 +42,57 @@
       <div class="content">
         <div class="profile-content">
           <div class="profile-header">
-            <h2>Account</h2>
-            <p>
-              Ethan Outangoun, ethanoutangoun@gmail.com · Go to
-              <a href="public-profile.html">profile</a>
-            </p>
+            <h4>Account > Personal Info</h4>
+            <h2>Personal Info</h2>
           </div>
 
-          <div class="profile-tabs">
-            <a href="account.html">
-              <img src="/icons/profile.svg" alt="profile-icon" />
-              <h3>Personal Info</h3>
-              <p>Personal Details and Account information</p>
-            </a>
-            <a href="groups.html">
-              <img src="/images/groups.png" alt="groups-icon" />
-              <h3>Groups</h3>
-              <p>Find and create groups</p>
-            </a>
-            <a href="user-recipes.html">
-              <img src="/icons/notes.svg" alt="recipe-icon" />
-              <h3>My Recipes</h3>
-              <p>View your recipes of your own creation</p>
-            </a>
+          <div class="pi-all">
+            <div class="pi-container">
+              <div class="pi-block">
+                <div class="pi-header">
+                  <h5>Full Name</h5>
+                  <h4>Edit</h4>
+                </div>
+                <div class="pi-content">
+                  <p>Ethan Outangoun</p>
+                </div>
+              </div>
+
+              <div class="pi-block">
+                <div class="pi-header">
+                  <h5>Username</h5>
+                  <h4>Edit</h4>
+                </div>
+                <div class="pi-content">
+                  <p>MightyChef</p>
+                </div>
+              </div>
+
+              <div class="pi-block">
+                <div class="pi-header">
+                  <h5>Email Address</h5>
+                  <h4>Edit</h4>
+                </div>
+                <div class="pi-content">
+                  <p>e**o@gmail.com</p>
+                </div>
+              </div>
+
+              <div class="pi-block">
+                <div class="pi-header">
+                  <h5>Phone Number</h5>
+                  <h4>Edit</h4>
+                </div>
+                <div class="pi-content">
+                  <p>51**-97</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="pi-img">
+              <img src="/images/dude.jpg" alt="Profile" draggable="false" />
+              <p>Replace</p>
+            </div>
           </div>
         </div>
       </div>

@@ -9,6 +9,7 @@
     <title>Cooked</title>
     <link rel="icon" href="/images/icon.png" type="image/x-icon" />
     <script type="module" src="./drop-down.ts"></script>
+    <script type="module" src="./toggle-switch.ts"></script>
   </head>
   <body>
     <article>
@@ -42,29 +43,40 @@
       <div class="content">
         <div class="profile-content">
           <div class="profile-header">
-            <h2>Account</h2>
-            <p>
-              Ethan Outangoun, ethanoutangoun@gmail.com · Go to
-              <a href="public-profile.html">profile</a>
-            </p>
+            <h2>Settings</h2>
           </div>
 
-          <div class="profile-tabs">
-            <a href="profile.html">
-              <img src="/icons/profile.svg" alt="profile-icon" />
-              <h3>Personal Info</h3>
-              <p>Personal Details and Account information</p>
-            </a>
-            <a href="groups.html">
-              <img src="/images/groups.png" alt="groups-icon" />
-              <h3>Groups</h3>
-              <p>Find and create groups</p>
-            </a>
-            <a href="user-recipes.html">
-              <img src="/icons/notes.svg" alt="recipe-icon" />
-              <h3>My Recipes</h3>
-              <p>View your recipes of your own creation</p>
-            </a>
+          <div class="pi-all">
+            <div class="pi-container">
+              <div class="pi-block">
+                <div class="pi-header">
+                  <h5>Appearance</h5>
+                </div>
+                <div class="pi-content">
+                  <toggle-switch></toggle-switch>
+                </div>
+              </div>
+
+              
+
+              <div class="pi-block">
+                <div class="pi-header">
+                  <h5>Font Size</h5>
+                  <h4>Edit</h4>
+                </div>
+                <div class="pi-content">
+                  <p>Medium</p>
+                </div>
+              </div>
+
+              <div class="pi-block">
+                <div class="pi-header">
+                  <h5>Delete Account</h5>
+                  <h4>Edit</h4>
+                </div>
+                
+              </div>
+            </div>
           </div>
         </div>
       </div>

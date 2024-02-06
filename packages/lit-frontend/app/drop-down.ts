@@ -1,5 +1,6 @@
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import "./toggle-switch.ts";
 
 @customElement("drop-down")
 class DropDownElement extends LitElement {
@@ -23,12 +24,15 @@ class DropDownElement extends LitElement {
 
       <slot name="menu">
         <ul>
+          
           <li class="command"><a href="account.html">Account</a></li>
           <li class="command">
             <a href="profile.html">Profile</a>
           </li>
 
-          <li class="command"><a href="profile.html">Logout</a></li>
+          <li class="command"><a href="settings.html">Settings</a></li>
+
+          <li class="command"><a href="index.html">Logout</a></li>
         </ul>
       </slot>
     `;

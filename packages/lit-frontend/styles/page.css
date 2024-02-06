@@ -1,7 +1,6 @@
 /* @import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap"); */
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500&display=swap");
 
-
 /* Hide the scrollbar in Webkit browsers (including Safari and Chrome) */
 /* ::-webkit-scrollbar {
   display: none;
@@ -15,7 +14,7 @@
 
 .navbar {
   z-index: 2;
-  background-color: #fff;
+  background-color: var(--color-main-bg);
   padding: 20px 0;
   border-bottom: 1px solid #e9e7e7;
   position: fixed;
@@ -42,7 +41,6 @@
   font-size: 28px;
   font-weight: 300;
   color: black;
- 
 
   text-shadow: 1px 1px 1px var(--color-light);
 }
@@ -128,6 +126,11 @@
   font-size: 15px;
   font-weight: 500;
   color: white;
+  background-color: inherit;
+}
+
+.favorite-container img {
+  background-color: inherit;
 }
 
 .favorite-container:hover {
@@ -392,6 +395,17 @@ footer p {
   gap: 10px;
 }
 
+.recipe-stats img {
+  background-color: inherit;
+}
+
+.recipe-stats p {
+  font-size: 15px;
+  font-weight: 300;
+  color: #333;
+  background-color: inherit;
+}
+
 .time-stat {
   display: flex;
   align-items: center;
@@ -551,10 +565,14 @@ footer p {
   overflow-y: scroll;
 }
 
+.card-directions {
+  background-color: inherit;
+}
+
 .card-directions h4 {
   font-size: 20px;
   font-weight: 600;
-
+  background-color: inherit;
   margin-bottom: 5px;
 }
 
@@ -563,6 +581,7 @@ footer p {
   font-weight: 400;
   color: #181818;
   margin-bottom: 28px;
+  background-color: inherit;
 }
 
 @media screen and (max-width: 1300px) {
@@ -646,91 +665,83 @@ footer p {
 .profile-tabs h3 {
   font-size: 15px;
   font-weight: 600;
-  color: #333
+  color: #333;
 }
 
 .profile-tabs p {
-
   margin-top: 15px;
   font-size: 14px;
   font-weight: 300;
   color: #848484;
 }
 
-
-.profile-tabs img{
+.profile-tabs img {
   width: 40px;
   margin-bottom: 10px;
 }
 
-svg.icon{
+svg.icon {
   width: 40px;
   height: 40px;
   margin-bottom: 10px;
-
 }
 
 @media screen and (max-width: 988px) {
   .profile-tabs {
     grid-template-columns: 1fr;
   }
-  .profile-content{
+  .profile-content {
     margin: 0;
   }
 }
 
-
 /* CREATE PAGE */
 
-.create-class{
+.create-class {
   display: flex;
   align-items: center;
   color: gray;
   gap: 10px;
 }
 
-.create-class img{
+.create-class img {
   width: 25px;
 }
 
-.edit-recipe-image{
-
+.edit-recipe-image {
   display: flex;
   align-items: center;
   justify-content: center;
   border: 1px dashed var(--color-light);
   border-radius: 10px;
-  
-
 }
 
-.edit-recipe-image img{
+.edit-recipe-image img {
   width: 40%;
   height: auto;
   opacity: 20%;
   object-fit: cover;
 }
 
-.edit-recipe-image:hover{
+.edit-recipe-image:hover {
   cursor: pointer;
 }
 
-
-.tag-input input{
-  padding:5px;
-  margin-left:10px;
+.tag-input input {
+  padding: 5px;
+  margin-left: 10px;
 }
 
-.post-container{
+.post-container {
   margin-top: 20px;
   margin-bottom: 20px;
 }
 
+.post-container h3 {
+  background-color: inherit;
+}
 
-
-
-.post-container button{
-
+.post-container button {
   padding: 20px;
   border-radius: 10px;
   border: none;
@@ -740,47 +751,53 @@ svg.icon{
   font-weight: 600;
 }
 
-.post-container button:hover{
+.post-container button:hover {
   cursor: pointer;
 }
 
-.add-directions{
+.add-directions {
   display: flex;
   align-items: center;
   gap: 10px;
   margin-top: 40px;
   border-top: 1px solid var(--color-light);
   padding-top: 10px;
-
+  background-color: inherit;
 }
 
-.add-directions p{
+.add-directions p {
   margin: 0;
   padding: 0;
+  background-color: inherit;
 }
 
-.add-directions img{
+.add-directions img {
   width: 30px;
-
+  background-color: inherit;
 }
 
-.add-directions img:hover{
+.add-directions img:hover {
   cursor: pointer;
 }
 
-.space-between{
+.space-between {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.directions-input input{
+.directions-input {
+  background-color: inherit;
+}
+
+.directions-input input {
   padding: 10px;
   width: 400px;
   border: 1px solid #949494;
+  background-color: inherit;
 }
 
-.directions-input button{
+.directions-input button {
   padding: 10px;
   border-radius: 10px;
   border: none;
@@ -790,96 +807,87 @@ svg.icon{
   font-weight: 600;
 }
 
-
 /* Account.html */
 
-.profile-header h4{
+.profile-header h4 {
   font-size: 13px;
   font-weight: 600;
   color: #333;
   margin-bottom: 20px;
-} 
+}
 
-.pi-all{
+.pi-all {
   display: grid;
   margin-top: 60px;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
 
-
-
-.pi-header{
+.pi-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
- 
 }
 
-.pi-header h4{
+.pi-header h4 {
   font-size: 16px;
   font-weight: 600;
   color: #333;
   text-decoration: underline;
 }
 
-.pi-header h4:hover{
+.pi-header h4:hover {
   cursor: pointer;
 }
 
-.pi-header h5{
+.pi-header h5 {
   font-size: 16px;
   font-weight: 400;
   color: #212121;
 }
 
-.pi-content p{
+.pi-content p {
   margin-top: 7px;
   font-size: 15px;
   font-weight: 300;
   color: #6a6a6a;
 }
 
-.pi-block{
+.pi-block {
   border-bottom: 1px solid var(--color-light);
   padding: 20px 0px 20px 0px;
 }
 
-.pi-img{
+.pi-img {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   gap: 20px;
-  
-  
-
 }
 
-.pi-img p{
+.pi-img p {
   text-decoration: underline;
 }
 
-.pi-img p:hover{
+.pi-img p:hover {
   cursor: pointer;
 }
 
-.pi-img img{
+.pi-img img {
   width: 300px;
   height: 300px;
   object-fit: cover;
   border-radius: 100%;
 }
 
-.pi-img img:hover{
+.pi-img img:hover {
   cursor: pointer;
   opacity: 70%;
 }
 
-
-
 @media screen and (max-width: 988px) {
-  .pi-all{
+  .pi-all {
     grid-template-columns: 1fr;
     gap: 50px;
 
@@ -887,36 +895,33 @@ svg.icon{
     grid-template-rows: 1fr 1fr;
   }
 
-  .pi-img{
+  .pi-img {
     grid-row: 1;
     grid-column: 1;
   }
-  
 }
 
 /* Groups Page */
 
-.groups-page{
+.groups-page {
   margin-top: 130px;
   display: grid;
   grid-template-columns: 1fr;
   gap: 50px;
 }
 
-
-
-.find-group form{
-  margin-top: 20px;;
+.find-group form {
+  margin-top: 20px;
 }
 
-.find-group input{
+.find-group input {
   padding: 14px;
   font-size: 16px;
   width: 100%;
   max-width: 800px;
 }
 
-.find-group button{
+.find-group button {
   margin-top: 20px;
   padding: 14px;
   border-radius: 4px;
@@ -927,51 +932,45 @@ svg.icon{
   font-weight: 600;
 }
 
-.find-group button:hover{
+.find-group button:hover {
   cursor: pointer;
   background-color: rgb(212, 126, 7);
 }
 
-
-.my-groups{
+.my-groups {
   max-width: 800px;
 }
 
-.my-groups h2{
+.my-groups h2 {
   margin-bottom: 20px;
 }
 
-.my-groups li{
+.my-groups li {
   /* margin-top: 20px; */
   list-style: none;
   /* margin-bottom: 20px; */
   /* padding: 30px; */
   /* box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1); */
-
 }
 
-
-.my-groups li a{
+.my-groups li a {
   display: block;
   padding: 30px;
 
-  
   text-decoration: none;
   color: #333;
   width: 100%;
   height: 100%;
   margin-bottom: 20px;
   border-bottom: 1px solid #d6d5d5;
-
-} 
-
-.my-groups li a:hover{
-  cursor: pointer;
-  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
-
 }
 
-.my-groups button{
+.my-groups li a:hover {
+  cursor: pointer;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
+}
+
+.my-groups button {
   padding: 14px;
   border-radius: 4px;
   border: none;
@@ -981,77 +980,69 @@ svg.icon{
   font-weight: 600;
 }
 
-.my-groups button:hover{
+.my-groups button:hover {
   cursor: pointer;
   background-color: rgb(212, 126, 7);
 }
 
-
-
 /* My Recipes HTML */
 
-.my-recipes{
+.my-recipes {
   margin-top: 120px;
-  
-} 
+}
 
-.my-recipes h2{
+.my-recipes h2 {
   font-size: 20px;
   font-weight: 500;
   color: #333;
   margin-bottom: 10px;
-
 }
-
 
 /* Public profile */
 
-.public-profile{
+.public-profile {
   margin-top: 120px;
   margin-bottom: 80px;
-} 
+}
 
-.public-profile h1{
+.public-profile h1 {
   font-size: 35px;
   font-weight: 500;
   color: #333;
   margin-bottom: 10px;
-
 }
 
-.public-profile-content{
+.public-profile-content {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.public-profile-content img{
+.public-profile-content img {
   margin-top: 30px;
   width: 300px;
   height: 300px;
   object-fit: cover;
   border-radius: 100%;
-
 }
 
-.public-stats{
+.public-stats {
   margin-top: 20px;
   display: flex;
   align-items: center;
   gap: 20px;
 }
 
-.public-stats p{
+.public-stats p {
   font-size: 15px;
   font-weight: 300;
   color: #333;
 }
 
-.public-bio{
+.public-bio {
   margin-top: 40px;
   display: flex;
   align-items: center;
   max-width: 800px;
-
 }

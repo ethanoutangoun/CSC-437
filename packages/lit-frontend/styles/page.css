@@ -80,7 +80,7 @@
   border: 1px solid var(--color-light);
   font-size: 16px;
   font-weight: 300;
-  color: #333;
+  color: var(--color-primary);
 }
 
 .right-navbar {
@@ -90,7 +90,7 @@
   background-color: inherit;
 }
 
-.right-navbar svg {
+svg.icon {
   width: 40px;
   height: 40px;
   stroke: var(--color-primary);
@@ -99,10 +99,17 @@
   fill-rule: evenodd;
   stroke-linecap: round;
   stroke-linejoin: round;
-  transform: translate(3px, 6px);
-
+  transform: translate(3px, 10px);
 }
 
+/* svg.icon {
+  display: inline;
+  height: 2em;
+  width: 2em;
+  vertical-align: top;
+  fill: black;
+  stroke: black;
+} */
 
 .right-navbar a {
   background-color: inherit;
@@ -140,31 +147,39 @@
   box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
 }
 
-.favorite-container {
+.filter-container {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
   padding: 10px;
   border-radius: 10px;
-  background-color: rgb(18, 155, 18);
+  background-color: var(--color-main-bg);
   margin-left: 30px;
+  border: 1px solid var(--color-light);
 }
 
-.favorite-container h4 {
+.filter-icon {
+  display: inline;
+  height: 25px;
+  width: 25px;
+  vertical-align: top;
+  fill: var(--color-primary);
+  stroke: var(--color-primary);
+  transform: translate(1.5px, 1px);
+  background-color: inherit;
+}
+
+.filter-container h4 {
   font-size: 15px;
   font-weight: 500;
-  color: white;
+  color: var(--color-primary);
   background-color: inherit;
 }
 
-.favorite-container img {
-  background-color: inherit;
-}
-
-.favorite-container:hover {
+.filter-container:hover {
   cursor: pointer;
-  background-color: green;
+  background-color: rgb(230, 230, 230);
 }
 
 @media screen and (max-width: 988px) {
@@ -172,7 +187,7 @@
     display: none;
   }
 
-  .favorite-container {
+  .filter-container {
     display: none;
   }
 }
@@ -199,7 +214,7 @@
 
 .category-list a {
   text-decoration: none;
-  color: #333;
+  color: var(--color-primary);
   font-size: 12px;
   font-weight: 300;
 }
@@ -235,6 +250,16 @@
   border-radius: 50%;
 }
 
+.m-icon {
+  display: inline;
+  height: 15px;
+  width: 15px;
+  vertical-align: top;
+  fill: var(--color-primary);
+  stroke: var(--color-primary);
+  transform: translate(1.5px, 1px);
+}
+
 .image-border {
   width: 50px;
   height: 50px;
@@ -254,11 +279,7 @@
   margin-bottom: 10px;
 }
 
-.recipe-list h4 {
-  font-size: 15px;
-  font-weight: 550;
-  color: var(--color-primary);
-}
+
 
 .recipe-list {
   /* display: flex;
@@ -273,17 +294,19 @@
 
   font-family: "Montserrat", sans-serif;
   flex-wrap: wrap;
+
+  --row-height: 1fr;
 }
 
-.recipe-list li {
+li.recipe-container {
   list-style: none;
 }
 
-.recipe-list a {
+.recipe-container a {
   text-decoration: none;
 }
 
-.recipe-list p {
+.recipe-container p {
   font-size: 15px;
   font-weight: 300;
   color: var(--color-light-alt);
@@ -292,9 +315,13 @@
 .recipe-container {
   margin-bottom: 25px;
   width: 100%;
+  
 }
 
 .recipe-container h4 {
+  font-size: 15px;
+  font-weight: 550;
+  color: var(--color-primary);
   margin-top: 10px;
 }
 
@@ -403,6 +430,7 @@ footer p {
   font-size: 26px;
   padding-top: 20px;
   padding-bottom: 10px;
+  color: var(--color-primary);
 }
 
 .rating-container {
@@ -476,6 +504,7 @@ footer p {
 .tag-title h5 {
   font-size: 15px;
   font-weight: 600;
+  color: var(--color-primary);
 }
 
 .tags {
@@ -489,7 +518,7 @@ footer p {
 .tags p {
   font-size: 15px;
   font-weight: 400;
-  color: #333;
+  color: var(--color-primary);
   padding: 7px;
   border-radius: 3px;
   background-color: rgb(242, 241, 241);
@@ -654,7 +683,7 @@ footer p {
 .review-content h3 {
   font-size: 24px;
   font-weight: 600;
-  color: #333;
+  color: var(--color-primary);
   margin-bottom: 10px;
 }
 
@@ -673,6 +702,7 @@ footer p {
 
 .profile-header {
   margin-top: 120px;
+  color: var(--color-primary);
 }
 
 .profile-tabs {
@@ -686,33 +716,31 @@ footer p {
 
 .profile-tabs a {
   /*add drop shadow */
-  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 5px 5px var(--color-card-highlight);
   padding: 20px;
   text-decoration: none;
+  background-color: var(--color-card-bg);
 }
 
 .profile-tabs h3 {
   font-size: 15px;
   font-weight: 600;
   color: #333;
+  background-color: inherit;
 }
 
 .profile-tabs p {
   margin-top: 15px;
   font-size: 14px;
   font-weight: 300;
-  color: #848484;
+  color: var(--color-light-alt);
+  background-color: inherit;
 }
 
 .profile-tabs img {
   width: 40px;
   margin-bottom: 10px;
-}
-
-svg.icon {
-  width: 40px;
-  height: 40px;
-  margin-bottom: 10px;
+  background-color: inherit;
 }
 
 @media screen and (max-width: 988px) {
@@ -841,7 +869,7 @@ svg.icon {
 .profile-header h4 {
   font-size: 13px;
   font-weight: 600;
-  color: #333;
+  color: var(--color-primary);
   margin-bottom: 20px;
 }
 
@@ -861,7 +889,7 @@ svg.icon {
 .pi-header h4 {
   font-size: 16px;
   font-weight: 600;
-  color: #333;
+  color: var(--color-primary);
   text-decoration: underline;
 }
 
@@ -872,14 +900,14 @@ svg.icon {
 .pi-header h5 {
   font-size: 16px;
   font-weight: 400;
-  color: #212121;
+  color: var(--color-primary);
 }
 
 .pi-content p {
   margin-top: 7px;
   font-size: 15px;
   font-weight: 300;
-  color: #6a6a6a;
+  color: var(--color-light-alt);
 }
 
 .pi-block {
@@ -897,6 +925,7 @@ svg.icon {
 
 .pi-img p {
   text-decoration: underline;
+  color: var(--color-primary);
 }
 
 .pi-img p:hover {
@@ -948,6 +977,12 @@ svg.icon {
   font-size: 16px;
   width: 100%;
   max-width: 800px;
+  border-radius: 10px;
+  border: 1px solid var(--color-light);
+}
+
+.find-group h2 {
+  color: var(--color-primary);
 }
 
 .find-group button {
@@ -971,6 +1006,7 @@ svg.icon {
 }
 
 .my-groups h2 {
+  color: var(--color-primary);
   margin-bottom: 20px;
 }
 
@@ -982,12 +1018,16 @@ svg.icon {
   /* box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1); */
 }
 
+.my-groups p {
+  background-color: inherit;
+}
+
 .my-groups li a {
   display: block;
   padding: 30px;
 
   text-decoration: none;
-  color: #333;
+  color: var(--color-primary);
   width: 100%;
   height: 100%;
   margin-bottom: 20px;
@@ -996,7 +1036,7 @@ svg.icon {
 
 .my-groups li a:hover {
   cursor: pointer;
-  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 5px 5px var(--color-card-highlight);
 }
 
 .my-groups button {
@@ -1023,7 +1063,7 @@ svg.icon {
 .my-recipes h2 {
   font-size: 20px;
   font-weight: 500;
-  color: #333;
+  color: var(--color-primary);
   margin-bottom: 10px;
 }
 
@@ -1037,7 +1077,7 @@ svg.icon {
 .public-profile h1 {
   font-size: 35px;
   font-weight: 500;
-  color: #333;
+  color: var(--color-primary);
   margin-bottom: 10px;
 }
 
@@ -1066,7 +1106,7 @@ svg.icon {
 .public-stats p {
   font-size: 15px;
   font-weight: 300;
-  color: #333;
+  color: var(--color-primary);
 }
 
 .public-bio {
@@ -1074,4 +1114,5 @@ svg.icon {
   display: flex;
   align-items: center;
   max-width: 800px;
+  color: var(--color-primary);
 }

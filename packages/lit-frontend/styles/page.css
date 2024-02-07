@@ -90,7 +90,7 @@
   background-color: inherit;
 }
 
-svg.icon{
+svg.icon {
   width: 40px;
   height: 40px;
   stroke: var(--color-primary);
@@ -100,7 +100,6 @@ svg.icon{
   stroke-linecap: round;
   stroke-linejoin: round;
   transform: translate(3px, 10px);
-
 }
 
 /* svg.icon {
@@ -148,31 +147,39 @@ svg.icon{
   box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
 }
 
-.favorite-container {
+.filter-container {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
   padding: 10px;
   border-radius: 10px;
-  background-color: rgb(18, 155, 18);
+  background-color: var(--color-main-bg);
   margin-left: 30px;
+  border: 1px solid var(--color-light);
 }
 
-.favorite-container h4 {
+.filter-icon {
+  display: inline;
+  height: 25px;
+  width: 25px;
+  vertical-align: top;
+  fill: var(--color-primary);
+  stroke: var(--color-primary);
+  transform: translate(1.5px, 1px);
+  background-color: inherit;
+}
+
+.filter-container h4 {
   font-size: 15px;
   font-weight: 500;
-  color: white;
+  color: var(--color-primary);
   background-color: inherit;
 }
 
-.favorite-container img {
-  background-color: inherit;
-}
-
-.favorite-container:hover {
+.filter-container:hover {
   cursor: pointer;
-  background-color: green;
+  background-color: rgb(230, 230, 230);
 }
 
 @media screen and (max-width: 988px) {
@@ -180,7 +187,7 @@ svg.icon{
     display: none;
   }
 
-  .favorite-container {
+  .filter-container {
     display: none;
   }
 }
@@ -243,14 +250,14 @@ svg.icon{
   border-radius: 50%;
 }
 
-.m-icon{
+.m-icon {
   display: inline;
   height: 15px;
   width: 15px;
   vertical-align: top;
   fill: var(--color-primary);
   stroke: var(--color-primary);
-  transform: translate(1.5px,1px);
+  transform: translate(1.5px, 1px);
 }
 
 .image-border {
@@ -272,11 +279,7 @@ svg.icon{
   margin-bottom: 10px;
 }
 
-.recipe-list h4 {
-  font-size: 15px;
-  font-weight: 550;
-  color: var(--color-primary);
-}
+
 
 .recipe-list {
   /* display: flex;
@@ -291,17 +294,19 @@ svg.icon{
 
   font-family: "Montserrat", sans-serif;
   flex-wrap: wrap;
+
+  --row-height: 1fr;
 }
 
-.recipe-list li {
+li.recipe-container {
   list-style: none;
 }
 
-.recipe-list a {
+.recipe-container a {
   text-decoration: none;
 }
 
-.recipe-list p {
+.recipe-container p {
   font-size: 15px;
   font-weight: 300;
   color: var(--color-light-alt);
@@ -310,9 +315,13 @@ svg.icon{
 .recipe-container {
   margin-bottom: 25px;
   width: 100%;
+  
 }
 
 .recipe-container h4 {
+  font-size: 15px;
+  font-weight: 550;
+  color: var(--color-primary);
   margin-top: 10px;
 }
 
@@ -450,7 +459,7 @@ footer p {
 .recipe-stats p {
   font-size: 15px;
   font-weight: 300;
-  color: var(--color-primary);
+  color: #333;
   background-color: inherit;
 }
 
@@ -578,7 +587,7 @@ footer p {
   justify-content: center;
   font-size: 17px;
   font-weight: 600;
-  color: var(--color-primary);
+  color: #333;
   padding: 12px;
   background-color: rgb(255, 255, 255);
   /* make the radius 8px only on the top corners */
@@ -693,16 +702,15 @@ footer p {
 
 .profile-header {
   margin-top: 120px;
-  color: var(--color-primary)
+  color: var(--color-primary);
 }
-
 
 .profile-tabs {
   margin-top: 40px;
   display: grid;
 
   grid-template-columns: 1fr 1fr 1fr;
-  
+
   gap: 20px;
 }
 
@@ -712,8 +720,6 @@ footer p {
   padding: 20px;
   text-decoration: none;
   background-color: var(--color-card-bg);
-  
-
 }
 
 .profile-tabs h3 {
@@ -735,12 +741,6 @@ footer p {
   width: 40px;
   margin-bottom: 10px;
   background-color: inherit;
-}
-
-svg.icon {
-  width: 40px;
-  height: 40px;
-  margin-bottom: 10px;
 }
 
 @media screen and (max-width: 988px) {
@@ -981,8 +981,7 @@ svg.icon {
   border: 1px solid var(--color-light);
 }
 
-
-.find-group h2{
+.find-group h2 {
   color: var(--color-primary);
 }
 
@@ -1019,7 +1018,7 @@ svg.icon {
   /* box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1); */
 }
 
-.my-groups p{
+.my-groups p {
   background-color: inherit;
 }
 
@@ -1115,4 +1114,5 @@ svg.icon {
   display: flex;
   align-items: center;
   max-width: 800px;
+  color: var(--color-primary);
 }

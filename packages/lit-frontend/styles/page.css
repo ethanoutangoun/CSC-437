@@ -16,7 +16,7 @@
   z-index: 2;
   background-color: var(--color-main-bg);
   padding: 20px 0;
-  border-bottom: 1px solid #e9e7e7;
+  border-bottom: 1px solid var(--color-border);
   position: fixed;
   top: 0;
   width: 100%;
@@ -26,7 +26,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
+  background-color: inherit;
   margin-left: 80px;
   margin-right: 80px;
 }
@@ -35,14 +35,19 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  background-color: inherit;
 }
 
 .logo h1 {
   font-size: 28px;
   font-weight: 300;
-  color: black;
-
+  color: var(--color-primary);
+  background-color: inherit;
   text-shadow: 1px 1px 1px var(--color-light);
+}
+
+.logo img {
+  background-color: inherit;
 }
 
 .navbar-content a {
@@ -50,13 +55,18 @@
 }
 
 .content {
-  margin-top: 100px;
+  margin-top: 93px;
   margin-left: 80px;
   margin-right: 80px;
 }
 
 .search-box {
   margin-right: 100px;
+  background-color: inherit;
+}
+
+.search-box form {
+  background-color: inherit;
 }
 
 .search-box input {
@@ -65,7 +75,7 @@
   padding-bottom: 13px;
   padding-right: 80px;
   padding-left: 20px;
-
+  background-color: inherit;
   border-radius: 20px;
   border: 1px solid var(--color-light);
   font-size: 16px;
@@ -77,11 +87,30 @@
   display: flex;
   align-items: center;
   gap: 25px;
+  background-color: inherit;
 }
 
+.right-navbar svg {
+  width: 40px;
+  height: 40px;
+  stroke: var(--color-primary);
+  background-color: inherit;
+  fill: none;
+  fill-rule: evenodd;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transform: translate(3px, 6px);
+
+}
+
+
+.right-navbar a {
+  background-color: inherit;
+}
 /* On hover, ease in to make bigger */
 .group-icon img {
   transition: transform 0.3s ease;
+  background-color: inherit;
 }
 
 .group-icon img:hover {
@@ -97,6 +126,7 @@
   padding-left: 8px;
   padding-right: 8px;
   border-radius: 20px;
+  background-color: white;
 }
 
 /* Add box shadow transition */
@@ -117,7 +147,6 @@
   gap: 10px;
   padding: 10px;
   border-radius: 10px;
-  border: 1px solid var(--color-light);
   background-color: rgb(18, 155, 18);
   margin-left: 30px;
 }
@@ -188,6 +217,7 @@
 
 .category-item p {
   white-space: nowrap;
+  color: var(--color-primary);
 }
 
 .category-item:hover {
@@ -220,14 +250,14 @@
 .trending h2 {
   font-size: 20px;
   font-weight: 500;
-  color: #333;
+  color: var(--color-primary);
   margin-bottom: 10px;
 }
 
 .recipe-list h4 {
   font-size: 15px;
   font-weight: 550;
-  color: #333;
+  color: var(--color-primary);
 }
 
 .recipe-list {
@@ -251,13 +281,12 @@
 
 .recipe-list a {
   text-decoration: none;
-  color: #333;
 }
 
 .recipe-list p {
   font-size: 15px;
   font-weight: 300;
-  color: #827f7f;
+  color: var(--color-light-alt);
 }
 
 .recipe-container {
@@ -300,12 +329,12 @@
 }
 
 article {
-  min-height: calc(100vh - 170px);
+  min-height: calc(100vh - 160px);
 }
 
 footer {
-  border-top: 1px solid #d8d7d7;
-  color: #333;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-primary);
   padding: 20px; /* Padding inside the footer */
   padding-left: 80px;
   padding-right: 80px;
@@ -372,7 +401,7 @@ footer p {
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
   font-size: 26px;
-  padding-top: 10px;
+  padding-top: 20px;
   padding-bottom: 10px;
 }
 

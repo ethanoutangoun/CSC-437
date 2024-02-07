@@ -5,5 +5,17 @@
     --color-light-alt: #6a6a6a;
     --time-transition-control: 0.2s ease;
     --color-main-bg: rgb(255, 255, 255);
+    --color-border: #e9e7e7;
  
+}
+
+
+.dark-mode {
+    --color-primary: #ffffff;
+    --color-primary-orange: rgb(247, 145, 1);
+    --color-light: #d6d5d5;
+    --color-light-alt: #aaa8a8;
+    --time-transition-control: 0.2s ease;
+    --color-border: #8d8d8d;
+    --color-main-bg: #3c3c3c;
 }

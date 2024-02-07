@@ -9,6 +9,8 @@ class DropDownElement extends LitElement {
 
   render() {
     return html`
+
+    <div class="all">
       <input
         type="checkbox"
         id="is-shown"
@@ -25,6 +27,7 @@ class DropDownElement extends LitElement {
       <slot name="menu">
         <ul>
           
+          <li class="switch"><toggle-switch></toggle-switch> </li>  
           <li class="command"><a href="account.html">Account</a></li>
           <li class="command">
             <a href="profile.html">Profile</a>
@@ -35,6 +38,7 @@ class DropDownElement extends LitElement {
           <li class="command"><a href="index.html">Logout</a></li>
         </ul>
       </slot>
+      </div>
     `;
   }
 
@@ -42,6 +46,7 @@ class DropDownElement extends LitElement {
     :host {
       display: inline-block;
       position: relative;
+      
     }
 
     #is-shown {
@@ -77,6 +82,7 @@ class DropDownElement extends LitElement {
       margin-bottom: 6px;
       list-style: none;
       white-space: nowrap;
+      
     }
 
     .command {
@@ -97,6 +103,7 @@ class DropDownElement extends LitElement {
       padding-left: 8px;
       padding-right: 8px;
       border-radius: 20px;
+      background-color: inherit;
     }
 
     a {
@@ -105,7 +112,23 @@ class DropDownElement extends LitElement {
       padding-left: 20px;
       width: 180px;
       text-decoration: none;
+      
     }
+
+   
+    .all{
+      background-color: inherit;
+    }
+
+    .switch{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px;
+      border-bottom: 1px solid var(--color-light);
+    }
+
+
   `;
 
   _handleChange(ev: InputEvent) {

@@ -39,7 +39,7 @@ export class ToggleSwitchElement extends LitElement {
       transition: background-color var(--time-transition-control);
     }
     .slider:has(input:checked) {
-      background-color: var(--color-primary);
+      background-color: var(--color-light);
     }
     input {
       appearance: none;
@@ -67,5 +67,12 @@ export class ToggleSwitchElement extends LitElement {
   _handleChange(ev: Event) {
     const target = ev.target as HTMLInputElement;
     this.on = target?.checked;
+
+
+    if (this.on) {
+        document.body.classList.add('dark-mode');
+      } else {
+        document.body.classList.remove('dark-mode');
+      }
   }
 }

@@ -80,7 +80,7 @@
   border: 1px solid var(--color-light);
   font-size: 16px;
   font-weight: 300;
-  color: #333;
+  color: var(--color-primary);
 }
 
 .right-navbar {
@@ -90,7 +90,7 @@
   background-color: inherit;
 }
 
-.right-navbar svg {
+svg.icon{
   width: 40px;
   height: 40px;
   stroke: var(--color-primary);
@@ -99,10 +99,18 @@
   fill-rule: evenodd;
   stroke-linecap: round;
   stroke-linejoin: round;
-  transform: translate(3px, 6px);
+  transform: translate(3px, 10px);
 
 }
 
+/* svg.icon {
+  display: inline;
+  height: 2em;
+  width: 2em;
+  vertical-align: top;
+  fill: black;
+  stroke: black;
+} */
 
 .right-navbar a {
   background-color: inherit;
@@ -199,7 +207,7 @@
 
 .category-list a {
   text-decoration: none;
-  color: #333;
+  color: var(--color-primary);
   font-size: 12px;
   font-weight: 300;
 }
@@ -233,6 +241,16 @@
   padding: 6px;
   padding-left: 8px;
   border-radius: 50%;
+}
+
+.m-icon{
+  display: inline;
+  height: 15px;
+  width: 15px;
+  vertical-align: top;
+  fill: var(--color-primary);
+  stroke: var(--color-primary);
+  transform: translate(1.5px,1px);
 }
 
 .image-border {
@@ -403,6 +421,7 @@ footer p {
   font-size: 26px;
   padding-top: 20px;
   padding-bottom: 10px;
+  color: var(--color-primary);
 }
 
 .rating-container {
@@ -431,7 +450,7 @@ footer p {
 .recipe-stats p {
   font-size: 15px;
   font-weight: 300;
-  color: #333;
+  color: var(--color-primary);
   background-color: inherit;
 }
 
@@ -476,6 +495,7 @@ footer p {
 .tag-title h5 {
   font-size: 15px;
   font-weight: 600;
+  color: var(--color-primary);
 }
 
 .tags {
@@ -489,7 +509,7 @@ footer p {
 .tags p {
   font-size: 15px;
   font-weight: 400;
-  color: #333;
+  color: var(--color-primary);
   padding: 7px;
   border-radius: 3px;
   background-color: rgb(242, 241, 241);
@@ -558,7 +578,7 @@ footer p {
   justify-content: center;
   font-size: 17px;
   font-weight: 600;
-  color: #333;
+  color: var(--color-primary);
   padding: 12px;
   background-color: rgb(255, 255, 255);
   /* make the radius 8px only on the top corners */
@@ -654,7 +674,7 @@ footer p {
 .review-content h3 {
   font-size: 24px;
   font-weight: 600;
-  color: #333;
+  color: var(--color-primary);
   margin-bottom: 10px;
 }
 
@@ -673,40 +693,48 @@ footer p {
 
 .profile-header {
   margin-top: 120px;
+  color: var(--color-primary)
 }
+
 
 .profile-tabs {
   margin-top: 40px;
   display: grid;
 
   grid-template-columns: 1fr 1fr 1fr;
-
+  
   gap: 20px;
 }
 
 .profile-tabs a {
   /*add drop shadow */
-  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 5px 5px var(--color-card-highlight);
   padding: 20px;
   text-decoration: none;
+  background-color: var(--color-card-bg);
+  
+
 }
 
 .profile-tabs h3 {
   font-size: 15px;
   font-weight: 600;
   color: #333;
+  background-color: inherit;
 }
 
 .profile-tabs p {
   margin-top: 15px;
   font-size: 14px;
   font-weight: 300;
-  color: #848484;
+  color: var(--color-light-alt);
+  background-color: inherit;
 }
 
 .profile-tabs img {
   width: 40px;
   margin-bottom: 10px;
+  background-color: inherit;
 }
 
 svg.icon {
@@ -841,7 +869,7 @@ svg.icon {
 .profile-header h4 {
   font-size: 13px;
   font-weight: 600;
-  color: #333;
+  color: var(--color-primary);
   margin-bottom: 20px;
 }
 
@@ -861,7 +889,7 @@ svg.icon {
 .pi-header h4 {
   font-size: 16px;
   font-weight: 600;
-  color: #333;
+  color: var(--color-primary);
   text-decoration: underline;
 }
 
@@ -872,14 +900,14 @@ svg.icon {
 .pi-header h5 {
   font-size: 16px;
   font-weight: 400;
-  color: #212121;
+  color: var(--color-primary);
 }
 
 .pi-content p {
   margin-top: 7px;
   font-size: 15px;
   font-weight: 300;
-  color: #6a6a6a;
+  color: var(--color-light-alt);
 }
 
 .pi-block {
@@ -897,6 +925,7 @@ svg.icon {
 
 .pi-img p {
   text-decoration: underline;
+  color: var(--color-primary);
 }
 
 .pi-img p:hover {
@@ -948,6 +977,13 @@ svg.icon {
   font-size: 16px;
   width: 100%;
   max-width: 800px;
+  border-radius: 10px;
+  border: 1px solid var(--color-light);
+}
+
+
+.find-group h2{
+  color: var(--color-primary);
 }
 
 .find-group button {
@@ -971,6 +1007,7 @@ svg.icon {
 }
 
 .my-groups h2 {
+  color: var(--color-primary);
   margin-bottom: 20px;
 }
 
@@ -982,12 +1019,16 @@ svg.icon {
   /* box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1); */
 }
 
+.my-groups p{
+  background-color: inherit;
+}
+
 .my-groups li a {
   display: block;
   padding: 30px;
 
   text-decoration: none;
-  color: #333;
+  color: var(--color-primary);
   width: 100%;
   height: 100%;
   margin-bottom: 20px;
@@ -996,7 +1037,7 @@ svg.icon {
 
 .my-groups li a:hover {
   cursor: pointer;
-  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 5px 5px var(--color-card-highlight);
 }
 
 .my-groups button {
@@ -1023,7 +1064,7 @@ svg.icon {
 .my-recipes h2 {
   font-size: 20px;
   font-weight: 500;
-  color: #333;
+  color: var(--color-primary);
   margin-bottom: 10px;
 }
 
@@ -1037,7 +1078,7 @@ svg.icon {
 .public-profile h1 {
   font-size: 35px;
   font-weight: 500;
-  color: #333;
+  color: var(--color-primary);
   margin-bottom: 10px;
 }
 
@@ -1066,7 +1107,7 @@ svg.icon {
 .public-stats p {
   font-size: 15px;
   font-weight: 300;
-  color: #333;
+  color: var(--color-primary);
 }
 
 .public-bio {

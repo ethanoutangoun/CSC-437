@@ -6,6 +6,10 @@
     --time-transition-control: 0.2s ease;
     --color-main-bg: rgb(255, 255, 255);
     --color-border: #e9e7e7;
+
+    --color-card-bg: #ffffff;
+
+    --color-card-highlight: rgba(0, 0, 0, 0.1);
  
 }
 
@@ -17,5 +21,8 @@
     --color-light-alt: #aaa8a8;
     --time-transition-control: 0.2s ease;
     --color-border: #8d8d8d;
-    --color-main-bg: #3c3c3c;
+    --color-main-bg: #4d4c4f;
+
+    --color-card-highlight: rgba(255, 255, 255, 0.2);
+    
 }

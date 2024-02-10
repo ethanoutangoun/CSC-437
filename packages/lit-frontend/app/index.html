@@ -12,13 +12,21 @@
     <script type="module" src="./drop-down.ts"></script>
     <script type="module" src="./toggle-switch.ts"></script>
     <script type="module" src="./recipe-card.ts"></script>
+    <script type="module" src="./recipe-grid.ts"></script>
+    <script type="module" src="./filter-popup.ts"></script>
+
+
   </head>
   <body>
     <article>
       <header class="navbar">
         <div class="navbar-content">
           <a class="logo" href="index.html">
-            <img src="/images/icon.png" alt="Cooked Logo" width="50px" />
+            
+
+            <svg class="main-icon">
+              <use href="/icons/icon.svg#cooked-logo" />
+            </svg>
             <h1>COOKED</h1>
           </a>
 
@@ -152,32 +160,19 @@
             </ul>
           </div>
 
-          <div class="filter-container">
-            <svg class="filter-icon">
-              <use href="/icons/filter.svg#icon-filter" />
-            </svg>
-            <h4>Filter</h4>
-          </div>
+          <filter-popup></filter-popup>
+
+          
         </section>
 
         <section class="trending">
           <h2>Trending Recipes</h2>
+        
 
-          <ul class="recipe-list">
-            <recipe-card></recipe-card>
-
-            <recipe-card></recipe-card>
-            <recipe-card></recipe-card>
-
-            <recipe-card></recipe-card>
-
-            <recipe-card></recipe-card>
-
-            <recipe-card></recipe-card>
-            <recipe-card></recipe-card>
-
-            <recipe-card></recipe-card>
-          </ul>
+          <recipe-grid></recipe-grid>
+          
+         
+          
         </section>
 
 

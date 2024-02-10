@@ -9,35 +9,35 @@ class DropDownElement extends LitElement {
 
   render() {
     return html`
+      <div class="all">
+        <input
+          type="checkbox"
+          id="is-shown"
+          @change=${this._handleChange}
+          .checked=${this.open}
+        />
+        <label for="is-shown">
+          <div class="navbar-menu">
+            <svg class="icon">
+              <use href="/icons/menu.svg#icon-menu"></use>
+            </svg>
+            <img src="/images/avatar.png" alt="Profile" width="40px" />
+          </div>
+        </label>
 
-    <div class="all">
-      <input
-        type="checkbox"
-        id="is-shown"
-        @change=${this._handleChange}
-        .checked=${this.open}
-      />
-      <label for="is-shown">
-        <div class="navbar-menu">
-          <img id="menu" src="/images/menu.png" alt="menu" width="20px" />
-          <img src="/images/avatar.png" alt="Profile" width="40px" />
-        </div>
-      </label>
+        <slot name="menu">
+          <ul>
+            <li class="switch"><toggle-switch></toggle-switch></li>
+            <li class="command"><a href="account.html">Account</a></li>
+            <li class="command">
+              <a href="profile.html">Profile</a>
+            </li>
 
-      <slot name="menu">
-        <ul>
-          
-          <li class="switch"><toggle-switch></toggle-switch> </li>  
-          <li class="command"><a href="account.html">Account</a></li>
-          <li class="command">
-            <a href="profile.html">Profile</a>
-          </li>
+            <li class="command"><a href="settings.html">Settings</a></li>
 
-          <li class="command"><a href="settings.html">Settings</a></li>
-
-          <li class="command"><a href="index.html">Logout</a></li>
-        </ul>
-      </slot>
+            <li class="command"><a href="index.html">Logout</a></li>
+          </ul>
+        </slot>
       </div>
     `;
   }
@@ -46,6 +46,19 @@ class DropDownElement extends LitElement {
     :host {
       display: inline-block;
       position: relative;
+    }
+
+    svg.icon {
+      width: 30px;
+      height: 30px;
+      stroke: var(--color-primary);
+      background-color: inherit;
+      fill: none;
+      fill-rule: evenodd;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.7;
+      transform: translate(6px, 0);
       
     }
 
@@ -82,7 +95,6 @@ class DropDownElement extends LitElement {
       margin-bottom: 6px;
       list-style: none;
       white-space: nowrap;
-      
     }
 
     .command {
@@ -112,23 +124,19 @@ class DropDownElement extends LitElement {
       padding-left: 20px;
       width: 180px;
       text-decoration: none;
-      
     }
 
-   
-    .all{
+    .all {
       background-color: inherit;
     }
 
-    .switch{
+    .switch {
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 5px;
       border-bottom: 1px solid var(--color-light);
     }
-
-
   `;
 
   _handleChange(ev: InputEvent) {

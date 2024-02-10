@@ -99,7 +99,20 @@ svg.icon {
   fill-rule: evenodd;
   stroke-linecap: round;
   stroke-linejoin: round;
-  transform: translate(3px, 10px);
+  transform: translate(3px, 5px);
+}
+
+svg.main-icon{
+  width: 50px;
+  height: 50px;
+  stroke: var(--color-primary);
+  background-color: inherit;
+  fill: none;
+  fill-rule: evenodd;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+
+
 }
 
 /* svg.icon {
@@ -295,7 +308,7 @@ svg.icon {
   font-family: "Montserrat", sans-serif;
   flex-wrap: wrap;
 
-  --row-height: 1fr;
+ 
 }
 
 li.recipe-container {
@@ -787,6 +800,8 @@ footer p {
 .tag-input input {
   padding: 5px;
   margin-left: 10px;
+  border: 1px solid var(--color-light);
+  border-radius: 5px;
 }
 
 .post-container {

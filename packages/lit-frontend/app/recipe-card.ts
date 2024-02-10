@@ -3,15 +3,12 @@ import { customElement, property } from "lit/decorators.js";
 
 @customElement("recipe-card")
 export class RecipeCard extends LitElement {
-
-  
   static styles = css`
-
-  * {
-    display: block;
-    margin: 0;
-    padding: 0;
-  }
+    * {
+      display: block;
+      margin: 0;
+      padding: 0;
+    }
 
     .recipe-container h4 {
       font-size: 15px;
@@ -19,8 +16,6 @@ export class RecipeCard extends LitElement {
       color: var(--color-primary);
       font-family: "Montserrat", sans-serif;
     }
-
-    
 
     li {
       list-style: none;
@@ -31,7 +26,6 @@ export class RecipeCard extends LitElement {
     }
 
     .recipe-container p {
-      
       font-size: 15px;
       font-weight: 300;
       color: var(--color-light-alt);
@@ -45,8 +39,6 @@ export class RecipeCard extends LitElement {
       // margin: 0;
       display: flex;
       align-items: stretch;
-   
-   
     }
 
     .recipe-container h4 {
@@ -56,16 +48,21 @@ export class RecipeCard extends LitElement {
     .recipe-img-container {
       width: 100%;
       position: relative;
-      display: inline-block;
-     
-    
-      height: calc(100% - 70px);
+      display: flex;
+      align-items: stretch;
 
-   
+      height: calc(100% - 100px);
     }
 
-
     .recipe-container img {
+      display: block;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 20px;
+    }
+
+    ::slotted(img){
       display: block;
       height: 100%;
       width: 100%;
@@ -79,11 +76,11 @@ export class RecipeCard extends LitElement {
       <li class="recipe-container">
         <a href="recipe.html">
           <div class="recipe-img-container">
-            <img src="/images/pho.jpeg" alt="Recipe 1" />
+           <slot name="image"></slot>
           </div>
-          <h4>Beef Pho</h4>
-          <p>Vietnamese</p>
-          <p>$$</p>
+          <h4><slot name="title"></slot></h4>
+          <p><slot name="cuisine"></slot></p>
+          <p><slot name="price"></slot></p>
         </a>
       </li>
     `;

@@ -9,6 +9,7 @@
     <title>Cooked</title>
     <link rel="icon" href="/images/icon.png" type="image/x-icon" />
     <script type="module" src="/src/drop-down.ts"></script>
+    <script type="module" src="/src/user-profile.ts"></script>
   </head>
   <body>
     <article>
@@ -44,43 +45,8 @@
       </header>
 
       <div class="content">
-        <div class="profile-content">
-          <div class="groups-page">
-            <section class="find-group">
-              <h2>Find Groups</h2>
+        <user-profile path="/profiles/ethanoutangoun"></user-profile>
 
-              <form action="">
-                <input
-                  type="text"
-                  id="search"
-                  name="search"
-                  placeholder="Search for groups"
-                />
-              </form>
-              <button class="search-btn">Search</button>
-            </section>
-
-            <section class="my-groups">
-              <h2>My Groups</h2>
-              <div>
-                <ul>
-                  <li>
-                    <a>Group 1</a>
-                  </li>
-                  <li>
-                    <a>Group 2</a>
-                  </li>
-                  <li>
-                    <a>Group 3</a>
-                  </li>
-                </ul>
-              </div>
-              <button onclick="alert('New group created')">
-                <p>Create New Group</p>
-              </button>
-            </section>
-          </div>
-        </div>
       </div>
     </article>
   </body>

@@ -6,5 +6,5 @@ export interface Profile{
     numRecipes: number;
     followers: number;
     dateJoined: Date;
-    picture?: string;
+    picture: string;
 }

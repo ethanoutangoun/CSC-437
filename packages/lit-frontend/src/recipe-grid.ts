@@ -123,3 +123,5 @@ class RecipeGrid extends LitElement {
     }
   `;
 }
+
+customElements.define("recipe-grid", RecipeGrid);

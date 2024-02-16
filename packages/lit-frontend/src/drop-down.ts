@@ -165,3 +165,5 @@ class DropDownElement extends LitElement {
     }
   }
 }
+
+customElements.define("drop-down", DropDownElement);

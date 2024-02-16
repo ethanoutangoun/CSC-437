@@ -42,4 +42,16 @@ function create(profile) {
         }
     });
 }
-exports.default = { index, get, create };
+function update(userid, profile) {
+    return new Promise((resolve, reject) => {
+        profile_1.default.findOneAndUpdate({ userid }, profile, {
+            new: true,
+        }).then((profile) => {
+            if (profile)
+                resolve(profile);
+            else
+                reject("Failed to update profile");
+        });
+    });
+}
+exports.default = { index, get, create, update };

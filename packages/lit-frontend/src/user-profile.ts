@@ -15,7 +15,6 @@ export class UserProfileElement extends LitElement {
   render() {
     // fill this in later
     return html` <div class="profile-content">
-  
       <div class="profile-header">
         <h4>Account > Personal Info</h4>
         <h2>Personal Info</h2>
@@ -36,10 +35,16 @@ export class UserProfileElement extends LitElement {
           <div class="pi-block">
             <div class="pi-header">
               <h5>Username</h5>
-              <h4>Edit</h4>
+              <h4 @click="${this.toggleEditMode}">Edit</h4>
             </div>
             <div class="pi-content">
-              <p>${this.profile?.userid}</p>
+              ${this.editMode
+                ? html`<input
+                    type="text"
+                    value="${this.profile?.userid}"
+                    @change="${this.handleUsernameChange}"
+                  />`
+                : html`<p>${this.profile?.userid}</p>`}
             </div>
           </div>
 
@@ -81,7 +86,6 @@ export class UserProfileElement extends LitElement {
 
           <p>Replace</p>
         </div>
-
       </div>
     </div>`;
   }
@@ -245,6 +249,16 @@ export class UserProfileElement extends LitElement {
     }
   `;
 
+  toggleEditMode() {
+    this.editMode = !this.editMode;
+    this.requestUpdate();
+  }
+
+  handleUsernameChange() {
+    this.toggleEditMode();
+    // alert("Username changed");
+  }
+
   _fetchData(path: string) {
     fetch(serverPath(path))
       .then((response) => {
@@ -272,59 +286,98 @@ export class UserProfileElement extends LitElement {
     }
     super.attributeChangedCallback(name, oldValue, newValue);
   }
-
-
-  
-
-
-
 }
-
-
-
-
 
 @customElement("user-profile-edit")
 export class UserProfileEditElement extends UserProfileElement {
   render() {
     return html`
-      <form @submit=${this._handleSubmit}>
-        <label for="name">Full Name</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          .value=${this.profile?.name ?? ""}
-        />
+ 
+        <form @submit=${this._handleSubmit}>
+          <h3>Edit Profile</h3>
+          <label for="name">Full Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            .value=${this.profile?.name ?? ""}
+          />
 
-        <label for="username">Username</label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          .value=${this.profile?.userid ?? ""}
-        />
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            .value=${this.profile?.userid ?? ""}
+          />
 
-        <label for="email">Email Address</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          .value=${this.profile?.email ?? ""}
-        />
+          <label for="email">Email Address</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            .value=${this.profile?.email ?? ""}
+          />
 
-        <label for="phoneNumber">Phone Number</label>
-        <input
-          type="tel"
-          id="phone"
-          name="phone"
-          .value=${this.profile?.phone ?? ""}
-        />
+          <label for="phoneNumber">Phone Number</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            .value=${this.profile?.phone ?? ""}
+          />
 
-        <button type="submit">Submit</button>
-      </form>
+          <button type="submit">Submit</button>
+        </form>
+
     `;
   }
+
+  static styles = css`
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    form {
+      display: grid;
+      gap: 20px;
+      margin-top: 100px;
+      margin-left: 80px;
+      margin-right: 80px;
+      margin-bottom: 80px;
+      border-top: 1px solid var(--color-light);
+      padding-top: 20px;
+    }
+
+    label {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--color-primary);
+    }
+
+    input {
+      padding: 10px;
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--color-light-alt);
+      border: 1px solid var(--color-light);
+    }
+
+    button {
+      padding: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.9);
+      background-color: var(--color-primary-orange);
+      border: none;
+    }
+
+    button:hover {
+      cursor: pointer;
+    }
+  `;
 
   _handleSubmit(ev: Event) {
     ev.preventDefault(); // prevent browser from submitting form data itself

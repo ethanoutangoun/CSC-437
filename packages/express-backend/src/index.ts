@@ -11,11 +11,10 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-connect("cooked");   
-
+connect("cooked");
 
 app.get("/hello", (req: Request, res: Response) => {
-    res.send("Hello, World");
+  res.send("Hello, World");
 });
 
 app.listen(port, () => {
@@ -40,7 +39,6 @@ app.post("/api/profiles", (req: Request, res: Response) => {
     .catch((err) => res.status(500).send(err));
 });
 
-
 app.put("/api/profiles/:userid", (req: Request, res: Response) => {
   const { userid } = req.params;
   const newProfile = req.body;
@@ -50,4 +48,3 @@ app.put("/api/profiles/:userid", (req: Request, res: Response) => {
     .then((profile: Profile) => res.json(profile))
     .catch((err) => res.status(404).end());
 });
-

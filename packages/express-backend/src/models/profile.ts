@@ -2,7 +2,7 @@ export interface Profile{
     userid: string;
     name: string;
     email: string;
-    phone?: string;
+    phone: string;
     numRecipes: number;
     followers: number;
     dateJoined: Date;

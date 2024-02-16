@@ -6,7 +6,7 @@ const profileSchema = new Schema<Profile>(
     userid: { type: String, required: true, trim: true },
     name: { type: String, required: true, trim: true },
     email: { type: String, required: true, trim: true },
-    phone: { type: String, trim: true },
+    phone: { type: String, trim: true, default: null },
     numRecipes: { type: Number, default: 0 },
     followers: { type: Number, default: 0 },
     dateJoined: { type: Date, default: Date.now },

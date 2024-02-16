@@ -10,10 +10,12 @@ export class UserProfileElement extends LitElement {
 
   @state()
   profile?: Profile;
+  editMode: boolean = false;
 
   render() {
     // fill this in later
     return html` <div class="profile-content">
+  
       <div class="profile-header">
         <h4>Account > Personal Info</h4>
         <h2>Personal Info</h2>
@@ -57,15 +59,29 @@ export class UserProfileElement extends LitElement {
               <h4>Edit</h4>
             </div>
             <div class="pi-content">
-              <p>${this.profile?.phone}</p>
+              <p>
+                ${this.profile?.phone ? this.profile.phone : html`Add Number`}
+              </p>
             </div>
           </div>
         </div>
 
         <div class="pi-img">
-          <img src="/images/dude.jpg" alt="Profile" draggable="false" />
+          ${this.profile?.picture
+            ? html`<img
+                src="${this.profile?.picture}"
+                alt="Profile"
+                draggable="false"
+              />`
+            : html` <img
+                src="/images/dude.jpg"
+                alt="Profile"
+                draggable="false"
+              />`}
+
           <p>Replace</p>
         </div>
+
       </div>
     </div>`;
   }
@@ -255,5 +271,92 @@ export class UserProfileElement extends LitElement {
       this._fetchData(newValue);
     }
     super.attributeChangedCallback(name, oldValue, newValue);
+  }
+
+
+  
+
+
+
+}
+
+
+
+
+
+@customElement("user-profile-edit")
+export class UserProfileEditElement extends UserProfileElement {
+  render() {
+    return html`
+      <form @submit=${this._handleSubmit}>
+        <label for="name">Full Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          .value=${this.profile?.name ?? ""}
+        />
+
+        <label for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          .value=${this.profile?.userid ?? ""}
+        />
+
+        <label for="email">Email Address</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          .value=${this.profile?.email ?? ""}
+        />
+
+        <label for="phoneNumber">Phone Number</label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          .value=${this.profile?.phone ?? ""}
+        />
+
+        <button type="submit">Submit</button>
+      </form>
+    `;
+  }
+
+  _handleSubmit(ev: Event) {
+    ev.preventDefault(); // prevent browser from submitting form data itself
+
+    const target = ev.target as HTMLFormElement;
+    const formdata = new FormData(target);
+    const entries = Array.from(formdata.entries())
+      .map(([k, v]) => (v === "" ? [k] : [k, v]))
+      .map(([k, v]) =>
+        k === "airports"
+          ? [k, (v as string).split(",").map((s) => s.trim())]
+          : [k, v]
+      );
+    const json = Object.fromEntries(entries);
+    console.log(json);
+
+    this._putData(json);
+  }
+
+  _putData(json: Profile) {
+    fetch(serverPath(this.path), {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(json),
+    })
+      .then((response) => {
+        if (response.status === 200) return response.json();
+        else return null;
+      })
+      .then((json: unknown) => {
+        if (json) this.profile = json as Profile;
+      })
+      .catch((err) => console.log("Failed to PUT form data", err));
   }
 }

@@ -33,3 +33,11 @@ app.post("/api/profiles", (req, res) => {
         .then((profile) => res.status(201).send(profile))
         .catch((err) => res.status(500).send(err));
 });
+app.put("/api/profiles/:userid", (req, res) => {
+    const { userid } = req.params;
+    const newProfile = req.body;
+    profiles_1.default
+        .update(userid, newProfile)
+        .then((profile) => res.json(profile))
+        .catch((err) => res.status(404).end());
+});

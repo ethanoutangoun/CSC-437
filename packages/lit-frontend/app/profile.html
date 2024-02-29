@@ -9,6 +9,7 @@
     <title>Cooked</title>
     <link rel="icon" href="/images/icon.png" type="image/x-icon" />
     <script type="module" src="/src/drop-down.ts"></script>
+    <script type="module" src="/src/user-profile.ts"></script>
   </head>
   <body>
     <article>
@@ -44,61 +45,7 @@
       </header>
 
       <div class="content">
-        <div class="profile-content">
-          <div class="profile-header">
-            <h4>Account > Personal Info</h4>
-            <h2>Personal Info</h2>
-          </div>
-
-          <div class="pi-all">
-            <div class="pi-container">
-              <div class="pi-block">
-                <div class="pi-header">
-                  <h5>Full Name</h5>
-                  <h4>Edit</h4>
-                </div>
-                <div class="pi-content">
-                  <p>Ethan Outangoun</p>
-                </div>
-              </div>
-
-              <div class="pi-block">
-                <div class="pi-header">
-                  <h5>Username</h5>
-                  <h4>Edit</h4>
-                </div>
-                <div class="pi-content">
-                  <p>MightyChef</p>
-                </div>
-              </div>
-
-              <div class="pi-block">
-                <div class="pi-header">
-                  <h5>Email Address</h5>
-                  <h4>Edit</h4>
-                </div>
-                <div class="pi-content">
-                  <p>e**o@gmail.com</p>
-                </div>
-              </div>
-
-              <div class="pi-block">
-                <div class="pi-header">
-                  <h5>Phone Number</h5>
-                  <h4>Edit</h4>
-                </div>
-                <div class="pi-content">
-                  <p>51**-97</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="pi-img">
-              <img src="/images/dude.jpg" alt="Profile" draggable="false" />
-              <p>Replace</p>
-            </div>
-          </div>
-        </div>
+        <user-profile path="/profiles/ethanoutangoun"></user-profile>
       </div>
     </article>
   </body>

@@ -11,10 +11,11 @@ export class UserProfileElement extends LitElement {
   @state()
   profile?: Profile;
 
-  editName: boolean = false;  
+  editName: boolean = false;
   editUsername: boolean = false;
   editEmail: boolean = false;
   editPhone: boolean = false;
+  editPicture: boolean = false;
 
   render() {
     // fill this in later
@@ -94,7 +95,11 @@ export class UserProfileElement extends LitElement {
                     @change="${(event: KeyboardEvent) =>
                       this.handleFormChange(3, event)}"
                   />`
-                : html`<p>${this.profile?.phone==null || this.profile.phone === "" ? "Add Phone" : this.profile.phone}</p>`}
+                : html`<p>
+                    ${this.profile?.phone == null || this.profile.phone === ""
+                      ? "Add Phone"
+                      : this.profile.phone}
+                  </p>`}
             </div>
           </div>
         </div>
@@ -105,14 +110,16 @@ export class UserProfileElement extends LitElement {
                 src="${this.profile?.picture}"
                 alt="Profile"
                 draggable="false"
+                @click="${() => this.toggleEditMode(4)}"
               />`
             : html` <img
-                src="/images/dude.jpg"
+                src="/images/empty-pfp.png"
                 alt="Profile"
                 draggable="false"
+                @click="${() => this.toggleEditMode(4)}"
               />`}
 
-          <p>Replace</p>
+          <p @click="${() => this.toggleEditMode(4)}">Replace</p>
         </div>
       </div>
     </div>`;
@@ -134,6 +141,7 @@ export class UserProfileElement extends LitElement {
       margin-top: 100px;
       margin-left: 80px;
       margin-right: 80px;
+      padding-bottom: 80px;
     }
 
     .profile-header {
@@ -288,34 +296,58 @@ export class UserProfileElement extends LitElement {
       this.editUsername = false;
       this.editEmail = false;
       this.editPhone = false;
+      this.editPicture = false;
     }
 
     if (index === 1) {
       this.editName = false;
       this.editEmail = false;
       this.editPhone = false;
+      this.editPicture = false;
     }
 
     if (index === 2) {
       this.editName = false;
       this.editUsername = false;
       this.editPhone = false;
+      this.editPicture = false;
     }
 
     if (index === 3) {
       this.editName = false;
       this.editUsername = false;
       this.editEmail = false;
+      this.editPicture = false;
     }
 
-    // 0 for profile, 1 for username, 2 for email, 3 for phone
-    index === 0
-      ? (this.editName = !this.editName)
-      : index === 1
-      ? (this.editUsername = !this.editUsername)
-      : index === 2
-      ? (this.editEmail = !this.editEmail)
-      : (this.editPhone = !this.editPhone);
+    // Open the file upload dialog when the picture is clicked, and close the edit mode
+    if (index === 4) {
+      // Open the file upload dialog
+      const inputElement = document.createElement("input");
+      inputElement.type = "file";
+      inputElement.accept = "image/*"; // Allow only image files
+      inputElement.addEventListener("change", (event: Event) => {
+        const file = (event.target as HTMLInputElement).files![0];
+        if (file) {
+          // Handle the selected file, e.g., upload it or display preview
+          console.log("Selected file:", file);
+        }
+      });
+      inputElement.click();
+    }
+
+    // 0 for profile, 1 for username, 2 for email, 3 for phone, 4 for picture
+    if (index === 0) {
+      this.editName = !this.editName;
+    } else if (index === 1) {
+      this.editUsername = !this.editUsername;
+    } else if (index === 2) {
+      this.editEmail = !this.editEmail;
+    } else if (index === 3) {
+      this.editPhone = !this.editPhone;
+    } else if (index === 4) {
+      this.editPicture = !this.editPicture;
+    }
 
     // Update the UI
     this.requestUpdate();
@@ -403,16 +435,6 @@ export class UserProfileElement extends LitElement {
     super.attributeChangedCallback(name, oldValue, newValue);
   }
 }
-
-
-
-
-
-
-
-
-
-
 
 @customElement("user-profile-edit")
 export class UserProfileEditElement extends UserProfileElement {

@@ -6,11 +6,25 @@ export class ToggleSwitchElement extends LitElement {
   @property({ reflect: true, type: Boolean })
   on: boolean = false;
 
+  constructor() {
+    super();
+    // Check local storage for stored mode
+    const storedMode = localStorage.getItem('darkMode');
+    if (storedMode !== null) {
+      this.on = JSON.parse(storedMode);
+      if (this.on) {
+        document.body.classList.add('dark-mode');
+      } else {
+        document.body.classList.remove('dark-mode');
+      }
+    }
+  }
+
   render() {
     return html`<label>
       <slot class="mode">${this.on ? "Dark" : "Light"}</slot>
       <span class="slider">
-        <input type="checkbox" @change=${this._handleChange} />
+        <input type="checkbox" .checked=${this.on} @change=${this._handleChange} />
       </span>
     </label>`;
   }
@@ -67,6 +81,9 @@ export class ToggleSwitchElement extends LitElement {
   _handleChange(ev: Event) {
     const target = ev.target as HTMLInputElement;
     this.on = target?.checked;
+
+    // Store the mode in local storage
+    localStorage.setItem('darkMode', JSON.stringify(this.on));
 
 
     if (this.on) {

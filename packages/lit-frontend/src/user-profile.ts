@@ -10,7 +10,11 @@ export class UserProfileElement extends LitElement {
 
   @state()
   profile?: Profile;
-  editMode: boolean = false;
+
+  editName: boolean = false;  
+  editUsername: boolean = false;
+  editEmail: boolean = false;
+  editPhone: boolean = false;
 
   render() {
     // fill this in later
@@ -25,24 +29,34 @@ export class UserProfileElement extends LitElement {
           <div class="pi-block">
             <div class="pi-header">
               <h5>Full Name</h5>
-              <h4>Edit</h4>
+              <h4 @click="${() => this.toggleEditMode(0)}">Edit</h4>
             </div>
             <div class="pi-content">
-              <p>${this.profile?.name}</p>
+              ${this.editName
+                ? html`<input
+                    class="edit-input"
+                    type="text"
+                    value="${this.profile?.name}"
+                    @change="${(event: KeyboardEvent) =>
+                      this.handleFormChange(0, event)}"
+                  />`
+                : html`<p>${this.profile?.name}</p>`}
             </div>
           </div>
 
           <div class="pi-block">
             <div class="pi-header">
               <h5>Username</h5>
-              <h4 @click="${this.toggleEditMode}">Edit</h4>
+              <h4 @click="${() => this.toggleEditMode(1)}">Edit</h4>
             </div>
             <div class="pi-content">
-              ${this.editMode
+              ${this.editUsername
                 ? html`<input
+                    class="edit-input"
                     type="text"
                     value="${this.profile?.userid}"
-                    @change="${this.handleUsernameChange}"
+                    @change="${(event: KeyboardEvent) =>
+                      this.handleFormChange(1, event)}"
                   />`
                 : html`<p>${this.profile?.userid}</p>`}
             </div>
@@ -51,22 +65,36 @@ export class UserProfileElement extends LitElement {
           <div class="pi-block">
             <div class="pi-header">
               <h5>Email Address</h5>
-              <h4>Edit</h4>
+              <h4 @click="${() => this.toggleEditMode(2)}">Edit</h4>
             </div>
             <div class="pi-content">
-              <p>${this.profile?.email}</p>
+              ${this.editEmail
+                ? html`<input
+                    class="edit-input"
+                    type="text"
+                    value="${this.profile?.email}"
+                    @change="${(event: KeyboardEvent) =>
+                      this.handleFormChange(2, event)}"
+                  />`
+                : html`<p>${this.profile?.email}</p>`}
             </div>
           </div>
 
           <div class="pi-block">
             <div class="pi-header">
               <h5>Phone Number</h5>
-              <h4>Edit</h4>
+              <h4 @click="${() => this.toggleEditMode(3)}">Edit</h4>
             </div>
             <div class="pi-content">
-              <p>
-                ${this.profile?.phone ? this.profile.phone : html`Add Number`}
-              </p>
+              ${this.editPhone
+                ? html`<input
+                    class="edit-input"
+                    type="text"
+                    value="${this.profile?.phone}"
+                    @change="${(event: KeyboardEvent) =>
+                      this.handleFormChange(3, event)}"
+                  />`
+                : html`<p>${this.profile?.phone==null || this.profile.phone === "" ? "Add Phone" : this.profile.phone}</p>`}
             </div>
           </div>
         </div>
@@ -95,6 +123,11 @@ export class UserProfileElement extends LitElement {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+    }
+
+    .edit-input {
+      margin-top: 10px;
+      padding: 5px;
     }
 
     .profile-content {
@@ -249,14 +282,97 @@ export class UserProfileElement extends LitElement {
     }
   `;
 
-  toggleEditMode() {
-    this.editMode = !this.editMode;
+  toggleEditMode(index: number) {
+    // set all except to current index to false initially
+    if (index === 0) {
+      this.editUsername = false;
+      this.editEmail = false;
+      this.editPhone = false;
+    }
+
+    if (index === 1) {
+      this.editName = false;
+      this.editEmail = false;
+      this.editPhone = false;
+    }
+
+    if (index === 2) {
+      this.editName = false;
+      this.editUsername = false;
+      this.editPhone = false;
+    }
+
+    if (index === 3) {
+      this.editName = false;
+      this.editUsername = false;
+      this.editEmail = false;
+    }
+
+    // 0 for profile, 1 for username, 2 for email, 3 for phone
+    index === 0
+      ? (this.editName = !this.editName)
+      : index === 1
+      ? (this.editUsername = !this.editUsername)
+      : index === 2
+      ? (this.editEmail = !this.editEmail)
+      : (this.editPhone = !this.editPhone);
+
+    // Update the UI
     this.requestUpdate();
   }
 
-  handleUsernameChange() {
-    this.toggleEditMode();
-    // alert("Username changed");
+  // Create function to create JSON object and send to server
+  updateProfile() {
+    const profileData = {
+      name: this.profile?.name,
+      userid: this.profile?.userid,
+      email: this.profile?.email,
+      phone: this.profile?.phone,
+    };
+
+    fetch(serverPath(this.path), {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(profileData),
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        }
+        return null;
+      })
+      .then((json: unknown) => {
+        if (json) {
+          this.profile = json as Profile;
+        }
+      });
+  }
+
+  handleFormChange(index: number, event: Event) {
+    const newValue = (event.target as HTMLInputElement).value;
+    // console.log(newValue);
+
+    if (index === 0) {
+      this.profile!.name = newValue;
+    }
+
+    if (index === 1) {
+      this.profile!.userid = newValue;
+    }
+
+    if (index === 2) {
+      this.profile!.email = newValue;
+    }
+
+    if (index === 3) {
+      this.profile!.phone = newValue;
+    }
+
+    this.updateProfile();
+    this.toggleEditMode(index);
+    alert("Username changed");
   }
 
   _fetchData(path: string) {
@@ -288,48 +404,56 @@ export class UserProfileElement extends LitElement {
   }
 }
 
+
+
+
+
+
+
+
+
+
+
 @customElement("user-profile-edit")
 export class UserProfileEditElement extends UserProfileElement {
   render() {
     return html`
- 
-        <form @submit=${this._handleSubmit}>
-          <h3>Edit Profile</h3>
-          <label for="name">Full Name</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            .value=${this.profile?.name ?? ""}
-          />
+      <form @submit=${this._handleSubmit}>
+        <h3>Edit Profile</h3>
+        <label for="name">Full Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          .value=${this.profile?.name ?? ""}
+        />
 
-          <label for="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            .value=${this.profile?.userid ?? ""}
-          />
+        <label for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          .value=${this.profile?.userid ?? ""}
+        />
 
-          <label for="email">Email Address</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            .value=${this.profile?.email ?? ""}
-          />
+        <label for="email">Email Address</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          .value=${this.profile?.email ?? ""}
+        />
 
-          <label for="phoneNumber">Phone Number</label>
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            .value=${this.profile?.phone ?? ""}
-          />
+        <label for="phoneNumber">Phone Number</label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          .value=${this.profile?.phone ?? ""}
+        />
 
-          <button type="submit">Submit</button>
-        </form>
-
+        <button type="submit">Submit</button>
+      </form>
     `;
   }
 

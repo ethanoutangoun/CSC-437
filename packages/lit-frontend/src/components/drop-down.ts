@@ -5,6 +5,7 @@ import "./toggle-switch.ts";
 
 @customElement("drop-down")
 export class DropDownElement extends LitElement {
+  
   @property({ reflect: true, type: Boolean })
   open: boolean = false;
 

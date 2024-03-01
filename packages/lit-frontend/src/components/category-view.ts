@@ -1,8 +1,5 @@
-import { html, LitElement, unsafeCSS } from "lit";
+import { css, html, LitElement } from "lit";
 import { customElement } from "lit/decorators.js";
-
-import resetCSS from "/src/styles/reset.css?inline";
-import pageCSS from "/src/styles/page.css?inline";
 
 import "./recipe-grid";
 
@@ -21,5 +18,24 @@ export class CategoryView extends LitElement {
     `;
   }
 
-  static styles = [unsafeCSS(resetCSS), unsafeCSS(pageCSS)];
+  static styles = css`
+    * {
+      font-family: "Raleway", sans-serif;
+      padding: 0;
+      margin: 0;
+      background-color: var(--color-main-bg);
+    }
+
+    .trending {
+      margin-bottom: 20px;
+    }
+    
+    .trending h2 {
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--color-primary);
+      margin-bottom: 10px;
+    }
+    
+  `;
 }

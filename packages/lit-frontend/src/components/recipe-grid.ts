@@ -4,8 +4,9 @@ import "./recipe-card.ts";
 import { property } from "lit/decorators.js";
 
 
+
 @customElement("recipe-grid")
-class RecipeGrid extends LitElement {
+export class RecipeGrid extends LitElement {
   @property({ reflect: true, type: Boolean })
   sorted: boolean = false;
 
@@ -63,7 +64,7 @@ class RecipeGrid extends LitElement {
   render() {
     return html`
       <div class="container">
-        <button @click="${this.sortAlphabetically}" class="sort-button">Sort Alphabetically</button>
+        ${false ? html`<button @click="${this.sortAlphabetically}" class="sort-button">Sort Alphabetically</button>` :  ""}
         <ul class="recipe-list">
           ${this.sortedRecipes.map(recipe => html`
             <recipe-card>
@@ -82,6 +83,7 @@ class RecipeGrid extends LitElement {
     * {
       margin: 0;
       padding: 0;
+      font-family: "Raleway", sans-serif;
     }
 
     :host {
@@ -100,7 +102,7 @@ class RecipeGrid extends LitElement {
 
       gap: 20px;
 
-      font-family: "Montserrat", sans-serif;
+      font-family: "Raleway", sans-serif;
       flex-wrap: wrap;
     }
 
@@ -123,5 +125,3 @@ class RecipeGrid extends LitElement {
     }
   `;
 }
-
-customElements.define("recipe-grid", RecipeGrid);

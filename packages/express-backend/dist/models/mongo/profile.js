@@ -9,7 +9,8 @@ const profileSchema = new mongoose_1.Schema({
     numRecipes: { type: Number, default: 0 },
     followers: { type: Number, default: 0 },
     dateJoined: { type: Date, default: Date.now },
-    picture: { type: String, trim: true },
+    picture: { type: Buffer },
+    pictureContentType: { type: String }
 }, { collection: "user_profiles" });
 const ProfileModel = (0, mongoose_1.model)("Profile", profileSchema);
 exports.default = ProfileModel;

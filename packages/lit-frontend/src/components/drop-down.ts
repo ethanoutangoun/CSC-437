@@ -1,9 +1,10 @@
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import { Router } from "@vaadin/router";
 import "./toggle-switch.ts";
 
 @customElement("drop-down")
-class DropDownElement extends LitElement {
+export class DropDownElement extends LitElement {
   @property({ reflect: true, type: Boolean })
   open: boolean = false;
 
@@ -28,14 +29,20 @@ class DropDownElement extends LitElement {
         <slot name="menu">
           <ul>
             <li class="switch"><toggle-switch></toggle-switch></li>
-            <li class="command"><a href="account.html">Account</a></li>
             <li class="command">
-              <a href="profile.html">Profile</a>
+            
+            <p @click = ${() => Router.go("/app/account")}>Account</a>
+              </li>
+              
+            <li class="command" >
+              <p @click = ${() =>
+                Router.go("/app/profile/ethanoutangoun")}>Profile</p>
             </li>
 
-            <li class="command"><a href="settings.html">Settings</a></li>
+            <li class="command"><p @click = ${() =>
+              Router.go("/app/settings")}>Settings</p></li>
 
-            <li class="command"><a href="index.html">Logout</a></li>
+            <li class="command"><p>Logout</p></li>
           </ul>
         </slot>
       </div>
@@ -46,6 +53,12 @@ class DropDownElement extends LitElement {
     :host {
       display: inline-block;
       position: relative;
+    }
+
+    * {
+      font-family: "Raleway", sans-serif;
+      padding: 0;
+      margin: 0;
     }
 
     svg.icon {
@@ -59,7 +72,6 @@ class DropDownElement extends LitElement {
       stroke-linejoin: round;
       stroke-width: 1.7;
       transform: translate(6px, 0);
-      
     }
 
     #is-shown {
@@ -118,7 +130,7 @@ class DropDownElement extends LitElement {
       background-color: inherit;
     }
 
-    a {
+    p {
       color: var(--color-dark);
       padding: 10px;
       padding-left: 20px;
@@ -165,5 +177,3 @@ class DropDownElement extends LitElement {
     }
   }
 }
-
-customElements.define("drop-down", DropDownElement);

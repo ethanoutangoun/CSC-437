@@ -8,6 +8,7 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const mongoConnect_1 = require("./mongoConnect");
 const profiles_1 = __importDefault(require("./profiles"));
+const path_1 = __importDefault(require("path")); // Import path module
 const app = (0, express_1.default)();
 const port = process.env.PORT || 3000;
 app.use((0, cors_1.default)());
@@ -40,4 +41,9 @@ app.put("/api/profiles/:userid", (req, res) => {
         .update(userid, newProfile)
         .then((profile) => res.json(profile))
         .catch((err) => res.status(404).end());
+});
+// Serve index.html for all other routes
+app.use(express_1.default.static(path_1.default.join(__dirname, "../../lit-frontend/app")));
+app.get("*", (req, res) => {
+    res.sendFile(path_1.default.join(__dirname, "../../lit-frontend/app", "index.html"));
 });

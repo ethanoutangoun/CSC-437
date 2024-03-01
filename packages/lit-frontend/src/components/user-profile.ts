@@ -1,10 +1,16 @@
 import { css, html, LitElement } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import { Profile } from "./models/profile";
+import { Profile } from "../models/profile";
 import { serverPath } from "./rest";
+
+// import RouterLocation
+import { RouterLocation } from "@vaadin/router";
 
 @customElement("user-profile")
 export class UserProfileElement extends LitElement {
+  @property({ attribute: false })
+  location: RouterLocation | undefined;
+
   @property()
   path: string = "";
 
@@ -404,7 +410,22 @@ export class UserProfileElement extends LitElement {
 
     this.updateProfile();
     this.toggleEditMode(index);
-    alert("Username changed");
+
+    if (index === 0) {
+      alert("Name changed");
+    }
+
+    if (index === 1) {
+      alert("User id changed");
+    }
+
+    if (index === 2) {
+      alert("Email changed");
+    }
+
+    if (index === 3) {
+      alert("Phone number changed");
+    }
   }
 
   _fetchData(path: string) {
@@ -422,7 +443,16 @@ export class UserProfileElement extends LitElement {
 
   //   When the element is connected to the DOM, it fetches the data from the server.
   connectedCallback() {
+    if (this.location) {
+      const pathnameParts = this.location.pathname.split("/");
+      const useridIndex = pathnameParts.indexOf("profile") + 1; // Get the index of the next segment after 'profile'
+      const userid = pathnameParts[useridIndex];
+
+      this.path = `/profiles/${userid}`;
+    }
+
     if (this.path) {
+      console.log("Fetching data from", this.path);
       this._fetchData(this.path);
     }
     super.connectedCallback();
@@ -433,129 +463,5 @@ export class UserProfileElement extends LitElement {
       this._fetchData(newValue);
     }
     super.attributeChangedCallback(name, oldValue, newValue);
-  }
-}
-
-@customElement("user-profile-edit")
-export class UserProfileEditElement extends UserProfileElement {
-  render() {
-    return html`
-      <form @submit=${this._handleSubmit}>
-        <h3>Edit Profile</h3>
-        <label for="name">Full Name</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          .value=${this.profile?.name ?? ""}
-        />
-
-        <label for="username">Username</label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          .value=${this.profile?.userid ?? ""}
-        />
-
-        <label for="email">Email Address</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          .value=${this.profile?.email ?? ""}
-        />
-
-        <label for="phoneNumber">Phone Number</label>
-        <input
-          type="tel"
-          id="phone"
-          name="phone"
-          .value=${this.profile?.phone ?? ""}
-        />
-
-        <button type="submit">Submit</button>
-      </form>
-    `;
-  }
-
-  static styles = css`
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    form {
-      display: grid;
-      gap: 20px;
-      margin-top: 100px;
-      margin-left: 80px;
-      margin-right: 80px;
-      margin-bottom: 80px;
-      border-top: 1px solid var(--color-light);
-      padding-top: 20px;
-    }
-
-    label {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--color-primary);
-    }
-
-    input {
-      padding: 10px;
-      font-size: 16px;
-      font-weight: 300;
-      color: var(--color-light-alt);
-      border: 1px solid var(--color-light);
-    }
-
-    button {
-      padding: 10px;
-      font-size: 16px;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.9);
-      background-color: var(--color-primary-orange);
-      border: none;
-    }
-
-    button:hover {
-      cursor: pointer;
-    }
-  `;
-
-  _handleSubmit(ev: Event) {
-    ev.preventDefault(); // prevent browser from submitting form data itself
-
-    const target = ev.target as HTMLFormElement;
-    const formdata = new FormData(target);
-    const entries = Array.from(formdata.entries())
-      .map(([k, v]) => (v === "" ? [k] : [k, v]))
-      .map(([k, v]) =>
-        k === "airports"
-          ? [k, (v as string).split(",").map((s) => s.trim())]
-          : [k, v]
-      );
-    const json = Object.fromEntries(entries);
-    console.log(json);
-
-    this._putData(json);
-  }
-
-  _putData(json: Profile) {
-    fetch(serverPath(this.path), {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(json),
-    })
-      .then((response) => {
-        if (response.status === 200) return response.json();
-        else return null;
-      })
-      .then((json: unknown) => {
-        if (json) this.profile = json as Profile;
-      })
-      .catch((err) => console.log("Failed to PUT form data", err));
   }
 }

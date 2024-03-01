@@ -1,5 +1,6 @@
 import { css, html, LitElement } from "lit";
 import { customElement} from "lit/decorators.js";
+import { Router } from "@vaadin/router";
 
 @customElement("recipe-card")
 export class RecipeCard extends LitElement {
@@ -41,6 +42,10 @@ export class RecipeCard extends LitElement {
       align-items: stretch;
     }
 
+    .recipe-container:hover {
+      cursor: pointer;
+    }
+
     .recipe-container h4 {
       margin-top: 10px;
     }
@@ -74,14 +79,14 @@ export class RecipeCard extends LitElement {
   render() {
     return html`
       <li class="recipe-container">
-        <a href="recipe.html">
+        <div @click = ${()=> Router.go("/app/recipe/1")}>
           <div class="recipe-img-container">
            <slot name="image"></slot>
           </div>
           <h4><slot name="title"></slot></h4>
           <p><slot name="cuisine"></slot></p>
           <p><slot name="price"></slot></p>
-        </a>
+        </div>
       </li>
     `;
   }

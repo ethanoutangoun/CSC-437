@@ -4,6 +4,7 @@ import cors from "cors";
 import { connect } from "./mongoConnect";
 import profiles from "./profiles";
 import { Profile } from "./models/profile";
+import path from "path"; // Import path module
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -12,6 +13,10 @@ app.use(cors());
 app.use(express.json());
 
 connect("cooked");
+
+
+
+
 
 app.get("/hello", (req: Request, res: Response) => {
   res.send("Hello, World");
@@ -47,4 +52,11 @@ app.put("/api/profiles/:userid", (req: Request, res: Response) => {
     .update(userid, newProfile)
     .then((profile: Profile) => res.json(profile))
     .catch((err) => res.status(404).end());
+});
+
+
+// Serve index.html for all other routes
+app.use(express.static(path.join(__dirname, "../../lit-frontend/app")));
+app.get("*", (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, "../../lit-frontend/app", "index.html"));
 });

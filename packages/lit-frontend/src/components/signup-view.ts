@@ -1,11 +1,12 @@
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { serverPath } from "./rest";
+import { Router } from "@vaadin/router";
 
 @customElement("signup-view")
 export class SignUpView extends LitElement {
   @property()
-  path: string = "/login";
+  path: string = "/signup";
 
   @property({ reflect: true, type: Boolean })
   password: string = "";
@@ -64,19 +65,15 @@ export class SignUpView extends LitElement {
       }),
     })
       .then((response) => {
-        if (response.status === 200) {
-          return response.json();
-        } else {
-          throw new Error("Invalid username or password");
-        }
-      })
-      .then((data) => {
-        console.log("Success:", data);
+        if (response.status === 201) {
+        
         // Redirect to the home page
-        window.location.href = "/";
-      })
-      .catch((error) => {
-        console.error("Error:", error);
+          Router.go("/app/login");
+          return response.json();
+        }
+        else{
+          console.log("Error:", response.status);
+        }
       });
   }
 

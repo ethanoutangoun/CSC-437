@@ -6,9 +6,8 @@ import profiles from "./profiles";
 import { Profile } from "./models/profile";
 import * as path from "path";
 import { loginUser, registerUser, authenticateUser } from "./auth";
-import fs from "node:fs/promises";
 import apiRouter from "./routers/api";
-import profileRouter from "./routers/profiles"; 
+
 
 
 const app = express();
@@ -29,7 +28,7 @@ try {
 }
 
 app.post("/api/login", loginUser);
-app.post("/signup", registerUser);
+app.post("/api/signup", registerUser);
 
 connect("cooked");
 

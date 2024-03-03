@@ -26,6 +26,9 @@ export class LoginView extends LitElement {
     this.password = "";
   }
 
+  @state()
+  loginStatus: number = 0;
+
   render() {
     return html`
       <div login-content>
@@ -34,7 +37,7 @@ export class LoginView extends LitElement {
         </div>
 
         <div class="login-form">
-          <form @submit=${this.handleSubmit}>
+          <form @submit=${this.handleSubmit} @change=${() => (this.loginStatus = 0)}>
             <input
               type="text"
               .value=${this.username}
@@ -49,6 +52,8 @@ export class LoginView extends LitElement {
             />
             <button type="submit">Submit</button>
           </form>
+
+          <p>${this.loginStatus ? `Login failed: ${this.loginStatus}` : ""}</p>
         </div>
       </div>
     `;
@@ -74,7 +79,7 @@ export class LoginView extends LitElement {
         if (res.status === 200) {
           return res.json();
         } else {
-          console.log("Login failed:", res.status);
+          this.loginStatus = res.status;
         }
       })
       .then((json) => {
@@ -88,14 +93,11 @@ export class LoginView extends LitElement {
           const urlParams = new URLSearchParams(window.location.search);
           const redirectRoute = urlParams.get("redirect");
 
-          
-
           if (redirectRoute) {
             Router.go(redirectRoute);
           } else {
-            Router.go("/app/"); // Specify your default route here
+            window.location.href = "/app/";
           }
-
 
           this.requestUpdate();
         }

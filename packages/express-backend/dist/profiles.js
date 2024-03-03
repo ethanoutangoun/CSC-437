@@ -32,7 +32,8 @@ function create(profile) {
         }
     })
         .then(existingEmailProfile => {
-        if (existingEmailProfile) {
+        if ((existingEmailProfile === null || existingEmailProfile === void 0 ? void 0 : existingEmailProfile.email) != null) {
+            console.log(existingEmailProfile);
             throw new Error("Email already exists");
         }
         else {

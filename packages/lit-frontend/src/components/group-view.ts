@@ -72,9 +72,12 @@ export class GroupView extends LitElement {
     }
 
     .find-group input {
-      padding: 14px;
+      padding-top: 14px;
+      padding-bottom: 14px;
+      padding-left: 10px;
+      padding-right: 10px;
       font-size: 16px;
-      width: 100%;
+      width: calc(100% - 20px);
       max-width: 800px;
       border-radius: 10px;
       border: 1px solid var(--color-light);
@@ -128,7 +131,7 @@ export class GroupView extends LitElement {
 
       text-decoration: none;
       color: var(--color-primary);
-      width: 100%;
+      width: calc(100% - 60px);
       height: 100%;
       margin-bottom: 20px;
       border-bottom: 1px solid #d6d5d5;
@@ -152,6 +155,15 @@ export class GroupView extends LitElement {
     .my-groups button:hover {
       cursor: pointer;
       background-color: rgb(212, 126, 7);
+    }
+
+    @media screen and (max-width: 988px) {
+      .profile-tabs {
+        grid-template-columns: 1fr;
+      }
+      .profile-content {
+        margin: 0;
+      }
     }
   `;
 }

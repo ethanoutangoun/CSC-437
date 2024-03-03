@@ -10,6 +10,13 @@ import "./user-recipes";
 import "./recipe-view";
 import "./setting-view";
 import "./category-view";
+import "./create-view";
+import "./public-profile-view";
+import "./login-view";
+import "./auth-required";
+import "./signup-view";
+import "./test-component";
+
 
 @customElement("my-app")
 export class MyApp extends LitElement {
@@ -18,40 +25,45 @@ export class MyApp extends LitElement {
   }
 
   firstUpdated() {
-    console.log("Router initialized");
+  
     const router = new Router(this.shadowRoot?.querySelector("#outlet"));
     router.setRoutes([
       {
         path: "/app/profile/:userid",
-        component: "user-profile",
+        component: "test-component"
       },
 
-      
-      { path: "/app/", component: "trending-view" },
+      { path: "/app/", component: "trending-view", action: () => {()=> this.requestUpdate(); }},
 
-      {path: "/app/account", component: "account-view"},
+      { path: "/app/account", component: "account-view" },
 
-      {path: "/app/groups", component: "group-view"},
-      
-      {path: "/app/my-recipes", component: "user-recipes"},
+      { path: "/app/groups", component: "group-view" },
 
-      {path: "/app/recipe/:recipeid", component: "recipe-view"},
+      { path: "/app/my-recipes", component: "user-recipes" },
 
-      {path: "/app/settings", component: "setting-view"},
+      { path: "/app/recipe/:recipeid", component: "recipe-view" },
 
-      {path: "/app/category/:category", component: "category-view"},
+      { path: "/app/settings", component: "setting-view" },
 
+      { path: "/app/category/:category", component: "category-view" },
+
+      { path: "/app/create", component: "create-view" },
+
+      { path: "/app/user/:userid", component: "public-profile-view" },
+
+      { path: "/app/login", component: "login-view" },
+
+      { path: "/app/signup", component: "signup-view" },
 
       {
         path: "(.*)",
         action: () => {
-          console.log("Redirecting to /app/");
+  
           Router.go("/app/"); // Redirect to default route
         },
       },
     ]);
 
-    console.log("Routes:", router.getRoutes());
   }
 
   render() {

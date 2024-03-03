@@ -49,7 +49,7 @@ catch (error) {
     console.log("Cannot find static assets in lit-frontend", dist, error.code);
 }
 app.post("/api/login", auth_1.loginUser);
-app.post("/signup", auth_1.registerUser);
+app.post("/api/signup", auth_1.registerUser);
 (0, mongoConnect_1.connect)("cooked");
 // BACKEND ROUTES
 app.use("/api", api_1.default);

@@ -10,15 +10,13 @@ import {
 import { Router } from "@vaadin/router";
 
 export let authContext = createContext<APIUser>("auth");
-export let pendingContext = createContext<boolean>("pending");
+
 
 @customElement("auth-required")
 export class AuthRequiredElement extends LitElement {
 
 
-  @provide({ context: pendingContext })
-  @state()
-  pending: boolean = true;
+
 
 
   @state()
@@ -34,9 +32,9 @@ export class AuthRequiredElement extends LitElement {
       this._signOut()
     );
 
+    
+    
 
-
-  
 
 
 
@@ -177,7 +175,7 @@ export class AuthRequiredElement extends LitElement {
             json.token,
             () => this._signOut()
           );
-          this.pending = false;
+         
           this._toggleDialog(false);
           this.requestUpdate();
         }

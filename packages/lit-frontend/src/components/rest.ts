@@ -29,7 +29,11 @@ export class APIUser {
 
     return anon;
   }
+
+
 }
+
+
 
 export class AuthenticatedUser extends APIUser {
   token: string | undefined;

@@ -17,7 +17,6 @@ import "./auth-required";
 import "./signup-view";
 import "./test-component";
 
-
 @customElement("my-app")
 export class MyApp extends LitElement {
   constructor() {
@@ -25,15 +24,20 @@ export class MyApp extends LitElement {
   }
 
   firstUpdated() {
-  
     const router = new Router(this.shadowRoot?.querySelector("#outlet"));
     router.setRoutes([
       {
         path: "/app/profile/:userid",
-        component: "test-component"
+        component: "user-profile"
       },
 
-      { path: "/app/", component: "trending-view", action: () => {()=> this.requestUpdate(); }},
+      {
+        path: "/app/",
+        component: "trending-view",
+        action: () => {
+          () => this.requestUpdate();
+        },
+      },
 
       { path: "/app/account", component: "account-view" },
 
@@ -58,15 +62,17 @@ export class MyApp extends LitElement {
       {
         path: "(.*)",
         action: () => {
-  
           Router.go("/app/"); // Redirect to default route
         },
       },
     ]);
-
   }
 
   render() {
-    return html` <div id="outlet"></div> `;
+    return html`
+      <auth-required>
+        <div id="outlet"></div>
+      </auth-required>
+    `;
   }
 }

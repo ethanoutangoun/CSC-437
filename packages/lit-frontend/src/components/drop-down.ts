@@ -35,41 +35,73 @@ export class DropDownElement extends LitElement {
         <slot name="menu">
           <ul>
             <li class="switch"><toggle-switch></toggle-switch></li>
-            <li class="command">
+            ${this.user.authenticated
+              ? html`<li class="command">
             
             <p @click = ${() => {
               this._toggle(false);
               Router.go("/app/account");
             }}>Account</a>
-              </li>
-              
-            <li class="command" >
-              <p @click = ${() => {
-                this._toggle(false);
-                Router.go("/app/profile/ethanoutangoun");
-              }}>Profile</p>
-            </li>
+              </li>`
+              : html``}
+            ${this.user.authenticated
+              ? html`<li class="command">
+                  <p
+                    @click=${() => {
+                      this._toggle(false);
 
-            <li class="command"><p @click = ${() => {
-              this._toggle(false);
-              Router.go("/app/settings");
-            }}>Settings</p></li>
-
-            <li class="command" @click = ${() => {
-              this._toggle(false);
-              Router.go("/app/signup");
-            }}><p>Signup</p></li>
-
-
-            <li class="command" @click = ${() => {
-              this._toggle(false);
-              Router.go("/app/login");
-            }}><p>Login</p></li>
-
-            <li class="command" @click = ${() => {
-              this._signOut();
-              this._toggle(false);
-            }}><p>Logout</p></li>
+                      Router.go("/app/profile/" + this.user.username);
+                    }}
+                  >
+                    Profile
+                  </p>
+                </li>`
+              : html``}
+            ${this.user.authenticated
+              ? html`<li class="command">
+                  <p
+                    @click=${() => {
+                      this._toggle(false);
+                      Router.go("/app/settings");
+                    }}
+                  >
+                    Settings
+                  </p>
+                </li>`
+              : html``}
+            ${!this.user.authenticated
+              ? html`<li
+                  class="command"
+                  @click=${() => {
+                    this._toggle(false);
+                    Router.go("/app/signup");
+                  }}
+                >
+                  <p>Signup</p>
+                </li> `
+              : html``}
+            ${!this.user.authenticated
+              ? html`<li
+                  class="command"
+                  @click=${() => {
+                    this._toggle(false);
+                    Router.go("/app/login");
+                  }}
+                >
+                  <p>Login</p>
+                </li>`
+              : html``}
+            ${this.user.authenticated
+              ? html`<li
+                  class="command"
+                  @click=${() => {
+                    this._signOut();
+                    this._toggle(false);
+                  }}
+                >
+                  <p>Logout</p>
+                </li>`
+              : html``}
           </ul>
         </slot>
       </div>
@@ -183,11 +215,6 @@ export class DropDownElement extends LitElement {
     console.log("Signing out");
     localStorage.removeItem(TOKEN_KEY);
     this.user = APIUser.deauthenticate(this.user);
-
-    Router.go("/app/");
-    // reload the page at the root
-
-    // change location to root
 
     window.location.href = "/app/";
   }

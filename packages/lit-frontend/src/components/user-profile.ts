@@ -2,7 +2,7 @@ import { css, html, LitElement } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { Profile } from "../models/profile";
 import { serverPath } from "./rest";
-import { APIUser, APIRequest } from "./rest";
+import { APIUser, APIRequest, JSONRequest } from "./rest";
 import "./auth-required";
 import { consume } from "@lit/context";
 import { authContext } from "./auth-required";
@@ -140,7 +140,7 @@ export class UserProfileElement extends LitElement {
 
             <p @click="${() => this.toggleEditMode(4)}">Replace</p>
           </div>
-          <button @click="${() => console.log(this.user)}">Save</button>
+          <button @click="${() => console.log(this.user)}">Log User</button>
         </div>
       </div>
     `;
@@ -383,13 +383,10 @@ export class UserProfileElement extends LitElement {
       phone: this.profile?.phone,
     };
 
-    fetch(serverPath(this.path), {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(profileData),
-    })
+    const request = new JSONRequest(profileData);
+
+    request
+      .put(this.path)
       .then((response) => {
         if (response.status === 200) {
           return response.json();
@@ -398,9 +395,15 @@ export class UserProfileElement extends LitElement {
       })
       .then((json: unknown) => {
         if (json) {
+          console.log("PUT request successful:", json);
           this.profile = json as Profile;
         }
-      });
+      })
+      .catch((err) =>
+        console.log("Failed to POST form data", err)
+      );
+
+
   }
 
   handleFormChange(index: number, event: Event) {
@@ -484,6 +487,9 @@ export class UserProfileElement extends LitElement {
       });
   }
 
+
+
+
   //   When the element is connected to the DOM, it fetches the data from the server.
   // connectedCallback() {
 
@@ -516,8 +522,9 @@ export class UserProfileElement extends LitElement {
 
 
   async connectedCallback() {
+   
     super.connectedCallback();
-
+    this.requestUpdate();
     // Wait until the user property is not null
     await new Promise<void>((resolve) => {
         const checkUserNotNull = () => {
@@ -533,6 +540,7 @@ export class UserProfileElement extends LitElement {
     // After user becomes non-null, continue with data fetching
     if (this.user && this.user.authenticated === false) {
         // User is not authenticated, redirect to the login page or another page
+        console.log(this.user)
         Router.go("/app/login"); // Redirect to the login page
         return; // Stop further execution of the callback
     }
@@ -547,9 +555,11 @@ export class UserProfileElement extends LitElement {
 
     if (this.path) {
         console.log("Fetching data from", this.path);
-        console.log("User", this.user);
         this._getData(this.path);
     }
+    
+
+
 }
 
 

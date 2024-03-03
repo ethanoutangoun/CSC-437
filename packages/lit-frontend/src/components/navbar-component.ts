@@ -12,7 +12,7 @@ export class Navbar extends LitElement {
     return html`
       <header class="navbar">
         <div class="navbar-content">
-          <div class="logo" @click = ${()=>Router.go('/app/')}>
+          <div class="logo" @click=${() => Router.go("/app/")}>
             <svg class="main-icon">
               <use href="/icons/icon.svg#cooked-logo" />
             </svg>
@@ -30,11 +30,11 @@ export class Navbar extends LitElement {
           </section>
 
           <div class="right-navbar">
-            <a class="group-icon" href="create.html">
+            <div class="group-icon" @click=${() => Router.go("/app/create")}>
               <svg class="icon">
                 <use href="/icons/create.svg#create-recipe" />
               </svg>
-            </a>
+            </div>
 
             <drop-down></drop-down>
           </div>
@@ -143,6 +143,10 @@ export class Navbar extends LitElement {
       stroke-linecap: round;
       stroke-linejoin: round;
       transform: translate(3px, 5px);
+    }
+
+    svg.icon:hover {
+      cursor: pointer;
     }
 
     svg.main-icon {

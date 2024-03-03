@@ -1,13 +1,18 @@
 import { css, html, LitElement } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { customElement, property, state } from "lit/decorators.js";
 import { Router } from "@vaadin/router";
 import "./toggle-switch.ts";
+import { APIUser, AuthenticatedUser } from "./rest";
 
 @customElement("drop-down")
 export class DropDownElement extends LitElement {
-  
   @property({ reflect: true, type: Boolean })
   open: boolean = false;
+
+  @state()
+  user: APIUser = AuthenticatedUser.authenticateFromLocalStorage(() =>
+    this._signOut()
+  );
 
   render() {
     return html`
@@ -32,18 +37,39 @@ export class DropDownElement extends LitElement {
             <li class="switch"><toggle-switch></toggle-switch></li>
             <li class="command">
             
-            <p @click = ${() => Router.go("/app/account")}>Account</a>
+            <p @click = ${() => {
+              this._toggle(false);
+              Router.go("/app/account");
+            }}>Account</a>
               </li>
               
             <li class="command" >
-              <p @click = ${() =>
-                Router.go("/app/profile/ethanoutangoun")}>Profile</p>
+              <p @click = ${() => {
+                this._toggle(false);
+                Router.go("/app/profile/ethanoutangoun");
+              }}>Profile</p>
             </li>
 
-            <li class="command"><p @click = ${() =>
-              Router.go("/app/settings")}>Settings</p></li>
+            <li class="command"><p @click = ${() => {
+              this._toggle(false);
+              Router.go("/app/settings");
+            }}>Settings</p></li>
 
-            <li class="command"><p>Logout</p></li>
+            <li class="command" @click = ${() => {
+              this._toggle(false);
+              Router.go("/app/signup");
+            }}><p>Signup</p></li>
+
+
+            <li class="command" @click = ${() => {
+              this._toggle(false);
+              Router.go("/app/login");
+            }}><p>Login</p></li>
+
+            <li class="command" @click = ${() => {
+              this._signOut();
+              this._toggle(false);
+            }}><p>Logout</p></li>
           </ul>
         </slot>
       </div>
@@ -151,6 +177,20 @@ export class DropDownElement extends LitElement {
       border-bottom: 1px solid var(--color-light);
     }
   `;
+
+  _signOut() {
+    const TOKEN_KEY = "JWT_AUTH_TOKEN";
+    console.log("Signing out");
+    localStorage.removeItem(TOKEN_KEY);
+    this.user = APIUser.deauthenticate(this.user);
+
+    Router.go("/app/");
+    // reload the page at the root
+
+    // change location to root
+
+    window.location.href = "/app/";
+  }
 
   _handleChange(ev: InputEvent) {
     const target = ev.target as HTMLInputElement;

@@ -9,10 +9,10 @@ export class AccountView extends LitElement {
       <div class="profile-content">
         <div class="profile-header">
           <h2>Account</h2>
-          <p>
-            Ethan Outangoun, ethanoutangoun@gmail.com · Go to
-            <a href="public-profile.html">profile</a>
-          </p>
+          <div class="inline">
+            <p>Ethan Outangoun, ethanoutangoun@gmail.com · Go to </p>
+            <p class = "link" @click= ${()=> Router.go("/app/user/1")}> Profile</p>
+          </div>
         </div>
 
         <div class="profile-tabs">
@@ -43,6 +43,11 @@ export class AccountView extends LitElement {
         padding: 0;
         margin: 0;
         background-color: var(--color-main-bg);
+      }
+
+      .inline {
+        display: flex;
+        gap: 5px;
       }
 
       .profile-content {
@@ -112,6 +117,14 @@ export class AccountView extends LitElement {
       }
 
       .profile-tabs div:hover {
+        cursor: pointer;
+      }
+
+      .link{
+        text-decoration: underline;
+      }
+
+      .link:hover{
         cursor: pointer;
       }
     `,

@@ -2,9 +2,13 @@ import { css, html, LitElement } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { Profile } from "../models/profile";
 import { serverPath } from "./rest";
+import { APIUser, APIRequest } from "./rest";
+import "./auth-required";
+import { consume } from "@lit/context";
+import { authContext } from "./auth-required";
 
 // import RouterLocation
-import { RouterLocation } from "@vaadin/router";
+import { Router, RouterLocation } from "@vaadin/router";
 
 @customElement("user-profile")
 export class UserProfileElement extends LitElement {
@@ -17,6 +21,13 @@ export class UserProfileElement extends LitElement {
   @state()
   profile?: Profile;
 
+  @consume({ context: authContext, subscribe: true })
+  @property({ attribute: false })
+  user?: APIUser;
+
+
+
+
   editName: boolean = false;
   editUsername: boolean = false;
   editEmail: boolean = false;
@@ -25,110 +36,114 @@ export class UserProfileElement extends LitElement {
 
   render() {
     // fill this in later
-    return html` <div class="profile-content">
-      <div class="profile-header">
-        <h4>Account > Personal Info</h4>
-        <h2>Personal Info</h2>
-      </div>
 
-      <div class="pi-all">
-        <div class="pi-container">
-          <div class="pi-block">
-            <div class="pi-header">
-              <h5>Full Name</h5>
-              <h4 @click="${() => this.toggleEditMode(0)}">Edit</h4>
-            </div>
-            <div class="pi-content">
-              ${this.editName
-                ? html`<input
-                    class="edit-input"
-                    type="text"
-                    value="${this.profile?.name}"
-                    @change="${(event: KeyboardEvent) =>
-                      this.handleFormChange(0, event)}"
-                  />`
-                : html`<p>${this.profile?.name}</p>`}
-            </div>
-          </div>
-
-          <div class="pi-block">
-            <div class="pi-header">
-              <h5>Username</h5>
-              <h4 @click="${() => this.toggleEditMode(1)}">Edit</h4>
-            </div>
-            <div class="pi-content">
-              ${this.editUsername
-                ? html`<input
-                    class="edit-input"
-                    type="text"
-                    value="${this.profile?.userid}"
-                    @change="${(event: KeyboardEvent) =>
-                      this.handleFormChange(1, event)}"
-                  />`
-                : html`<p>${this.profile?.userid}</p>`}
-            </div>
-          </div>
-
-          <div class="pi-block">
-            <div class="pi-header">
-              <h5>Email Address</h5>
-              <h4 @click="${() => this.toggleEditMode(2)}">Edit</h4>
-            </div>
-            <div class="pi-content">
-              ${this.editEmail
-                ? html`<input
-                    class="edit-input"
-                    type="text"
-                    value="${this.profile?.email}"
-                    @change="${(event: KeyboardEvent) =>
-                      this.handleFormChange(2, event)}"
-                  />`
-                : html`<p>${this.profile?.email}</p>`}
-            </div>
-          </div>
-
-          <div class="pi-block">
-            <div class="pi-header">
-              <h5>Phone Number</h5>
-              <h4 @click="${() => this.toggleEditMode(3)}">Edit</h4>
-            </div>
-            <div class="pi-content">
-              ${this.editPhone
-                ? html`<input
-                    class="edit-input"
-                    type="text"
-                    value="${this.profile?.phone}"
-                    @change="${(event: KeyboardEvent) =>
-                      this.handleFormChange(3, event)}"
-                  />`
-                : html`<p>
-                    ${this.profile?.phone == null || this.profile.phone === ""
-                      ? "Add Phone"
-                      : this.profile.phone}
-                  </p>`}
-            </div>
-          </div>
+    return html`
+      <div class="profile-content">
+        <div class="profile-header">
+          <h4>Account > Personal Info</h4>
+          <h2>Personal Info</h2>
         </div>
 
-        <div class="pi-img">
-          ${this.profile?.picture
-            ? html`<img
-                src="${this.profile?.picture}"
-                alt="Profile"
-                draggable="false"
-                @click="${() => this.toggleEditMode(4)}"
-              />`
-            : html` <img
-                src="/images/empty-pfp.png"
-                alt="Profile"
-                draggable="false"
-                @click="${() => this.toggleEditMode(4)}"
-              />`}
+        <div class="pi-all">
+          <div class="pi-container">
+            <div class="pi-block">
+              <div class="pi-header">
+                <h5>Full Name</h5>
+                <h4 @click="${() => this.toggleEditMode(0)}">Edit</h4>
+              </div>
+              <div class="pi-content">
+                ${this.editName
+                  ? html`<input
+                      class="edit-input"
+                      type="text"
+                      value="${this.profile?.name}"
+                      @change="${(event: KeyboardEvent) =>
+                        this.handleFormChange(0, event)}"
+                    />`
+                  : html`<p>${this.profile?.name}</p>`}
+              </div>
+            </div>
 
-          <p @click="${() => this.toggleEditMode(4)}">Replace</p>
+            <div class="pi-block">
+              <div class="pi-header">
+                <h5>Username</h5>
+                <h4 @click="${() => this.toggleEditMode(1)}">Edit</h4>
+              </div>
+              <div class="pi-content">
+                ${this.editUsername
+                  ? html`<input
+                      class="edit-input"
+                      type="text"
+                      value="${this.profile?.userid}"
+                      @change="${(event: KeyboardEvent) =>
+                        this.handleFormChange(1, event)}"
+                    />`
+                  : html`<p>${this.profile?.userid}</p>`}
+              </div>
+            </div>
+
+            <div class="pi-block">
+              <div class="pi-header">
+                <h5>Email Address</h5>
+                <h4 @click="${() => this.toggleEditMode(2)}">Edit</h4>
+              </div>
+              <div class="pi-content">
+                ${this.editEmail
+                  ? html`<input
+                      class="edit-input"
+                      type="text"
+                      value="${this.profile?.email}"
+                      @change="${(event: KeyboardEvent) =>
+                        this.handleFormChange(2, event)}"
+                    />`
+                  : html`<p>${this.profile?.email}</p>`}
+              </div>
+            </div>
+
+            <div class="pi-block">
+              <div class="pi-header">
+                <h5>Phone Number</h5>
+                <h4 @click="${() => this.toggleEditMode(3)}">Edit</h4>
+              </div>
+              <div class="pi-content">
+                ${this.editPhone
+                  ? html`<input
+                      class="edit-input"
+                      type="text"
+                      value="${this.profile?.phone}"
+                      @change="${(event: KeyboardEvent) =>
+                        this.handleFormChange(3, event)}"
+                    />`
+                  : html`<p>
+                      ${this.profile?.phone == null || this.profile.phone === ""
+                        ? "Add Phone"
+                        : this.profile.phone}
+                    </p>`}
+              </div>
+            </div>
+          </div>
+
+          <div class="pi-img">
+            ${this.profile?.picture
+              ? html`<img
+                  src="${this.profile?.picture}"
+                  alt="Profile"
+                  draggable="false"
+                  @click="${() => this.toggleEditMode(4)}"
+                />`
+              : html` <img
+                  src="/images/empty-pfp.png"
+                  alt="Profile"
+                  draggable="false"
+                  @click="${() => this.toggleEditMode(4)}"
+                />`}
+
+            <p @click="${() => this.toggleEditMode(4)}">Replace</p>
+          </div>
+          <button @click="${() => console.log(this.user)}">Save</button>
         </div>
       </div>
-    </div>`;
+    `;
   }
 
   static styles = css`
@@ -429,38 +444,123 @@ export class UserProfileElement extends LitElement {
   }
 
   _fetchData(path: string) {
-    fetch(serverPath(path))
+    fetch(serverPath(path), {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
       .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        }
+        console.log("Error fetching data", response);
+        return null;
+      })
+      .then((json: unknown) => {
+        if (json) this.profile = json as Profile;
+      })
+      .catch((error) => {
+        console.log("Error fetching data", error);
+      });
+  }
+
+  _getData(path: string) {
+    const request = new APIRequest();
+
+    request
+      .get(path)
+      .then((response: Response) => {
         if (response.status === 200) {
           return response.json();
         }
         return null;
       })
       .then((json: unknown) => {
-        if (json) this.profile = json as Profile;
+        this.profile = json as Profile;
+      })
+      .catch((error) => {
+        console.log("Error fetching data", error);
       });
   }
 
   //   When the element is connected to the DOM, it fetches the data from the server.
-  connectedCallback() {
-    if (this.location) {
-      const pathnameParts = this.location.pathname.split("/");
-      const useridIndex = pathnameParts.indexOf("profile") + 1; // Get the index of the next segment after 'profile'
-      const userid = pathnameParts[useridIndex];
+  // connectedCallback() {
 
-      this.path = `/profiles/${userid}`;
+  //   setTimeout(() => {
+  //     if (this.user && this.user.authenticated === false) {
+  //       // User is not authenticated, redirect to the login page or another page
+  //       Router.go("/app/login"); // Redirect to the login page
+  //       return; // Stop further execution of the callback
+  //     }
+  
+  //     // Continue with your existing logic
+  //     if (this.location) {
+  //       const pathnameParts = this.location.pathname.split("/");
+  //       const useridIndex = pathnameParts.indexOf("profile") + 1; // Get the index of the next segment after 'profile'
+  //       const userid = pathnameParts[useridIndex];
+  
+  //       this.path = `/profiles/${userid}`;
+  //     }
+  
+  //     if (this.path) {
+  //       console.log("Fetching data from", this.path);
+  //       console.log("User", this.user);
+  //       this._getData(this.path);
+  //     }
+  //   }, 0); //delay
+
+  //   super.connectedCallback();
+
+  // }
+
+
+  async connectedCallback() {
+    super.connectedCallback();
+
+    // Wait until the user property is not null
+    await new Promise<void>((resolve) => {
+        const checkUserNotNull = () => {
+            if (this.user !== undefined && this.user !== null) {
+                resolve(); // No value needs to be passed
+            } else {
+                setTimeout(checkUserNotNull, 100); // Check user property every 100 milliseconds
+            }
+        };
+        checkUserNotNull();
+    });
+
+    // After user becomes non-null, continue with data fetching
+    if (this.user && this.user.authenticated === false) {
+        // User is not authenticated, redirect to the login page or another page
+        Router.go("/app/login"); // Redirect to the login page
+        return; // Stop further execution of the callback
+    }
+
+    if (this.location) {
+        const pathnameParts = this.location.pathname.split("/");
+        const useridIndex = pathnameParts.indexOf("profile") + 1; // Get the index of the next segment after 'profile'
+        const userid = pathnameParts[useridIndex];
+
+        this.path = `/profiles/${userid}`;
     }
 
     if (this.path) {
-      console.log("Fetching data from", this.path);
-      this._fetchData(this.path);
+        console.log("Fetching data from", this.path);
+        console.log("User", this.user);
+        this._getData(this.path);
     }
-    super.connectedCallback();
-  }
+}
+
+
+
+
+
+
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
     if (name === "path" && oldValue !== newValue && oldValue) {
-      this._fetchData(newValue);
+      this._getData(newValue);
     }
     super.attributeChangedCallback(name, oldValue, newValue);
   }

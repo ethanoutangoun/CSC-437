@@ -4,14 +4,14 @@ import { Profile } from "../profile";
 const profileSchema = new Schema<Profile>(
   {
     userid: { type: String, required: true, trim: true },
-    name: { type: String, required: true, trim: true },
-    email: { type: String, required: true, trim: true },
+    name: { type: String, trim: true, default: null},
+    email: { type: String, trim: true, default: null},
     phone: { type: String, trim: true, default: null },
     numRecipes: { type: Number, default: 0 },
     followers: { type: Number, default: 0 },
     dateJoined: { type: Date, default: Date.now },
-    picture: { type: Buffer},
-    pictureContentType: { type: String }
+    picture: { type: Buffer, default: null},
+    pictureContentType: { type: String, default: null}
 
   },
   { collection: "user_profiles" }

@@ -33,7 +33,8 @@ function create(profile: Profile): Promise<Profile> {
 
     
     .then(existingEmailProfile => {
-      if (existingEmailProfile) {
+      if (existingEmailProfile?.email != null) {
+        console.log(existingEmailProfile);
         throw new Error("Email already exists");
       } else {
         // If both user ID and email are unique, save the profile

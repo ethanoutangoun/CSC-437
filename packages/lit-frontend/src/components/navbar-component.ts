@@ -1,12 +1,20 @@
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { Router } from "@vaadin/router";
+import { consume } from "@lit/context";
+import { authContext } from "./auth-required";
+import { APIUser } from "./rest.ts";
+
 import "./drop-down.ts";
 
 @customElement("navbar-component")
 export class Navbar extends LitElement {
   @property({ reflect: true, type: Boolean })
   open: boolean = false;
+
+  @consume({ context: authContext, subscribe: true })
+  @property({ attribute: false })
+  user?: APIUser;
 
   render() {
     return html`
@@ -30,11 +38,16 @@ export class Navbar extends LitElement {
           </section>
 
           <div class="right-navbar">
-            <div class="group-icon" @click=${() => Router.go("/app/create")}>
-              <svg class="icon">
-                <use href="/icons/create.svg#create-recipe" />
-              </svg>
-            </div>
+            ${this.user?.authenticated
+              ? html`<div
+                  class="group-icon"
+                  @click=${() => Router.go("/app/create")}
+                >
+                  <svg class="icon">
+                    <use href="/icons/create.svg#create-recipe" />
+                  </svg>
+                </div>`
+              : html``}
 
             <drop-down></drop-down>
           </div>
@@ -54,9 +67,10 @@ export class Navbar extends LitElement {
     .navbar {
       z-index: 2;
       background-color: var(--color-main-bg);
-      padding: 20px 0;
+      padding: 15px 0;
       border-bottom: 1px solid var(--color-border);
       position: fixed;
+      left: 0;
       top: 0;
       width: 100%;
     }
@@ -137,6 +151,7 @@ export class Navbar extends LitElement {
       width: 40px;
       height: 40px;
       stroke: var(--color-primary);
+      stroke-width: 0.8px;
       background-color: inherit;
       fill: none;
       fill-rule: evenodd;
@@ -226,6 +241,10 @@ export class Navbar extends LitElement {
       .navbar-content {
         margin-left: 31px;
         margin-right: 31px;
+      }
+
+      .logo h1 {
+        display: none;
       }
     }
 

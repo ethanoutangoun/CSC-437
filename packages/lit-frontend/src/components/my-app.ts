@@ -1,5 +1,5 @@
 import { Router } from "@vaadin/router";
-import { LitElement, html } from "lit";
+import { LitElement, html, css } from "lit";
 import { customElement } from "lit/decorators.js";
 
 import "./trending-view";
@@ -16,6 +16,7 @@ import "./login-view";
 import "./auth-required";
 import "./signup-view";
 import "./test-component";
+import "./navbar-component";
 
 @customElement("my-app")
 export class MyApp extends LitElement {
@@ -68,9 +69,12 @@ export class MyApp extends LitElement {
     ]);
   }
 
+  static styles = css``;
+
   render() {
     return html`
       <auth-required>
+        <navbar-component></navbar-component>
         <div id="outlet"></div>
       </auth-required>
     `;

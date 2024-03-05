@@ -56,7 +56,11 @@ export class AuthenticatedUser extends APIUser {
     const currentTime = Math.floor(Date.now() / 1000);
     if (jsonPayload.exp && jsonPayload.exp < currentTime) {
       console.log("Token expired");
-      signOut(); // Sign the user out
+      // const TOKEN_KEY = "JWT_AUTH_TOKEN";
+      // console.log("Signing out");
+      // localStorage.removeItem(TOKEN_KEY);
+
+
     } else {
       console.log("Token not expired");
       this.authenticated = true; // Set authenticated to true if token is not expired
@@ -66,6 +70,7 @@ export class AuthenticatedUser extends APIUser {
 
     this.username = jsonPayload.username;
     this.signOut = signOut;
+
   }
 
   static authenticate(token: string, signOut: () => void) {

@@ -140,7 +140,7 @@ export class UserProfileElement extends LitElement {
 
             <p @click="${() => this.toggleEditMode(4)}">Replace</p>
           </div>
-          <button @click="${() => console.log(this.user)}">Log User</button>
+      
         </div>
       </div>
     `;

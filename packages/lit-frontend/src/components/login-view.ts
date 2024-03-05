@@ -63,7 +63,7 @@ export class LoginView extends LitElement {
     event.preventDefault();
     // Handle form submission here
 
-    console.log("Username:", this.username);
+    // console.log("Username:", this.username);
 
     fetch(serverPath(this.path), {
       method: "POST",

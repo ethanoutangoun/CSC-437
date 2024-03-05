@@ -34,10 +34,9 @@ const profiles_1 = __importDefault(require("./profiles"));
 const path = __importStar(require("path"));
 const auth_1 = require("./auth");
 const api_1 = __importDefault(require("./routers/api"));
+const promises_1 = __importDefault(require("fs/promises"));
 const app = (0, express_1.default)();
 const port = process.env.PORT || 3000;
-app.use((0, cors_1.default)());
-app.use(express_1.default.json());
 let dist;
 let frontend;
 try {
@@ -46,21 +45,17 @@ try {
     console.log("Serving lit-frontend from", dist);
 }
 catch (error) {
-    console.log("Cannot find static assets in lit-frontend", dist, error.code);
+    console.log("Cannot find static assets in lit-frontend", error.code);
 }
+app.use((0, cors_1.default)());
+app.use(express_1.default.json());
+(0, mongoConnect_1.connect)("cooked");
+if (dist)
+    app.use(express_1.default.static(dist));
+// BACKEND ROUTES
 app.post("/api/login", auth_1.loginUser);
 app.post("/api/signup", auth_1.registerUser);
-(0, mongoConnect_1.connect)("cooked");
-// BACKEND ROUTES
 app.use("/api", api_1.default);
-// app.use("/api/profiles", profileRouter);
-// app.get("/api/profiles/:userid", (req: Request, res: Response) => {
-//   const { userid } = req.params;
-//   profiles
-//     .get(userid)
-//     .then((profile: Profile) => res.json(profile))
-//     .catch((err) => res.status(404).end());
-// });
 app.post("/api/profiles", (req, res) => {
     const newProfile = req.body;
     profiles_1.default
@@ -75,6 +70,18 @@ app.put("/api/profiles/:userid", (req, res) => {
         .update(userid, newProfile)
         .then((profile) => res.json(profile))
         .catch((err) => res.status(404).end());
+});
+// SPA routes ignore parameters when locating index.html
+app.use("/:spa(app)", (req, res) => {
+    const { spa } = req.params;
+    if (!dist) {
+        res.status(404).send("Not found; frontend module not loaded");
+    }
+    else {
+        const indexHtml = path.resolve(dist, spa, "index.html");
+        promises_1.default.readFile(indexHtml, { encoding: "utf8" }).then((html) => res.send(html));
+        console.log("Sent SPA from", indexHtml);
+    }
 });
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);

@@ -1,22 +1,31 @@
 import { css, html, LitElement } from "lit";
-import { customElement } from "lit/decorators.js";
+import { customElement, property } from "lit/decorators.js";
 import { Router } from "@vaadin/router";
+import { APIUser } from "./rest";
+import "./auth-required";
+import { consume } from "@lit/context";
+import { authContext } from "./auth-required";
 
 @customElement("account-view")
 export class AccountView extends LitElement {
+  @consume({ context: authContext, subscribe: true })
+  @property({ attribute: false })
+  user?: APIUser;
+
   render() {
     return html`
       <div class="profile-content">
         <div class="profile-header">
           <h2>Account</h2>
           <div class="inline">
-            <p>Ethan Outangoun, ethanoutangoun@gmail.com · Go to </p>
-            <p class = "link" @click= ${()=> Router.go("/app/user/1")}> Profile</p>
+            ${this.user?.username ? html`<p>${this.user.username}</p>` : html``}
+            <p>· Go to</p>
+            <p class="link" @click=${() => Router.go("/app/user/1")}>Profile</p>
           </div>
         </div>
 
         <div class="profile-tabs">
-          <div @click=${() => Router.go("/app/profile/ethanoutangoun")}>
+          <div @click=${() => Router.go("/app/profile/" + this.user?.username)}>
             <img src="/icons/profile.svg" alt="profile-icon" />
             <h3>Personal Info</h3>
             <p>Personal Details and Account information</p>
@@ -46,6 +55,7 @@ export class AccountView extends LitElement {
       }
 
       .inline {
+        margin-top: 10px;
         display: flex;
         gap: 5px;
       }
@@ -120,11 +130,11 @@ export class AccountView extends LitElement {
         cursor: pointer;
       }
 
-      .link{
+      .link {
         text-decoration: underline;
       }
 
-      .link:hover{
+      .link:hover {
         cursor: pointer;
       }
     `,

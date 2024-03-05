@@ -1,7 +1,6 @@
 const API_ROOT = "http://localhost:3000/api";
 
 export function serverPath(path: string) {
-
   return `${API_ROOT}${path}`;
 }
 
@@ -29,11 +28,7 @@ export class APIUser {
 
     return anon;
   }
-
-
 }
-
-
 
 export class AuthenticatedUser extends APIUser {
   token: string | undefined;
@@ -41,18 +36,13 @@ export class AuthenticatedUser extends APIUser {
   constructor(token: string, signOut: () => void) {
     super();
     const base64Url = token.split(".")[1];
-    const base64 = base64Url
-      .replace(/-/g, "+")
-      .replace(/_/g, "/");
+    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
     const payload = decodeURIComponent(
       window
         .atob(base64)
         .split("")
         .map(function (c) {
-          return (
-            "%" +
-            ("00" + c.charCodeAt(0).toString(16)).slice(-2)
-          );
+          return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
         })
         .join("")
     );
@@ -60,7 +50,20 @@ export class AuthenticatedUser extends APIUser {
 
     console.log("Token payload", jsonPayload);
     this.token = token;
-    this.authenticated = true;
+    this.authenticated = false;
+
+    // Check if token is expired
+    const currentTime = Math.floor(Date.now() / 1000);
+    if (jsonPayload.exp && jsonPayload.exp < currentTime) {
+      console.log("Token expired");
+      signOut(); // Sign the user out
+    } else {
+      console.log("Token not expired");
+      this.authenticated = true; // Set authenticated to true if token is not expired
+      this.username = jsonPayload.username;
+      this.signOut = signOut;
+    }
+
     this.username = jsonPayload.username;
     this.signOut = signOut;
   }
@@ -97,7 +100,7 @@ export class JSONRequest {
   get(endpoint: string): Promise<Response> {
     return fetch(this._url(endpoint), {
       headers: this._headers(),
-      body: this.json && JSON.stringify(this.json)
+      body: this.json && JSON.stringify(this.json),
     });
   }
 
@@ -105,7 +108,7 @@ export class JSONRequest {
     return fetch(this._url(endpoint), {
       method: "POST",
       headers: this._headers(),
-      body: this.json && JSON.stringify(this.json)
+      body: this.json && JSON.stringify(this.json),
     });
   }
 
@@ -113,7 +116,7 @@ export class JSONRequest {
     return fetch(this._url(endpoint), {
       method: "PUT",
       headers: this._headers(),
-      body: this.json && JSON.stringify(this.json)
+      body: this.json && JSON.stringify(this.json),
     });
   }
 
@@ -123,10 +126,9 @@ export class JSONRequest {
     const contentType = { "Content-Type": "application/json" };
 
     if (isAuthenticated) {
-      const token = (APIUser._theUser as AuthenticatedUser)
-        .token;
+      const token = (APIUser._theUser as AuthenticatedUser).token;
       const authorization = {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       };
       if (hasBody) return { ...contentType, ...authorization };
       else return authorization;

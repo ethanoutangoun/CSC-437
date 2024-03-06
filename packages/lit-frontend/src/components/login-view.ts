@@ -31,29 +31,48 @@ export class LoginView extends LitElement {
 
   render() {
     return html`
-      <div login-content>
-        <div class="login-header">
-          <h2>Login</h2>
+      <div class="login-content">
+        <div class="image-display">
+          <img src="/images/chef-avatar.png" alt="food" />
         </div>
 
         <div class="login-form">
-          <form @submit=${this.handleSubmit} @change=${() => (this.loginStatus = 0)}>
-            <input
-              type="text"
-              .value=${this.username}
-              @input=${this.handleUsernameChange}
-              required
-            />
-            <input
-              type="password"
-              .value=${this.password}
-              @input=${this.handlePasswordChange}
-              required
-            />
-            <button type="submit">Submit</button>
-          </form>
 
-          <p>${this.loginStatus ? `Login failed: ${this.loginStatus}` : ""}</p>
+          <div class="align">
+
+            <p class= "back" @click = ${()=>Router.go('/app/')}><- Back to Home</p>
+            <h1>Log In</h1>
+
+            <form
+              @submit=${this.handleSubmit}
+              @change=${() => (this.loginStatus = 0)}
+            >
+              <input
+                type="text"
+                .value=${this.username}
+                @input=${this.handleUsernameChange}
+                placeholder="Username"
+                required
+              />
+              <input
+                type="password"
+                .value=${this.password}
+                @input=${this.handlePasswordChange}
+                placeholder="Password"
+                required
+              />
+              <button type="submit">Sign In</button>
+            </form>
+
+            <p class="fail">
+              ${this.loginStatus ? `Login failed: ${this.loginStatus}` : html``}
+            </p>
+
+            <div class="register-link">
+              <p>Don't have an account?</p>
+              <p @click=${() => Router.go("/app/signup")}>Register</p>
+            </div>
+          </div>
         </div>
       </div>
     `;
@@ -119,5 +138,130 @@ export class LoginView extends LitElement {
     document.location.reload();
   }
 
-  static styles = css``;
+  static styles = css`
+    * {
+      font-family: "Raleway", sans-serif;
+      padding: 0;
+      margin: 0;
+      background-color: var(--color-main-bg);
+      box-sizing: border-box;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+    
+    .back {
+      font-size: 0.8rem;
+      color: var(--color-primary);
+      cursor: pointer;
+    }
+
+    .fail {
+      font-size: 0.8rem;
+
+      color: red;
+    }
+
+    .login-content {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 2fr 3fr;
+      z-index: 100;
+      align-items: stretch;
+      height: 100vh;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    form input {
+      width: 400px;
+      height: 50px;
+      padding: 10px;
+      border: none;
+      background-color: var(--color-login-input-bg);
+      border-radius: 10px;
+    }
+
+    form button {
+      width: 400px;
+      height: 50px;
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      background-color: var(--color-login-button-bg);
+      color: white;
+    }
+
+    .login-form {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .align {
+      height: 100%;
+      display: flex;
+      gap: 20px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .image-display {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+    }
+
+    .image-display img {
+      width: 400px;
+      height: auto;
+      object-fit: cover;
+      transform: translateX(100px);
+    }
+
+    .register-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .register-link p:last-child {
+      font-weight: 500;
+    }
+
+    .register-link p:last-child:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    @media (max-width: 988px) {
+      .image-display img {
+        height: 0;
+        display: none;
+      }
+
+      .login-content {
+        grid-template-columns: 1fr;
+      }
+
+      .login-form {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+      }
+    }
+  `;
 }

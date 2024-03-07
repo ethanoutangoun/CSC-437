@@ -25,11 +25,9 @@ export class SignUpView extends LitElement {
 
   render() {
     return html`<div class="login-content">
-
-
-      ${this.windowWidth > 700 ? html`<div class="image-display">
+      <div class="image-display">
         <img src="/images/chef-avatar.png" alt="food" />
-      </div>` : ""}
+      </div>
 
       <div class="login-form">
         <div class="align">
@@ -239,12 +237,10 @@ export class SignUpView extends LitElement {
       form input {
         width: 350px;
         font-size: 16px;
-
       }
     }
 
     @media (max-width: 500px) {
-      
       form button {
         width: 320px;
       }
@@ -252,7 +248,6 @@ export class SignUpView extends LitElement {
       form input {
         width: 320px;
         font-size: 14px;
-
       }
     }
   `;

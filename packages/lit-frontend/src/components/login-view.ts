@@ -37,10 +37,10 @@ export class LoginView extends LitElement {
         </div>
 
         <div class="login-form">
-
           <div class="align">
-
-            <p class= "back" @click = ${()=>Router.go('/app/')}><- Back to Home</p>
+            <p class="back" @click=${() => Router.go("/app/")}>
+              <- Back to Home
+            </p>
             <h1>Log In</h1>
 
             <form
@@ -70,7 +70,7 @@ export class LoginView extends LitElement {
 
             <div class="register-link">
               <p>Don't have an account?</p>
-              <p @click=${() => Router.go("/app/signup")}>Register</p>
+              <p @click=${() => Router.go("/app/signup")}>Register↗</p>
             </div>
           </div>
         </div>
@@ -148,9 +148,10 @@ export class LoginView extends LitElement {
     }
 
     h1 {
+      color: var(--color-primary);
       font-size: 2rem;
     }
-    
+
     .back {
       font-size: 0.8rem;
       color: var(--color-primary);
@@ -224,7 +225,7 @@ export class LoginView extends LitElement {
     }
 
     .image-display img {
-      width: 400px;
+      width: 600px;
       height: auto;
       object-fit: cover;
       transform: translateX(100px);
@@ -234,6 +235,7 @@ export class LoginView extends LitElement {
       display: flex;
       align-items: center;
       justify-content: center;
+      color: var(--color-primary);
       gap: 5px;
     }
 

@@ -55,7 +55,7 @@ export class SignUpView extends LitElement {
     
           <div class="register-link">
             <p>Already have an account?</p>
-            <p @click=${() => Router.go("/app/login")}>Log In</p>
+            <p @click=${() => Router.go("/app/login")}>Log In↗</p>
           </div>
         </div>
       </div>
@@ -108,6 +108,7 @@ export class SignUpView extends LitElement {
     }
 
     h1 {
+      color: var(--color-primary);
       font-size: 2rem;
     }
     
@@ -184,7 +185,7 @@ export class SignUpView extends LitElement {
     }
 
     .image-display img {
-      width: 400px;
+      width: 600px;
       height: auto;
       object-fit: cover;
       transform: translateX(100px);
@@ -194,6 +195,7 @@ export class SignUpView extends LitElement {
       display: flex;
       align-items: center;
       justify-content: center;
+      color: var(--color-primary);
       gap: 5px;
     }
 
@@ -206,7 +208,7 @@ export class SignUpView extends LitElement {
       cursor: pointer;
     }
 
-    @media (max-width: 988px) {
+    @media (max-width: 1283px) {
       .image-display img {
         height: 0;
         display: none;

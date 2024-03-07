@@ -54,7 +54,7 @@ export class SignUpView extends LitElement {
 
           <div class="register-link">
             <p>Already have an account?</p>
-            <p @click=${() => Router.go("/app/login")}>Log In↗</p>
+            <p @click=${() => Router.go("/app/login")}>Log In</p>
           </div>
         </div>
       </div>

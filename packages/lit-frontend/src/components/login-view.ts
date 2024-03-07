@@ -70,7 +70,7 @@ export class LoginView extends LitElement {
 
             <div class="register-link">
               <p>Don't have an account?</p>
-              <p @click=${() => Router.go("/app/signup")}>Register↗</p>
+              <p @click=${() => Router.go("/app/signup")}>Register</p>
             </div>
           </div>
         </div>
@@ -266,7 +266,6 @@ export class LoginView extends LitElement {
       }
     }
 
-
     @media (max-width: 768px) {
       .login-form {
         padding: 100px;
@@ -279,12 +278,10 @@ export class LoginView extends LitElement {
       form input {
         width: 350px;
         font-size: 16px;
-
       }
     }
 
     @media (max-width: 500px) {
-      
       form button {
         width: 320px;
       }
@@ -292,13 +289,11 @@ export class LoginView extends LitElement {
       form input {
         width: 320px;
         font-size: 14px;
-
       }
 
-      .login-content{
+      .login-content {
         height: 80vh;
       }
-      
     }
   `;
 }

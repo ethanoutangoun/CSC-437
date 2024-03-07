@@ -1,5 +1,5 @@
 import { css, html, LitElement } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { customElement, property, state } from "lit/decorators.js";
 import { serverPath } from "./rest";
 import { Router } from "@vaadin/router";
 
@@ -14,6 +14,9 @@ export class SignUpView extends LitElement {
   @property({ reflect: true, type: Boolean })
   username: string = "";
 
+  @state()
+  windowWidth: number = window.innerWidth;
+
   constructor() {
     super();
     this.username = "";
@@ -22,9 +25,11 @@ export class SignUpView extends LitElement {
 
   render() {
     return html`<div class="login-content">
-      <div class="image-display">
+
+
+      ${this.windowWidth > 700 ? html`<div class="image-display">
         <img src="/images/chef-avatar.png" alt="food" />
-      </div>
+      </div>` : ""}
 
       <div class="login-form">
         <div class="align">
@@ -129,7 +134,7 @@ export class SignUpView extends LitElement {
       grid-template-columns: 2fr 3fr;
       z-index: 100;
       align-items: stretch;
-      height: 100vh;
+      height: calc(100vh - 20px);
     }
 
     form {
@@ -184,7 +189,7 @@ export class SignUpView extends LitElement {
       width: 600px;
       height: auto;
       object-fit: cover;
-      transform: translateX(100px);
+      transform: translate(100px, 20px);
     }
 
     .register-link {
@@ -233,6 +238,20 @@ export class SignUpView extends LitElement {
 
       form input {
         width: 350px;
+        font-size: 16px;
+
+      }
+    }
+
+    @media (max-width: 500px) {
+      
+      form button {
+        width: 320px;
+      }
+
+      form input {
+        width: 320px;
+        font-size: 14px;
 
       }
     }

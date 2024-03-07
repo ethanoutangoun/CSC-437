@@ -248,7 +248,7 @@ export class LoginView extends LitElement {
       cursor: pointer;
     }
 
-    @media (max-width: 988px) {
+    @media (max-width: 1283px) {
       .image-display img {
         height: 0;
         display: none;
@@ -263,6 +263,36 @@ export class LoginView extends LitElement {
         top: 0;
         left: 0;
         width: 100%;
+      }
+    }
+
+
+    @media (max-width: 768px) {
+      .login-form {
+        padding: 100px;
+      }
+
+      form button {
+        width: 350px;
+      }
+
+      form input {
+        width: 350px;
+        font-size: 16px;
+
+      }
+    }
+
+    @media (max-width: 500px) {
+      
+      form button {
+        width: 320px;
+      }
+
+      form input {
+        width: 320px;
+        font-size: 14px;
+
       }
     }
   `;

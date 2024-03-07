@@ -233,6 +233,7 @@ export class SignUpView extends LitElement {
 
       form input {
         width: 350px;
+
       }
     }
   `;

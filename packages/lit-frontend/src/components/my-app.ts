@@ -36,7 +36,7 @@ export class MyApp extends LitElement {
 
       {
         path: "/app/",
-        component: "trending-view"
+        component: "signup-view"
       },
 
       { path: "/app/account", component: "account-view" },

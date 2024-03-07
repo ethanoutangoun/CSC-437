@@ -31,10 +31,7 @@ export class SignUpView extends LitElement {
           <p class="back" @click=${() => Router.go("/app/")}><- Back to Home</p>
           <h1>Sign Up</h1>
 
-          <form
-            @submit=${this.handleSubmit}
-          
-          >
+          <form @submit=${this.handleSubmit}>
             <input
               type="text"
               .value=${this.username}
@@ -52,10 +49,9 @@ export class SignUpView extends LitElement {
             <button type="submit">Sign In</button>
           </form>
 
-    
           <div class="register-link">
             <p>Already have an account?</p>
-            <p @click=${() => Router.go("/app/login")}>Log In</p>
+            <p @click=${() => Router.go("/app/login")}>Log In↗</p>
           </div>
         </div>
       </div>
@@ -108,9 +104,10 @@ export class SignUpView extends LitElement {
     }
 
     h1 {
+      color: var(--color-primary);
       font-size: 2rem;
     }
-    
+
     .back {
       font-size: 0.8rem;
       color: var(--color-primary);
@@ -184,7 +181,7 @@ export class SignUpView extends LitElement {
     }
 
     .image-display img {
-      width: 400px;
+      width: 600px;
       height: auto;
       object-fit: cover;
       transform: translateX(100px);
@@ -194,6 +191,7 @@ export class SignUpView extends LitElement {
       display: flex;
       align-items: center;
       justify-content: center;
+      color: var(--color-primary);
       gap: 5px;
     }
 
@@ -206,7 +204,7 @@ export class SignUpView extends LitElement {
       cursor: pointer;
     }
 
-    @media (max-width: 988px) {
+    @media (max-width: 1283px) {
       .image-display img {
         height: 0;
         display: none;
@@ -221,6 +219,20 @@ export class SignUpView extends LitElement {
         top: 0;
         left: 0;
         width: 100%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .login-form {
+        padding: 100px;
+      }
+
+      form button {
+        width: 350px;
+      }
+
+      form input {
+        width: 350px;
       }
     }
   `;

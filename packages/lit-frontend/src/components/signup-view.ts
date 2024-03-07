@@ -249,6 +249,10 @@ export class SignUpView extends LitElement {
         width: 320px;
         font-size: 14px;
       }
+
+      .login-content{
+        height: 80vh;
+      }
     }
   `;
 }

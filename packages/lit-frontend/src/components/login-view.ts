@@ -61,7 +61,7 @@ export class LoginView extends LitElement {
                 placeholder="Password"
                 required
               />
-              <button type="submit">Sign In</button>
+              <button type="submit">Log In</button>
             </form>
 
             <p class="fail">
@@ -291,9 +291,7 @@ export class LoginView extends LitElement {
         font-size: 14px;
       }
 
-      .login-content {
-        height: 80vh;
-      }
+     
     }
   `;
 }

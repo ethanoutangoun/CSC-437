@@ -4,6 +4,10 @@
   "description": "hello",
   "main": "index.js",
   "scripts": {
+    "build:frontend": "npm run -w lit-frontend build",
+    "deploy": "npm run build:frontend && npm run start:backend",
+    "start:frontend": "npm -w lit-frontend run dev",
+    "start:backend": "npm -w express-backend run start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

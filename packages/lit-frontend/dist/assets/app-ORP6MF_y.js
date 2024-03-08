@@ -544,6 +544,86 @@
       }
     }
   `;Xt([y({reflect:!0,type:Boolean})],we.prototype,"sorted",2);we=Xt([b("recipe-grid")],we);var ur=Object.defineProperty,gr=Object.getOwnPropertyDescriptor,Yt=(i,e,t,o)=>{for(var r=o>1?void 0:o?gr(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&ur(e,t,r),r};let $e=class extends m{constructor(){super(...arguments),this.open=!1}render(){return h`
+      <footer>
+        <p>© 2024 Ethan Outangoun</p>
+      </footer>
+    `}};$e.styles=x`
+
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  footer {
+    position: absolute;
+    left: 0;
+    width: 100vw;
+    border-top: 1px solid var(--color-border);
+    color: var(--color-primary);
+    padding: 20px; /* Padding inside the footer */
+    padding-left: 80px;
+    padding-right: 80px;
+    margin-top: 60px;
+  }
+  
+  footer p {
+    font-size: 14px;
+  }
+  
+  @media screen and (max-width: 800px) {
+    .content {
+      margin-left: 50px;
+      margin-right: 50px;
+    }
+  
+    .navbar-content {
+      margin-left: 50px;
+      margin-right: 50px;
+    }
+  
+    .recipe-list {
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    }
+  
+    footer {
+      padding-left: 50px;
+      padding-right: 50px;
+    }
+  }
+  
+  @media screen and (max-width: 600px) {
+    .recipe-list {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+  }
+  
+  @media screen and (max-width: 500px) {
+    .content {
+      margin-left: 31px;
+      margin-right: 31px;
+    }
+  
+    .navbar-content {
+      margin-left: 31px;
+      margin-right: 31px;
+    }
+  
+    .group-icon {
+      display: none;
+    }
+  
+    .recipe-list {
+      grid-template-columns: 1fr;
+    }
+  
+    footer {
+      padding-left: 31px;
+      padding-right: 31px;
+    }
+  }
+  
+  `;Yt([y({reflect:!0,type:Boolean})],$e.prototype,"open",2);$e=Yt([b("footer-component")],$e);var fr=Object.defineProperty,mr=Object.getOwnPropertyDescriptor,Qt=(i,e,t,o)=>{for(var r=o>1?void 0:o?mr(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&fr(e,t,r),r};let Pe=class extends m{constructor(){super(...arguments),this.open=!1}render(){return h`
       <div>
   
         <category-list></category-list>
@@ -552,8 +632,10 @@
 
           <recipe-grid></recipe-grid>
         </section>
+
+        <footer-component></footer-component>
       </div>
-    `}};$e.styles=x`
+    `}};Pe.styles=x`
     * {
       margin: 0;
       padding: 0;
@@ -570,11 +652,11 @@
       color: var(--color-primary);
       margin-bottom: 10px;
     }
-  `;Yt([y({reflect:!0,type:Boolean})],$e.prototype,"open",2);$e=Yt([b("trending-view")],$e);const fr="http://localhost:3000/api";function tt(i){return`${fr}${i}`}const mr=window.location.origin,vr="/api",Fe="JWT_AUTH_TOKEN",S=class S{constructor(){this.authenticated=!1,this.username="fellow_traveler",this.signOut=()=>{}}static deauthenticate(e){const t=new S;return console.log("Deauthenticating",e,S._theUser),e===S._theUser&&(localStorage.removeItem(Fe),S._theUser=t),console.log("Deauthenticated",S._theUser),t}};S._theUser=new S;let O=S;class D extends O{constructor(e,t){super();const r=e.split(".")[1].replace(/-/g,"+").replace(/_/g,"/"),n=decodeURIComponent(window.atob(r).split("").map(function(a){return"%"+("00"+a.charCodeAt(0).toString(16)).slice(-2)}).join("")),s=JSON.parse(n);console.log("Token payload",s),this.token=e,this.authenticated=!1;const c=Math.floor(Date.now()/1e3);s.exp&&s.exp<c?console.log("Token expired"):(console.log("Token not expired"),this.authenticated=!0,this.username=s.username,this.signOut=t),this.username=s.username,this.signOut=t}static authenticate(e,t){return O._theUser=new D(e,t),localStorage.setItem(Fe,e),O._theUser}static authenticateFromLocalStorage(e){const t=localStorage.getItem(Fe);return t?D.authenticate(t,e):O._theUser}}class it{constructor(e){this._base=vr,this.json=e}base(e=""){return this._base=e,this}get(e){return fetch(this._url(e),{headers:this._headers(),body:this.json&&JSON.stringify(this.json)})}post(e){return fetch(this._url(e),{method:"POST",headers:this._headers(),body:this.json&&JSON.stringify(this.json)})}put(e){return fetch(this._url(e),{method:"PUT",headers:this._headers(),body:this.json&&JSON.stringify(this.json)})}_headers(){const e=this.json!==void 0,t=O._theUser.authenticated,o={"Content-Type":"application/json"};if(t){const n={Authorization:`Bearer ${O._theUser.token}`};return e?{...o,...n}:n}else return e?{...o}:void 0}_url(e){return`${mr}${this._base}${e}`}}class St extends it{constructor(e){super(Object.fromEntries(e))}}class br extends it{constructor(){super(void 0)}}/**
+  `;Qt([y({reflect:!0,type:Boolean})],Pe.prototype,"open",2);Pe=Qt([b("trending-view")],Pe);const vr="http://localhost:3000/api";function tt(i){return`${vr}${i}`}const br=window.location.origin,xr="/api",Fe="JWT_AUTH_TOKEN",S=class S{constructor(){this.authenticated=!1,this.username="fellow_traveler",this.signOut=()=>{}}static deauthenticate(e){const t=new S;return console.log("Deauthenticating",e,S._theUser),e===S._theUser&&(localStorage.removeItem(Fe),S._theUser=t),console.log("Deauthenticated",S._theUser),t}};S._theUser=new S;let O=S;class D extends O{constructor(e,t){super();const r=e.split(".")[1].replace(/-/g,"+").replace(/_/g,"/"),n=decodeURIComponent(window.atob(r).split("").map(function(a){return"%"+("00"+a.charCodeAt(0).toString(16)).slice(-2)}).join("")),s=JSON.parse(n);console.log("Token payload",s),this.token=e,this.authenticated=!1;const c=Math.floor(Date.now()/1e3);s.exp&&s.exp<c?console.log("Token expired"):(console.log("Token not expired"),this.authenticated=!0,this.username=s.username,this.signOut=t),this.username=s.username,this.signOut=t}static authenticate(e,t){return O._theUser=new D(e,t),localStorage.setItem(Fe,e),O._theUser}static authenticateFromLocalStorage(e){const t=localStorage.getItem(Fe);return t?D.authenticate(t,e):O._theUser}}class it{constructor(e){this._base=xr,this.json=e}base(e=""){return this._base=e,this}get(e){return fetch(this._url(e),{headers:this._headers(),body:this.json&&JSON.stringify(this.json)})}post(e){return fetch(this._url(e),{method:"POST",headers:this._headers(),body:this.json&&JSON.stringify(this.json)})}put(e){return fetch(this._url(e),{method:"PUT",headers:this._headers(),body:this.json&&JSON.stringify(this.json)})}_headers(){const e=this.json!==void 0,t=O._theUser.authenticated,o={"Content-Type":"application/json"};if(t){const n={Authorization:`Bearer ${O._theUser.token}`};return e?{...o,...n}:n}else return e?{...o}:void 0}_url(e){return`${br}${this._base}${e}`}}class St extends it{constructor(e){super(Object.fromEntries(e))}}class yr extends it{constructor(){super(void 0)}}/**
  * @license
  * Copyright 2021 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */let Qt=class extends Event{constructor(e,t,o){super("context-request",{bubbles:!0,composed:!0}),this.context=e,this.callback=t,this.subscribe=o??!1}};/**
+ */let Zt=class extends Event{constructor(e,t,o){super("context-request",{bubbles:!0,composed:!0}),this.context=e,this.callback=t,this.subscribe=o??!1}};/**
  * @license
  * Copyright 2021 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
@@ -582,23 +664,23 @@
  * @license
  * Copyright 2021 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */let Ct=class{constructor(e,t,o,r){if(this.subscribe=!1,this.provided=!1,this.value=void 0,this.t=(n,s)=>{this.unsubscribe&&(this.unsubscribe!==s&&(this.provided=!1,this.unsubscribe()),this.subscribe||this.unsubscribe()),this.value=n,this.host.requestUpdate(),this.provided&&!this.subscribe||(this.provided=!0,this.callback&&this.callback(n,s)),this.unsubscribe=s},this.host=e,t.context!==void 0){const n=t;this.context=n.context,this.callback=n.callback,this.subscribe=n.subscribe??!1}else this.context=t,this.callback=o,this.subscribe=r??!1;this.host.addController(this)}hostConnected(){this.dispatchRequest()}hostDisconnected(){this.unsubscribe&&(this.unsubscribe(),this.unsubscribe=void 0)}dispatchRequest(){this.host.dispatchEvent(new Qt(this.context,this.t,this.subscribe))}};/**
+ */let Ct=class{constructor(e,t,o,r){if(this.subscribe=!1,this.provided=!1,this.value=void 0,this.t=(n,s)=>{this.unsubscribe&&(this.unsubscribe!==s&&(this.provided=!1,this.unsubscribe()),this.subscribe||this.unsubscribe()),this.value=n,this.host.requestUpdate(),this.provided&&!this.subscribe||(this.provided=!0,this.callback&&this.callback(n,s)),this.unsubscribe=s},this.host=e,t.context!==void 0){const n=t;this.context=n.context,this.callback=n.callback,this.subscribe=n.subscribe??!1}else this.context=t,this.callback=o,this.subscribe=r??!1;this.host.addController(this)}hostConnected(){this.dispatchRequest()}hostDisconnected(){this.unsubscribe&&(this.unsubscribe(),this.unsubscribe=void 0)}dispatchRequest(){this.host.dispatchEvent(new Zt(this.context,this.t,this.subscribe))}};/**
  * @license
  * Copyright 2021 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */class xr{get value(){return this.o}set value(e){this.setValue(e)}setValue(e,t=!1){const o=t||!Object.is(e,this.o);this.o=e,o&&this.updateObservers()}constructor(e){this.subscriptions=new Map,this.updateObservers=()=>{for(const[t,{disposer:o}]of this.subscriptions)t(this.o,o)},e!==void 0&&(this.value=e)}addCallback(e,t,o){if(!o)return void e(this.value);this.subscriptions.has(e)||this.subscriptions.set(e,{disposer:()=>{this.subscriptions.delete(e)},consumerHost:t});const{disposer:r}=this.subscriptions.get(e);e(this.value,r)}clearCallbacks(){this.subscriptions.clear()}}/**
+ */class _r{get value(){return this.o}set value(e){this.setValue(e)}setValue(e,t=!1){const o=t||!Object.is(e,this.o);this.o=e,o&&this.updateObservers()}constructor(e){this.subscriptions=new Map,this.updateObservers=()=>{for(const[t,{disposer:o}]of this.subscriptions)t(this.o,o)},e!==void 0&&(this.value=e)}addCallback(e,t,o){if(!o)return void e(this.value);this.subscriptions.has(e)||this.subscriptions.set(e,{disposer:()=>{this.subscriptions.delete(e)},consumerHost:t});const{disposer:r}=this.subscriptions.get(e);e(this.value,r)}clearCallbacks(){this.subscriptions.clear()}}/**
  * @license
  * Copyright 2021 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */let yr=class extends Event{constructor(e){super("context-provider",{bubbles:!0,composed:!0}),this.context=e}};class Rt extends xr{constructor(e,t,o){var r,n;super(t.context!==void 0?t.initialValue:o),this.onContextRequest=s=>{const c=s.composedPath()[0];s.context===this.context&&c!==this.host&&(s.stopPropagation(),this.addCallback(s.callback,c,s.subscribe))},this.onProviderRequest=s=>{const c=s.composedPath()[0];if(s.context!==this.context||c===this.host)return;const a=new Set;for(const[l,{consumerHost:p}]of this.subscriptions)a.has(l)||(a.add(l),p.dispatchEvent(new Qt(this.context,l,!0)));s.stopPropagation()},this.host=e,t.context!==void 0?this.context=t.context:this.context=t,this.attachListeners(),(n=(r=this.host).addController)==null||n.call(r,this)}attachListeners(){this.host.addEventListener("context-request",this.onContextRequest),this.host.addEventListener("context-provider",this.onProviderRequest)}hostConnected(){this.host.dispatchEvent(new yr(this.context))}}/**
+ */let wr=class extends Event{constructor(e){super("context-provider",{bubbles:!0,composed:!0}),this.context=e}};class Rt extends _r{constructor(e,t,o){var r,n;super(t.context!==void 0?t.initialValue:o),this.onContextRequest=s=>{const c=s.composedPath()[0];s.context===this.context&&c!==this.host&&(s.stopPropagation(),this.addCallback(s.callback,c,s.subscribe))},this.onProviderRequest=s=>{const c=s.composedPath()[0];if(s.context!==this.context||c===this.host)return;const a=new Set;for(const[l,{consumerHost:p}]of this.subscriptions)a.has(l)||(a.add(l),p.dispatchEvent(new Zt(this.context,l,!0)));s.stopPropagation()},this.host=e,t.context!==void 0?this.context=t.context:this.context=t,this.attachListeners(),(n=(r=this.host).addController)==null||n.call(r,this)}attachListeners(){this.host.addEventListener("context-request",this.onContextRequest),this.host.addEventListener("context-provider",this.onProviderRequest)}hostConnected(){this.host.dispatchEvent(new wr(this.context))}}/**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */function _r({context:i}){return(e,t)=>{const o=new WeakMap;if(typeof t=="object")return t.addInitializer(function(){o.set(this,new Rt(this,{context:i}))}),{get(){return e.get.call(this)},set(r){var n;return(n=o.get(this))==null||n.setValue(r),e.set.call(this,r)},init(r){var n;return(n=o.get(this))==null||n.setValue(r),r}};{e.constructor.addInitializer(s=>{o.set(s,new Rt(s,{context:i}))});const r=Object.getOwnPropertyDescriptor(e,t);let n;if(r===void 0){const s=new WeakMap;n={get:function(){return s.get(this)},set:function(c){o.get(this).setValue(c),s.set(this,c)},configurable:!0,enumerable:!0}}else{const s=r.set;n={...r,set:function(c){o.get(this).setValue(c),s==null||s.call(this,c)}}}return void Object.defineProperty(e,t,n)}}}/**
+ */function $r({context:i}){return(e,t)=>{const o=new WeakMap;if(typeof t=="object")return t.addInitializer(function(){o.set(this,new Rt(this,{context:i}))}),{get(){return e.get.call(this)},set(r){var n;return(n=o.get(this))==null||n.setValue(r),e.set.call(this,r)},init(r){var n;return(n=o.get(this))==null||n.setValue(r),r}};{e.constructor.addInitializer(s=>{o.set(s,new Rt(s,{context:i}))});const r=Object.getOwnPropertyDescriptor(e,t);let n;if(r===void 0){const s=new WeakMap;n={get:function(){return s.get(this)},set:function(c){o.get(this).setValue(c),s.set(this,c)},configurable:!0,enumerable:!0}}else{const s=r.set;n={...r,set:function(c){o.get(this).setValue(c),s==null||s.call(this,c)}}}return void Object.defineProperty(e,t,n)}}}/**
  * @license
  * Copyright 2022 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */function rt({context:i,subscribe:e}){return(t,o)=>{typeof o=="object"?o.addInitializer(function(){new Ct(this,{context:i,callback:r=>{this[o.name]=r},subscribe:e})}):t.constructor.addInitializer(r=>{new Ct(r,{context:i,callback:n=>{r[o]=n},subscribe:e})})}}var wr=Object.defineProperty,$r=Object.getOwnPropertyDescriptor,Ce=(i,e,t,o)=>{for(var r=o>1?void 0:o?$r(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&wr(e,t,r),r};let Re="auth",ae=class extends m{constructor(){super(...arguments),this.loginStatus=0,this.registerStatus=0,this.user=D.authenticateFromLocalStorage(()=>this._signOut())}isAuthenticated(){return this.user.authenticated}render(){return h`${h`<slot .user=${this.user}></slot>`}`}_handleLogin(i){i.preventDefault();const e=i.target,t=new FormData(e);new St(t).base().post("/api/login").then(r=>{if(r.status===200)return r.json();this.loginStatus=r.status}).then(r=>{r&&(console.log("Authentication:",r.token),this.user=D.authenticate(r.token,()=>this._signOut()),this.requestUpdate())})}_handleRegister(i){i.preventDefault();const e=i.target,t=new FormData(e);new St(t).base().post("/signup").then(r=>{if(r.status===200)return r.json();this.registerStatus=r.status}).then(r=>{console.log("Registration:",r)})}_signOut(){this.user=O.deauthenticate(this.user),document.location.reload()}};Ce([R()],ae.prototype,"loginStatus",2);Ce([R()],ae.prototype,"registerStatus",2);Ce([_r({context:Re}),R()],ae.prototype,"user",2);ae=Ce([b("auth-required")],ae);var Pr=Object.defineProperty,Er=Object.getOwnPropertyDescriptor,de=(i,e,t,o)=>{for(var r=o>1?void 0:o?Er(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&Pr(e,t,r),r};let q=class extends m{constructor(){super(...arguments),this.path="",this.editName=!1,this.editUsername=!1,this.editEmail=!1,this.editPhone=!1,this.editPicture=!1}render(){var i,e,t,o,r,n,s,c,a,l;return h`
+ */function rt({context:i,subscribe:e}){return(t,o)=>{typeof o=="object"?o.addInitializer(function(){new Ct(this,{context:i,callback:r=>{this[o.name]=r},subscribe:e})}):t.constructor.addInitializer(r=>{new Ct(r,{context:i,callback:n=>{r[o]=n},subscribe:e})})}}var Pr=Object.defineProperty,Er=Object.getOwnPropertyDescriptor,Ce=(i,e,t,o)=>{for(var r=o>1?void 0:o?Er(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&Pr(e,t,r),r};let Re="auth",ae=class extends m{constructor(){super(...arguments),this.loginStatus=0,this.registerStatus=0,this.user=D.authenticateFromLocalStorage(()=>this._signOut())}isAuthenticated(){return this.user.authenticated}render(){return h`${h`<slot .user=${this.user}></slot>`}`}_handleLogin(i){i.preventDefault();const e=i.target,t=new FormData(e);new St(t).base().post("/api/login").then(r=>{if(r.status===200)return r.json();this.loginStatus=r.status}).then(r=>{r&&(console.log("Authentication:",r.token),this.user=D.authenticate(r.token,()=>this._signOut()),this.requestUpdate())})}_handleRegister(i){i.preventDefault();const e=i.target,t=new FormData(e);new St(t).base().post("/signup").then(r=>{if(r.status===200)return r.json();this.registerStatus=r.status}).then(r=>{console.log("Registration:",r)})}_signOut(){this.user=O.deauthenticate(this.user),document.location.reload()}};Ce([R()],ae.prototype,"loginStatus",2);Ce([R()],ae.prototype,"registerStatus",2);Ce([$r({context:Re}),R()],ae.prototype,"user",2);ae=Ce([b("auth-required")],ae);var Ar=Object.defineProperty,Or=Object.getOwnPropertyDescriptor,de=(i,e,t,o)=>{for(var r=o>1?void 0:o?Or(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&Ar(e,t,r),r};let q=class extends m{constructor(){super(...arguments),this.path="",this.editName=!1,this.editUsername=!1,this.editEmail=!1,this.editPhone=!1,this.editPicture=!1}render(){var i,e,t,o,r,n,s,c,a,l;return h`
       <div class="profile-content">
         <div class="profile-header">
           <h4>Account > Personal Info</h4>
@@ -688,7 +770,7 @@
       
         </div>
       </div>
-    `}toggleEditMode(i){if(i===0&&(this.editUsername=!1,this.editEmail=!1,this.editPhone=!1,this.editPicture=!1),i===1&&(this.editName=!1,this.editEmail=!1,this.editPhone=!1,this.editPicture=!1),i===2&&(this.editName=!1,this.editUsername=!1,this.editPhone=!1,this.editPicture=!1),i===3&&(this.editName=!1,this.editUsername=!1,this.editEmail=!1,this.editPicture=!1),i===4){const e=document.createElement("input");e.type="file",e.accept="image/*",e.addEventListener("change",t=>{const o=t.target.files[0];o&&console.log("Selected file:",o)}),e.click()}i===0?this.editName=!this.editName:i===1?this.editUsername=!this.editUsername:i===2?this.editEmail=!this.editEmail:i===3?this.editPhone=!this.editPhone:i===4&&(this.editPicture=!this.editPicture),this.requestUpdate()}updateProfile(){var t,o,r,n;const i={name:(t=this.profile)==null?void 0:t.name,userid:(o=this.profile)==null?void 0:o.userid,email:(r=this.profile)==null?void 0:r.email,phone:(n=this.profile)==null?void 0:n.phone};new it(i).put(this.path).then(s=>s.status===200?s.json():null).then(s=>{s&&(console.log("PUT request successful:",s),this.profile=s)}).catch(s=>console.log("Failed to POST form data",s))}handleFormChange(i,e){const t=e.target.value;i===0&&(this.profile.name=t),i===1&&(this.profile.userid=t),i===2&&(this.profile.email=t),i===3&&(this.profile.phone=t),this.updateProfile(),this.toggleEditMode(i),i===0&&alert("Name changed"),i===1&&alert("User id changed"),i===2&&alert("Email changed"),i===3&&alert("Phone number changed")}_fetchData(i){fetch(tt(i),{method:"GET",headers:{Authorization:`Bearer ${localStorage.getItem("token")}`}}).then(e=>e.status===200?e.json():(console.log("Error fetching data",e),null)).then(e=>{e&&(this.profile=e)}).catch(e=>{console.log("Error fetching data",e)})}_getData(i){new br().get(i).then(t=>t.status===200?t.json():null).then(t=>{this.profile=t}).catch(t=>{console.log("Error fetching data",t)})}async connectedCallback(){if(super.connectedCallback(),this.requestUpdate(),await new Promise(i=>{const e=()=>{this.user!==void 0&&this.user!==null?i():setTimeout(e,100)};e()}),this.user&&this.user.authenticated===!1){console.log(this.user),f.go("/app/login");return}if(this.location){const i=this.location.pathname.split("/"),e=i.indexOf("profile")+1,t=i[e];this.path=`/profiles/${t}`}this.path&&(console.log("Fetching data from",this.path),this._getData(this.path))}attributeChangedCallback(i,e,t){i==="path"&&e!==t&&e&&this._getData(t),super.attributeChangedCallback(i,e,t)}};q.styles=x`
+    `}toggleEditMode(i){if(i===0&&(this.editUsername=!1,this.editEmail=!1,this.editPhone=!1,this.editPicture=!1),i===1&&(this.editName=!1,this.editEmail=!1,this.editPhone=!1,this.editPicture=!1),i===2&&(this.editName=!1,this.editUsername=!1,this.editPhone=!1,this.editPicture=!1),i===3&&(this.editName=!1,this.editUsername=!1,this.editEmail=!1,this.editPicture=!1),i===4){const e=document.createElement("input");e.type="file",e.accept="image/*",e.addEventListener("change",t=>{const o=t.target.files[0];o&&console.log("Selected file:",o)}),e.click()}i===0?this.editName=!this.editName:i===1?this.editUsername=!this.editUsername:i===2?this.editEmail=!this.editEmail:i===3?this.editPhone=!this.editPhone:i===4&&(this.editPicture=!this.editPicture),this.requestUpdate()}updateProfile(){var t,o,r,n;const i={name:(t=this.profile)==null?void 0:t.name,userid:(o=this.profile)==null?void 0:o.userid,email:(r=this.profile)==null?void 0:r.email,phone:(n=this.profile)==null?void 0:n.phone};new it(i).put(this.path).then(s=>s.status===200?s.json():null).then(s=>{s&&(console.log("PUT request successful:",s),this.profile=s)}).catch(s=>console.log("Failed to POST form data",s))}handleFormChange(i,e){const t=e.target.value;i===0&&(this.profile.name=t),i===1&&(this.profile.userid=t),i===2&&(this.profile.email=t),i===3&&(this.profile.phone=t),this.updateProfile(),this.toggleEditMode(i),i===0&&alert("Name changed"),i===1&&alert("User id changed"),i===2&&alert("Email changed"),i===3&&alert("Phone number changed")}_fetchData(i){fetch(tt(i),{method:"GET",headers:{Authorization:`Bearer ${localStorage.getItem("token")}`}}).then(e=>e.status===200?e.json():(console.log("Error fetching data",e),null)).then(e=>{e&&(this.profile=e)}).catch(e=>{console.log("Error fetching data",e)})}_getData(i){new yr().get(i).then(t=>t.status===200?t.json():null).then(t=>{this.profile=t}).catch(t=>{console.log("Error fetching data",t)})}async connectedCallback(){if(super.connectedCallback(),this.requestUpdate(),await new Promise(i=>{const e=()=>{this.user!==void 0&&this.user!==null?i():setTimeout(e,100)};e()}),this.user&&this.user.authenticated===!1){console.log(this.user),f.go("/app/login");return}if(this.location){const i=this.location.pathname.split("/"),e=i.indexOf("profile")+1,t=i[e];this.path=`/profiles/${t}`}this.path&&(console.log("Fetching data from",this.path),this._getData(this.path))}attributeChangedCallback(i,e,t){i==="path"&&e!==t&&e&&this._getData(t),super.attributeChangedCallback(i,e,t)}};q.styles=x`
     * {
       margin: 0;
       padding: 0;
@@ -851,7 +933,7 @@
         grid-column: 1;
       }
     }
-  `;de([y({attribute:!1})],q.prototype,"location",2);de([y()],q.prototype,"path",2);de([R()],q.prototype,"profile",2);de([rt({context:Re,subscribe:!0}),y({attribute:!1})],q.prototype,"user",2);q=de([b("user-profile")],q);var Ar=Object.defineProperty,Or=Object.getOwnPropertyDescriptor,Zt=(i,e,t,o)=>{for(var r=o>1?void 0:o?Or(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&Ar(e,t,r),r};let Pe=class extends m{render(){var i;return h`
+  `;de([y({attribute:!1})],q.prototype,"location",2);de([y()],q.prototype,"path",2);de([R()],q.prototype,"profile",2);de([rt({context:Re,subscribe:!0}),y({attribute:!1})],q.prototype,"user",2);q=de([b("user-profile")],q);var kr=Object.defineProperty,Sr=Object.getOwnPropertyDescriptor,ei=(i,e,t,o)=>{for(var r=o>1?void 0:o?Sr(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&kr(e,t,r),r};let Ee=class extends m{render(){var i;return h`
       <div class="profile-content">
         <div class="profile-header">
           <h2>Account</h2>
@@ -880,7 +962,7 @@
           </div>
         </div>
       </div>
-    `}};Pe.styles=[x`
+    `}};Ee.styles=[x`
       * {
         font-family: "Raleway", sans-serif;
         padding: 0;
@@ -971,7 +1053,7 @@
       .link:hover {
         cursor: pointer;
       }
-    `];Zt([rt({context:Re,subscribe:!0}),y({attribute:!1})],Pe.prototype,"user",2);Pe=Zt([b("account-view")],Pe);var kr=Object.defineProperty,Sr=Object.getOwnPropertyDescriptor,Cr=(i,e,t,o)=>{for(var r=o>1?void 0:o?Sr(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&kr(e,t,r),r};let qe=class extends m{render(){return h`
+    `];ei([rt({context:Re,subscribe:!0}),y({attribute:!1})],Ee.prototype,"user",2);Ee=ei([b("account-view")],Ee);var Cr=Object.defineProperty,Rr=Object.getOwnPropertyDescriptor,jr=(i,e,t,o)=>{for(var r=o>1?void 0:o?Rr(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&Cr(e,t,r),r};let qe=class extends m{render(){return h`
       <div class="profile-content">
         <div class="groups-page">
           <section class="find-group">
@@ -1129,7 +1211,7 @@
         margin: 0;
       }
     }
-  `;qe=Cr([b("group-view")],qe);var Rr=Object.defineProperty,jr=Object.getOwnPropertyDescriptor,Tr=(i,e,t,o)=>{for(var r=o>1?void 0:o?jr(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&Rr(e,t,r),r};let Ve=class extends m{render(){return h`
+  `;qe=jr([b("group-view")],qe);var Tr=Object.defineProperty,Ur=Object.getOwnPropertyDescriptor,Dr=(i,e,t,o)=>{for(var r=o>1?void 0:o?Ur(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&Tr(e,t,r),r};let Ve=class extends m{render(){return h`
       <section class="my-recipes">
         <h2>My Recipes</h2>
 
@@ -1152,7 +1234,7 @@
       color: var(--color-primary);
       margin-bottom: 10px;
     }
-  `;Ve=Tr([b("user-recipes")],Ve);var Ur=Object.defineProperty,Dr=Object.getOwnPropertyDescriptor,ei=(i,e,t,o)=>{for(var r=o>1?void 0:o?Dr(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&Ur(e,t,r),r};let Ee=class extends m{constructor(){super(...arguments),this.activeTab=0}changeTab(i){this.activeTab=i}renderDirections(){return h`
+  `;Ve=Dr([b("user-recipes")],Ve);var zr=Object.defineProperty,Nr=Object.getOwnPropertyDescriptor,ti=(i,e,t,o)=>{for(var r=o>1?void 0:o?Nr(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&zr(e,t,r),r};let Ae=class extends m{constructor(){super(...arguments),this.activeTab=0}changeTab(i){this.activeTab=i}renderDirections(){return h`
       <div class="card-directions">
         <h4>Step 1</h4>
         <p>
@@ -1291,9 +1373,9 @@
           </div>
         </section>
 
-     
+        <footer-component></footer-component>
       </div>
-    `}};Ee.styles=x`
+    `}};Ae.styles=x`
     * {
       font-family: "Raleway", sans-serif;
       padding: 0;
@@ -1568,7 +1650,7 @@
       height: 150px;
       border-bottom: 1px solid var(--color-light);
     }
-  `;ei([R()],Ee.prototype,"activeTab",2);Ee=ei([b("recipe-view")],Ee);var zr=Object.defineProperty,Nr=Object.getOwnPropertyDescriptor,Mr=(i,e,t,o)=>{for(var r=o>1?void 0:o?Nr(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&zr(e,t,r),r};let We=class extends m{render(){return h`
+  `;ti([R()],Ae.prototype,"activeTab",2);Ae=ti([b("recipe-view")],Ae);var Mr=Object.defineProperty,Lr=Object.getOwnPropertyDescriptor,Ir=(i,e,t,o)=>{for(var r=o>1?void 0:o?Lr(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&Mr(e,t,r),r};let We=class extends m{render(){return h`
       <div class="profile-content">
         <div class="profile-header">
           <h2>Settings</h2>
@@ -1723,7 +1805,7 @@
         margin: 0;
       }
     }
-  `;We=Mr([b("setting-view")],We);var Lr=Object.defineProperty,Ir=Object.getOwnPropertyDescriptor,Hr=(i,e,t,o)=>{for(var r=o>1?void 0:o?Ir(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&Lr(e,t,r),r};let Ke=class extends m{render(){return h`
+  `;We=Ir([b("setting-view")],We);var Hr=Object.defineProperty,Br=Object.getOwnPropertyDescriptor,Fr=(i,e,t,o)=>{for(var r=o>1?void 0:o?Br(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&Hr(e,t,r),r};let Ke=class extends m{render(){return h`
       <div>
         <category-list></category-list>
         <section class="trending">
@@ -1751,7 +1833,7 @@
       margin-bottom: 10px;
     }
     
-  `;Ke=Hr([b("category-view")],Ke);var Br=Object.defineProperty,Fr=Object.getOwnPropertyDescriptor,qr=(i,e,t,o)=>{for(var r=o>1?void 0:o?Fr(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&Br(e,t,r),r};let Ge=class extends m{render(){return h`<section class="recipe-content">
+  `;Ke=Fr([b("category-view")],Ke);var qr=Object.defineProperty,Vr=Object.getOwnPropertyDescriptor,Wr=(i,e,t,o)=>{for(var r=o>1?void 0:o?Vr(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&qr(e,t,r),r};let Ge=class extends m{render(){return h`<section class="recipe-content">
       <div class="space-between">
         <div class="create-class">
           <h2>Recipe Title</h2>
@@ -1830,6 +1912,10 @@
       padding: 0;
       margin: 0;
       background-color: var(--color-main-bg);
+    }
+
+    .recipe-content {
+      padding-bottom: 40px;
     }
 
     .recipe-content h2 {
@@ -2196,7 +2282,7 @@
       font-size: 15px;
       font-weight: 600;
     }
-  `;Ge=qr([b("create-view")],Ge);var Vr=Object.defineProperty,Wr=Object.getOwnPropertyDescriptor,Kr=(i,e,t,o)=>{for(var r=o>1?void 0:o?Wr(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&Vr(e,t,r),r};let Je=class extends m{render(){return h`
+  `;Ge=Wr([b("create-view")],Ge);var Kr=Object.defineProperty,Gr=Object.getOwnPropertyDescriptor,Jr=(i,e,t,o)=>{for(var r=o>1?void 0:o?Gr(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&Kr(e,t,r),r};let Je=class extends m{render(){return h`
       <div class="public-profile">
         <div class="public-profile-content">
           <h1 id="main">Ethan's Profile</h1>
@@ -2289,7 +2375,7 @@
       color: var(--color-primary);
       margin-bottom: 10px;
     }
-  `;Je=Kr([b("public-profile-view")],Je);var Gr=Object.defineProperty,Jr=Object.getOwnPropertyDescriptor,Y=(i,e,t,o)=>{for(var r=o>1?void 0:o?Jr(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&Gr(e,t,r),r};let z=class extends m{constructor(){super(),this.user=D.authenticateFromLocalStorage(()=>this._signOut()),this.path="/login",this.password="",this.username="",this.loginStatus=0,this.username="",this.password=""}render(){return h`
+  `;Je=Jr([b("public-profile-view")],Je);var Xr=Object.defineProperty,Yr=Object.getOwnPropertyDescriptor,Y=(i,e,t,o)=>{for(var r=o>1?void 0:o?Yr(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&Xr(e,t,r),r};let z=class extends m{constructor(){super(),this.user=D.authenticateFromLocalStorage(()=>this._signOut()),this.path="/login",this.password="",this.username="",this.loginStatus=0,this.username="",this.password=""}render(){return h`
       <div class="login-content">
         <div class="image-display">
           <img src="/images/chef-avatar.png" alt="food" />
@@ -2487,11 +2573,9 @@
         font-size: 14px;
       }
 
-      .login-content {
-        height: 80vh;
-      }
+     
     }
-  `;Y([R()],z.prototype,"user",2);Y([y()],z.prototype,"path",2);Y([y({reflect:!0,type:Boolean})],z.prototype,"password",2);Y([y({reflect:!0,type:Boolean})],z.prototype,"username",2);Y([R()],z.prototype,"loginStatus",2);z=Y([b("login-view")],z);var Xr=Object.defineProperty,Yr=Object.getOwnPropertyDescriptor,he=(i,e,t,o)=>{for(var r=o>1?void 0:o?Yr(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&Xr(e,t,r),r};let V=class extends m{constructor(){super(),this.path="/signup",this.password="",this.username="",this.windowWidth=window.innerWidth,this.username="",this.password=""}render(){return h`<div class="login-content">
+  `;Y([R()],z.prototype,"user",2);Y([y()],z.prototype,"path",2);Y([y({reflect:!0,type:Boolean})],z.prototype,"password",2);Y([y({reflect:!0,type:Boolean})],z.prototype,"username",2);Y([R()],z.prototype,"loginStatus",2);z=Y([b("login-view")],z);var Qr=Object.defineProperty,Zr=Object.getOwnPropertyDescriptor,he=(i,e,t,o)=>{for(var r=o>1?void 0:o?Zr(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&Qr(e,t,r),r};let V=class extends m{constructor(){super(),this.path="/signup",this.password="",this.username="",this.windowWidth=window.innerWidth,this.username="",this.password=""}render(){return h`<div class="login-content">
       <div class="image-display">
         <img src="/images/chef-avatar.png" alt="food" />
       </div>
@@ -2682,11 +2766,11 @@
         height: 80vh;
       }
     }
-  `;he([y()],V.prototype,"path",2);he([y({reflect:!0,type:Boolean})],V.prototype,"password",2);he([y({reflect:!0,type:Boolean})],V.prototype,"username",2);he([R()],V.prototype,"windowWidth",2);V=he([b("signup-view")],V);var Qr=Object.defineProperty,Zr=Object.getOwnPropertyDescriptor,ti=(i,e,t,o)=>{for(var r=o>1?void 0:o?Zr(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&Qr(e,t,r),r};let Ae=class extends m{render(){return h`
+  `;he([y()],V.prototype,"path",2);he([y({reflect:!0,type:Boolean})],V.prototype,"password",2);he([y({reflect:!0,type:Boolean})],V.prototype,"username",2);he([R()],V.prototype,"windowWidth",2);V=he([b("signup-view")],V);var eo=Object.defineProperty,to=Object.getOwnPropertyDescriptor,ii=(i,e,t,o)=>{for(var r=o>1?void 0:o?to(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&eo(e,t,r),r};let Oe=class extends m{render(){return h`
       <auth-required>
        <user-profile .location="${this.location}"></user-profile>
       </auth-required>
-    `}};Ae.styles=x`
+    `}};Oe.styles=x`
     * {
       margin: 0;
       padding: 0;
@@ -2694,12 +2778,12 @@
     }
 
 
-  `;ti([y({attribute:!1})],Ae.prototype,"location",2);Ae=ti([b("test-component")],Ae);var eo=Object.defineProperty,to=Object.getOwnPropertyDescriptor,ii=(i,e,t,o)=>{for(var r=o>1?void 0:o?to(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&eo(e,t,r),r};let Oe=class extends m{constructor(){super(),this.on=!1;const i=localStorage.getItem("darkMode");i!==null&&(this.on=JSON.parse(i),this.on?document.body.classList.add("dark-mode"):document.body.classList.remove("dark-mode"))}render(){return h`<label>
+  `;ii([y({attribute:!1})],Oe.prototype,"location",2);Oe=ii([b("test-component")],Oe);var io=Object.defineProperty,ro=Object.getOwnPropertyDescriptor,ri=(i,e,t,o)=>{for(var r=o>1?void 0:o?ro(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&io(e,t,r),r};let ke=class extends m{constructor(){super(),this.on=!1;const i=localStorage.getItem("darkMode");i!==null&&(this.on=JSON.parse(i),this.on?document.body.classList.add("dark-mode"):document.body.classList.remove("dark-mode"))}render(){return h`<label>
       <slot class="mode">${this.on?"Dark":"Light"}</slot>
       <span class="slider">
         <input type="checkbox" .checked=${this.on} @change=${this._handleChange} />
       </span>
-    </label>`}_handleChange(i){const e=i.target;this.on=e==null?void 0:e.checked,localStorage.setItem("darkMode",JSON.stringify(this.on)),this.on?document.body.classList.add("dark-mode"):document.body.classList.remove("dark-mode")}};Oe.styles=x`
+    </label>`}_handleChange(i){const e=i.target;this.on=e==null?void 0:e.checked,localStorage.setItem("darkMode",JSON.stringify(this.on)),this.on?document.body.classList.add("dark-mode"):document.body.classList.remove("dark-mode")}};ke.styles=x`
     :host {
       display: block;
     }
@@ -2746,7 +2830,7 @@
       font-weight: 300;
 
     }
-  `;ii([y({reflect:!0,type:Boolean})],Oe.prototype,"on",2);Oe=ii([b("toggle-switch")],Oe);var io=Object.defineProperty,ro=Object.getOwnPropertyDescriptor,ot=(i,e,t,o)=>{for(var r=o>1?void 0:o?ro(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&io(e,t,r),r};let ce=class extends m{constructor(){super(...arguments),this.open=!1,this.user=D.authenticateFromLocalStorage(()=>this._signOut())}render(){return h`
+  `;ri([y({reflect:!0,type:Boolean})],ke.prototype,"on",2);ke=ri([b("toggle-switch")],ke);var oo=Object.defineProperty,no=Object.getOwnPropertyDescriptor,ot=(i,e,t,o)=>{for(var r=o>1?void 0:o?no(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&oo(e,t,r),r};let ce=class extends m{constructor(){super(...arguments),this.open=!1,this.user=D.authenticateFromLocalStorage(()=>this._signOut())}render(){return h`
       <div class="all">
         <input
           type="checkbox"
@@ -2918,7 +3002,7 @@
       padding: 5px;
       border-bottom: 1px solid var(--color-light);
     }
-  `;ot([y({reflect:!0,type:Boolean})],ce.prototype,"open",2);ot([R()],ce.prototype,"user",2);ce=ot([b("drop-down")],ce);var oo=Object.defineProperty,no=Object.getOwnPropertyDescriptor,nt=(i,e,t,o)=>{for(var r=o>1?void 0:o?no(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&oo(e,t,r),r};let le=class extends m{constructor(){super(...arguments),this.open=!1}render(){var i;return h`
+  `;ot([y({reflect:!0,type:Boolean})],ce.prototype,"open",2);ot([R()],ce.prototype,"user",2);ce=ot([b("drop-down")],ce);var so=Object.defineProperty,ao=Object.getOwnPropertyDescriptor,nt=(i,e,t,o)=>{for(var r=o>1?void 0:o?ao(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&so(e,t,r),r};let le=class extends m{constructor(){super(...arguments),this.open=!1}render(){var i;return h`
       <header class="navbar">
         <div class="navbar-content">
           <div class="logo" @click=${()=>f.go("/app/")}>
@@ -3149,86 +3233,9 @@
         display: none;
       }
     }
-  `;nt([y({reflect:!0,type:Boolean})],le.prototype,"open",2);nt([rt({context:Re,subscribe:!0}),y({attribute:!1})],le.prototype,"user",2);le=nt([b("navbar-component")],le);var so=Object.defineProperty,ao=Object.getOwnPropertyDescriptor,co=(i,e,t,o)=>{for(var r=o>1?void 0:o?ao(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&so(e,t,r),r};let jt=class extends m{constructor(){super()}firstUpdated(){var e;new f((e=this.shadowRoot)==null?void 0:e.querySelector("#outlet")).setRoutes([{path:"/app/profile/:userid",component:"user-profile"},{path:"/app/",component:"trending-view"},{path:"/app/account",component:"account-view"},{path:"/app/groups",component:"group-view"},{path:"/app/my-recipes",component:"user-recipes"},{path:"/app/recipe/:recipeid",component:"recipe-view",action:()=>{window.scrollTo(0,0)}},{path:"/app/settings",component:"setting-view"},{path:"/app/category/:category",component:"category-view"},{path:"/app/create",component:"create-view"},{path:"/app/user/:userid",component:"public-profile-view"},{path:"/app/login",component:"login-view"},{path:"/app/signup",component:"signup-view"},{path:"(.*)",action:()=>{f.go("/app/")}}])}render(){return h`
+  `;nt([y({reflect:!0,type:Boolean})],le.prototype,"open",2);nt([rt({context:Re,subscribe:!0}),y({attribute:!1})],le.prototype,"user",2);le=nt([b("navbar-component")],le);var co=Object.defineProperty,lo=Object.getOwnPropertyDescriptor,po=(i,e,t,o)=>{for(var r=o>1?void 0:o?lo(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&co(e,t,r),r};let jt=class extends m{constructor(){super()}firstUpdated(){var e;new f((e=this.shadowRoot)==null?void 0:e.querySelector("#outlet")).setRoutes([{path:"/app/profile/:userid",component:"user-profile"},{path:"/app/",component:"trending-view"},{path:"/app/account",component:"account-view"},{path:"/app/groups",component:"group-view"},{path:"/app/my-recipes",component:"user-recipes"},{path:"/app/recipe/:recipeid",component:"recipe-view",action:()=>{window.scrollTo(0,0)}},{path:"/app/settings",component:"setting-view"},{path:"/app/category/:category",component:"category-view"},{path:"/app/create",component:"create-view"},{path:"/app/user/:userid",component:"public-profile-view"},{path:"/app/login",component:"login-view"},{path:"/app/signup",component:"signup-view"},{path:"(.*)",action:()=>{f.go("/app/")}}])}render(){return h`
       <auth-required>
         <navbar-component></navbar-component>
         <div id="outlet"></div>
       </auth-required>
-    `}};jt=co([b("my-app")],jt);var lo=Object.defineProperty,po=Object.getOwnPropertyDescriptor,ri=(i,e,t,o)=>{for(var r=o>1?void 0:o?po(e,t):e,n=i.length-1,s;n>=0;n--)(s=i[n])&&(r=(o?s(e,t,r):s(r))||r);return o&&r&&lo(e,t,r),r};let ke=class extends m{constructor(){super(...arguments),this.open=!1}render(){return h`
-      <footer>
-        <p>© 2024 Ethan Outangoun</p>
-      </footer>
-    `}};ke.styles=x`
-
-  *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  footer {
-    border-top: 1px solid var(--color-border);
-    color: var(--color-primary);
-    padding: 20px; /* Padding inside the footer */
-    padding-left: 80px;
-    padding-right: 80px;
-    margin-top: 60px;
-  }
-  
-  footer p {
-    font-size: 14px;
-  }
-  
-  @media screen and (max-width: 800px) {
-    .content {
-      margin-left: 50px;
-      margin-right: 50px;
-    }
-  
-    .navbar-content {
-      margin-left: 50px;
-      margin-right: 50px;
-    }
-  
-    .recipe-list {
-      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-    }
-  
-    footer {
-      padding-left: 50px;
-      padding-right: 50px;
-    }
-  }
-  
-  @media screen and (max-width: 600px) {
-    .recipe-list {
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    }
-  }
-  
-  @media screen and (max-width: 500px) {
-    .content {
-      margin-left: 31px;
-      margin-right: 31px;
-    }
-  
-    .navbar-content {
-      margin-left: 31px;
-      margin-right: 31px;
-    }
-  
-    .group-icon {
-      display: none;
-    }
-  
-    .recipe-list {
-      grid-template-columns: 1fr;
-    }
-  
-    footer {
-      padding-left: 31px;
-      padding-right: 31px;
-    }
-  }
-  
-  `;ri([y({reflect:!0,type:Boolean})],ke.prototype,"open",2);ke=ri([b("footer-element")],ke);
+    `}};jt=po([b("my-app")],jt);

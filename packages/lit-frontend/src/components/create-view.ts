@@ -88,6 +88,10 @@ export class CreateView extends LitElement {
       background-color: var(--color-main-bg);
     }
 
+    .recipe-content {
+      padding-bottom: 40px;
+    }
+
     .recipe-content h2 {
       font-family: "Montserrat", sans-serif;
       font-weight: 500;

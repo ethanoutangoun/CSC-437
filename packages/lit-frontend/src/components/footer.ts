@@ -1,8 +1,8 @@
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
-@customElement("footer-element")
-export class FooterElement extends LitElement {
+@customElement("footer-component")
+export class FooterComponent extends LitElement {
   @property({ reflect: true, type: Boolean })
   open: boolean = false;
 
@@ -23,6 +23,9 @@ export class FooterElement extends LitElement {
   }
 
   footer {
+    position: absolute;
+    left: 0;
+    width: 100vw;
     border-top: 1px solid var(--color-border);
     color: var(--color-primary);
     padding: 20px; /* Padding inside the footer */

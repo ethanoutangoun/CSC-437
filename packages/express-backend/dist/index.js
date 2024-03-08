@@ -48,7 +48,7 @@ catch (error) {
     console.log("Cannot find static assets in lit-frontend", error.code);
 }
 app.use((0, cors_1.default)());
-app.use(express_1.default.json());
+app.use(express_1.default.json({ limit: "5mb" }));
 (0, mongoConnect_1.connect)("cooked");
 if (dist)
     app.use(express_1.default.static(dist));

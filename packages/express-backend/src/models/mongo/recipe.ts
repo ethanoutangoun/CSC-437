@@ -8,11 +8,10 @@ const recipeSchema = new Schema<Recipe>(
     directions: { type: [String], required: true },
     tags: { type: [String], required: true },
     date: { type: Date, default: Date.now },
-    picture: { data: Buffer, contentType: String },
+    picture: { data: Buffer, contentType: String},
     numLikes: { type: Number, default: 0 },
     numComments: { type: Number, default: 0 },
-    userid: { type: String, required: true },
-    userPicture: { type: String, required: true },
+    userid: { type: String, required: true }
    
   },
   { collection: "recipes" }

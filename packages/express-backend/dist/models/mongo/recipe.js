@@ -10,8 +10,7 @@ const recipeSchema = new mongoose_1.Schema({
     picture: { data: Buffer, contentType: String },
     numLikes: { type: Number, default: 0 },
     numComments: { type: Number, default: 0 },
-    userid: { type: String, required: true },
-    userPicture: { type: String, required: true },
+    userid: { type: String, required: true }
 }, { collection: "recipes" });
 const RecipeModel = (0, mongoose_1.model)("Recipe", recipeSchema);
 exports.default = RecipeModel;

@@ -8,6 +8,9 @@ import * as path from "path";
 import { loginUser, registerUser } from "./auth";
 import apiRouter from "./routers/api";
 
+import recipes from "./recipes";
+import { Recipe } from "./models/recipe";
+
 import fs from "fs/promises";
 const app = express();
 const port = process.env.PORT || 3000;
@@ -45,6 +48,7 @@ app.post("/api/login", loginUser);
 app.post("/api/signup", registerUser);
 
 app.use("/api", apiRouter);
+
 
 
 

@@ -28,7 +28,7 @@ export class FooterElement extends LitElement {
     padding: 20px; /* Padding inside the footer */
     padding-left: 80px;
     padding-right: 80px;
-    margin-top: 10px;
+    margin-top: 60px;
   }
   
   footer p {

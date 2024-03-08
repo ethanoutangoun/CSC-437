@@ -23,9 +23,6 @@ export class FooterComponent extends LitElement {
   }
 
   footer {
-    position: absolute;
-    left: 0;
-    width: 100vw;
     border-top: 1px solid var(--color-border);
     color: var(--color-primary);
     padding: 20px; /* Padding inside the footer */
@@ -39,19 +36,6 @@ export class FooterComponent extends LitElement {
   }
   
   @media screen and (max-width: 800px) {
-    .content {
-      margin-left: 50px;
-      margin-right: 50px;
-    }
-  
-    .navbar-content {
-      margin-left: 50px;
-      margin-right: 50px;
-    }
-  
-    .recipe-list {
-      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-    }
   
     footer {
       padding-left: 50px;
@@ -59,30 +43,10 @@ export class FooterComponent extends LitElement {
     }
   }
   
-  @media screen and (max-width: 600px) {
-    .recipe-list {
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    }
-  }
+
   
   @media screen and (max-width: 500px) {
-    .content {
-      margin-left: 31px;
-      margin-right: 31px;
-    }
-  
-    .navbar-content {
-      margin-left: 31px;
-      margin-right: 31px;
-    }
-  
-    .group-icon {
-      display: none;
-    }
-  
-    .recipe-list {
-      grid-template-columns: 1fr;
-    }
+
   
     footer {
       padding-left: 31px;

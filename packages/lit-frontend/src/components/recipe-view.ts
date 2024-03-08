@@ -1,6 +1,6 @@
 import { css, html, LitElement } from "lit";
 import { customElement, state } from "lit/decorators.js";
-import './footer.ts';
+
 
 @customElement("recipe-view")
 export class Recipe extends LitElement {
@@ -164,7 +164,6 @@ export class Recipe extends LitElement {
           </div>
         </section>
 
-        <footer-component></footer-component>
       </div>
     `;
   }

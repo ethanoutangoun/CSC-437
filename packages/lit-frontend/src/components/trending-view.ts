@@ -2,7 +2,7 @@ import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import "./category-list.ts";
 import "./recipe-grid.ts";
-import "./footer.ts"
+
 
 
 @customElement("trending-view")
@@ -23,7 +23,6 @@ export class TrendingView extends LitElement {
           <recipe-grid></recipe-grid>
         </section>
 
-        <footer-component></footer-component>
       </div>
     `;
   }

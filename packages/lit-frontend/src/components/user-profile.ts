@@ -25,8 +25,16 @@ export class UserProfileElement extends LitElement {
   @property({ attribute: false })
   user?: APIUser;
 
+  @state()
+  avatar?: string;
 
+  // state saves for if picture upload fails
+  @state()
+  oldPicture?: string;
 
+  @state()
+  pictureUploadFailed: boolean = false;
+  errorMessage: string = "";
 
   editName: boolean = false;
   editUsername: boolean = false;
@@ -67,7 +75,9 @@ export class UserProfileElement extends LitElement {
             <div class="pi-block">
               <div class="pi-header">
                 <h5>Username</h5>
-                <h4 @click="${() => this.toggleEditMode(1)}">Edit</h4>
+                <h4 @click="${() => console.log(window.location.origin)}">
+                  Edit
+                </h4>
               </div>
               <div class="pi-content">
                 ${this.editUsername
@@ -138,12 +148,272 @@ export class UserProfileElement extends LitElement {
                   @click="${() => this.toggleEditMode(4)}"
                 />`}
 
-            <p @click="${() => this.toggleEditMode(4)}">Replace</p>
+            <p class = "upload" @click="${() => this.toggleEditMode(4)}">Replace</p>
+
+            ${this.pictureUploadFailed
+              ? html`<p class="error">Upload failed: ${this.errorMessage}</p>`
+              : html``}
           </div>
-      
         </div>
       </div>
     `;
+  }
+
+  toggleEditMode(index: number) {
+    // set all except to current index to false initially
+    if (index === 0) {
+      this.editUsername = false;
+      this.editEmail = false;
+      this.editPhone = false;
+      this.editPicture = false;
+    }
+
+    if (index === 1) {
+      this.editName = false;
+      this.editEmail = false;
+      this.editPhone = false;
+      this.editPicture = false;
+    }
+
+    if (index === 2) {
+      this.editName = false;
+      this.editUsername = false;
+      this.editPhone = false;
+      this.editPicture = false;
+    }
+
+    if (index === 3) {
+      this.editName = false;
+      this.editUsername = false;
+      this.editEmail = false;
+      this.editPicture = false;
+    }
+
+    // Open the file upload dialog when the picture is clicked, and close the edit mode
+    if (index === 4) {
+      this.oldPicture = this.profile?.picture;
+
+      // Open the file upload dialog
+      const inputElement = document.createElement("input");
+      inputElement.type = "file";
+      inputElement.accept = "image/*"; // Allow only image files
+      inputElement.addEventListener("change", (event: Event) => {
+        const target = event.target as HTMLInputElement;
+        const selectedFile = (target.files as FileList)[0];
+
+        const reader: Promise<string> = new Promise((resolve, reject) => {
+          const fr = new FileReader();
+          fr.onload = () => resolve(fr.result as string);
+          fr.onerror = (err) => reject(err);
+          fr.readAsDataURL(selectedFile);
+        });
+
+        reader.then((result: string) => {
+          this.avatar = result;
+          this.profile!.picture = result;
+          this.updateProfile();
+        });
+      });
+      inputElement.click();
+    }
+
+    // 0 for profile, 1 for username, 2 for email, 3 for phone, 4 for picture
+    if (index === 0) {
+      this.editName = !this.editName;
+    } else if (index === 1) {
+      this.editUsername = !this.editUsername;
+    } else if (index === 2) {
+      this.editEmail = !this.editEmail;
+    } else if (index === 3) {
+      this.editPhone = !this.editPhone;
+    } else if (index === 4) {
+      this.editPicture = !this.editPicture;
+    }
+
+    // Update the UI
+    this.requestUpdate();
+  }
+
+  // Create function to create JSON object and send to server
+  updateProfile() {
+    let profileData = {};
+
+    if (this.avatar !== undefined) {
+      profileData = {
+        name: this.profile?.name,
+        userid: this.profile?.userid,
+        email: this.profile?.email,
+        phone: this.profile?.phone,
+        picture: this.profile?.picture,
+      };
+    }
+    else
+    {
+      profileData = {
+        name: this.profile?.name,
+        userid: this.profile?.userid,
+        email: this.profile?.email,
+        phone: this.profile?.phone,
+      };
+    }
+
+    const request = new JSONRequest(profileData);
+
+    request
+      .put(this.path)
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        }
+        return null;
+      })
+      .then((json: unknown) => {
+        if (json) {
+          console.log("PUT request successful:", json);
+          this.profile = json as Profile;
+          this.pictureUploadFailed = false;
+          this.errorMessage = "";
+        }
+      })
+      .catch((err) => {
+        // set old picture back if request fails
+        this.profile!.picture = this.oldPicture ?? "";
+        this.requestUpdate();
+        this.pictureUploadFailed = true;
+        this.errorMessage = err;
+
+        setTimeout(() => {
+          this.pictureUploadFailed = false;
+          this.errorMessage = "";
+        }, 3000);
+
+        console.log("Failed to POST form data", err);
+      });
+  }
+
+  handleFormChange(index: number, event: Event) {
+    const newValue = (event.target as HTMLInputElement).value;
+    // console.log(newValue);
+
+    if (index === 0) {
+      this.profile!.name = newValue;
+    }
+
+    if (index === 1) {
+      this.profile!.userid = newValue;
+    }
+
+    if (index === 2) {
+      this.profile!.email = newValue;
+    }
+
+    if (index === 3) {
+      this.profile!.phone = newValue;
+    }
+
+    this.updateProfile();
+    this.toggleEditMode(index);
+
+    if (index === 0) {
+      alert("Name changed");
+    }
+
+    if (index === 1) {
+      alert("User id changed");
+    }
+
+    if (index === 2) {
+      alert("Email changed");
+    }
+
+    if (index === 3) {
+      alert("Phone number changed");
+    }
+  }
+
+  _fetchData(path: string) {
+    fetch(serverPath(path), {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        }
+        console.log("Error fetching data", response);
+        return null;
+      })
+      .then((json: unknown) => {
+        if (json) this.profile = json as Profile;
+      })
+      .catch((error) => {
+        console.log("Error fetching data", error);
+      });
+  }
+
+  _getData(path: string) {
+    const request = new APIRequest();
+
+    request
+      .get(path)
+      .then((response: Response) => {
+        if (response.status === 200) {
+          return response.json();
+        }
+        return null;
+      })
+      .then((json: unknown) => {
+        this.profile = json as Profile;
+      })
+      .catch((error) => {
+        console.log("Error fetching data", error);
+      });
+  }
+
+  async connectedCallback() {
+    super.connectedCallback();
+    this.requestUpdate();
+    // Wait until the user property is not null
+    await new Promise<void>((resolve) => {
+      const checkUserNotNull = () => {
+        if (this.user !== undefined && this.user !== null) {
+          resolve(); // No value needs to be passed
+        } else {
+          setTimeout(checkUserNotNull, 100); // Check user property every 100 milliseconds
+        }
+      };
+      checkUserNotNull();
+    });
+
+    // After user becomes non-null, continue with data fetching
+    if (this.user && this.user.authenticated === false) {
+      // User is not authenticated, redirect to the login page or another page
+      console.log(this.user);
+      Router.go("/app/login"); // Redirect to the login page
+      return; // Stop further execution of the callback
+    }
+
+    if (this.location) {
+      const pathnameParts = this.location.pathname.split("/");
+      const useridIndex = pathnameParts.indexOf("profile") + 1; // Get the index of the next segment after 'profile'
+      const userid = pathnameParts[useridIndex];
+
+      this.path = `/profiles/${userid}`;
+    }
+
+    if (this.path) {
+      console.log("Fetching data from", this.path);
+      this._getData(this.path);
+    }
+  }
+
+  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+    if (name === "path" && oldValue !== newValue && oldValue) {
+      this._getData(newValue);
+    }
+    super.attributeChangedCallback(name, oldValue, newValue);
   }
 
   static styles = css`
@@ -152,6 +422,8 @@ export class UserProfileElement extends LitElement {
       padding: 0;
       box-sizing: border-box;
     }
+
+    
 
     .edit-input {
       margin-top: 10px;
@@ -274,7 +546,7 @@ export class UserProfileElement extends LitElement {
       gap: 20px;
     }
 
-    .pi-img p {
+    .upload {
       text-decoration: underline;
       color: var(--color-primary);
     }
@@ -295,6 +567,11 @@ export class UserProfileElement extends LitElement {
       opacity: 70%;
     }
 
+    .error{
+      color: red;
+      text-decoration: none;
+    }
+
     @media screen and (max-width: 988px) {
       .pi-all {
         grid-template-columns: 1fr;
@@ -310,268 +587,4 @@ export class UserProfileElement extends LitElement {
       }
     }
   `;
-
-  toggleEditMode(index: number) {
-    // set all except to current index to false initially
-    if (index === 0) {
-      this.editUsername = false;
-      this.editEmail = false;
-      this.editPhone = false;
-      this.editPicture = false;
-    }
-
-    if (index === 1) {
-      this.editName = false;
-      this.editEmail = false;
-      this.editPhone = false;
-      this.editPicture = false;
-    }
-
-    if (index === 2) {
-      this.editName = false;
-      this.editUsername = false;
-      this.editPhone = false;
-      this.editPicture = false;
-    }
-
-    if (index === 3) {
-      this.editName = false;
-      this.editUsername = false;
-      this.editEmail = false;
-      this.editPicture = false;
-    }
-
-    // Open the file upload dialog when the picture is clicked, and close the edit mode
-    if (index === 4) {
-      // Open the file upload dialog
-      const inputElement = document.createElement("input");
-      inputElement.type = "file";
-      inputElement.accept = "image/*"; // Allow only image files
-      inputElement.addEventListener("change", (event: Event) => {
-        const file = (event.target as HTMLInputElement).files![0];
-        if (file) {
-          // Handle the selected file, e.g., upload it or display preview
-          console.log("Selected file:", file);
-        }
-      });
-      inputElement.click();
-    }
-
-    // 0 for profile, 1 for username, 2 for email, 3 for phone, 4 for picture
-    if (index === 0) {
-      this.editName = !this.editName;
-    } else if (index === 1) {
-      this.editUsername = !this.editUsername;
-    } else if (index === 2) {
-      this.editEmail = !this.editEmail;
-    } else if (index === 3) {
-      this.editPhone = !this.editPhone;
-    } else if (index === 4) {
-      this.editPicture = !this.editPicture;
-    }
-
-    // Update the UI
-    this.requestUpdate();
-  }
-
-  // Create function to create JSON object and send to server
-  updateProfile() {
-    const profileData = {
-      name: this.profile?.name,
-      userid: this.profile?.userid,
-      email: this.profile?.email,
-      phone: this.profile?.phone,
-    };
-
-    const request = new JSONRequest(profileData);
-
-    request
-      .put(this.path)
-      .then((response) => {
-        if (response.status === 200) {
-          return response.json();
-        }
-        return null;
-      })
-      .then((json: unknown) => {
-        if (json) {
-          console.log("PUT request successful:", json);
-          this.profile = json as Profile;
-        }
-      })
-      .catch((err) =>
-        console.log("Failed to POST form data", err)
-      );
-
-
-  }
-
-  handleFormChange(index: number, event: Event) {
-    const newValue = (event.target as HTMLInputElement).value;
-    // console.log(newValue);
-
-    if (index === 0) {
-      this.profile!.name = newValue;
-    }
-
-    if (index === 1) {
-      this.profile!.userid = newValue;
-    }
-
-    if (index === 2) {
-      this.profile!.email = newValue;
-    }
-
-    if (index === 3) {
-      this.profile!.phone = newValue;
-    }
-
-    this.updateProfile();
-    this.toggleEditMode(index);
-
-    if (index === 0) {
-      alert("Name changed");
-    }
-
-    if (index === 1) {
-      alert("User id changed");
-    }
-
-    if (index === 2) {
-      alert("Email changed");
-    }
-
-    if (index === 3) {
-      alert("Phone number changed");
-    }
-  }
-
-  _fetchData(path: string) {
-    fetch(serverPath(path), {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    })
-      .then((response) => {
-        if (response.status === 200) {
-          return response.json();
-        }
-        console.log("Error fetching data", response);
-        return null;
-      })
-      .then((json: unknown) => {
-        if (json) this.profile = json as Profile;
-      })
-      .catch((error) => {
-        console.log("Error fetching data", error);
-      });
-  }
-
-  _getData(path: string) {
-    const request = new APIRequest();
-
-    request
-      .get(path)
-      .then((response: Response) => {
-        if (response.status === 200) {
-          return response.json();
-        }
-        return null;
-      })
-      .then((json: unknown) => {
-        this.profile = json as Profile;
-      })
-      .catch((error) => {
-        console.log("Error fetching data", error);
-      });
-  }
-
-
-
-
-  //   When the element is connected to the DOM, it fetches the data from the server.
-  // connectedCallback() {
-
-  //   setTimeout(() => {
-  //     if (this.user && this.user.authenticated === false) {
-  //       // User is not authenticated, redirect to the login page or another page
-  //       Router.go("/app/login"); // Redirect to the login page
-  //       return; // Stop further execution of the callback
-  //     }
-  
-  //     // Continue with your existing logic
-  //     if (this.location) {
-  //       const pathnameParts = this.location.pathname.split("/");
-  //       const useridIndex = pathnameParts.indexOf("profile") + 1; // Get the index of the next segment after 'profile'
-  //       const userid = pathnameParts[useridIndex];
-  
-  //       this.path = `/profiles/${userid}`;
-  //     }
-  
-  //     if (this.path) {
-  //       console.log("Fetching data from", this.path);
-  //       console.log("User", this.user);
-  //       this._getData(this.path);
-  //     }
-  //   }, 0); //delay
-
-  //   super.connectedCallback();
-
-  // }
-
-
-  async connectedCallback() {
-   
-    super.connectedCallback();
-    this.requestUpdate();
-    // Wait until the user property is not null
-    await new Promise<void>((resolve) => {
-        const checkUserNotNull = () => {
-            if (this.user !== undefined && this.user !== null) {
-                resolve(); // No value needs to be passed
-            } else {
-                setTimeout(checkUserNotNull, 100); // Check user property every 100 milliseconds
-            }
-        };
-        checkUserNotNull();
-    });
-
-    // After user becomes non-null, continue with data fetching
-    if (this.user && this.user.authenticated === false) {
-        // User is not authenticated, redirect to the login page or another page
-        console.log(this.user)
-        Router.go("/app/login"); // Redirect to the login page
-        return; // Stop further execution of the callback
-    }
-
-    if (this.location) {
-        const pathnameParts = this.location.pathname.split("/");
-        const useridIndex = pathnameParts.indexOf("profile") + 1; // Get the index of the next segment after 'profile'
-        const userid = pathnameParts[useridIndex];
-
-        this.path = `/profiles/${userid}`;
-    }
-
-    if (this.path) {
-        console.log("Fetching data from", this.path);
-        this._getData(this.path);
-    }
-    
-
-
-}
-
-
-
-
-
-
-
-  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-    if (name === "path" && oldValue !== newValue && oldValue) {
-      this._getData(newValue);
-    }
-    super.attributeChangedCallback(name, oldValue, newValue);
-  }
 }

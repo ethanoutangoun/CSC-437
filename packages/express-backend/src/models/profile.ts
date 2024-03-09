@@ -6,6 +6,6 @@ export interface Profile{
     numRecipes: number;
     followers: number;
     dateJoined: Date;
-    picture: Buffer; // Store image as binary data
-    pictureContentType: string; // Content type of the image
+    picture: string;
+
 }

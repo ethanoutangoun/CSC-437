@@ -4,8 +4,8 @@ export function serverPath(path: string) {
   return `${API_ROOT}${path}`;
 }
 
-// const SERVER_ROOT = "http://localhost:3000";
-const SERVER_ROOT = window.location.origin;
+const SERVER_ROOT = "http://localhost:3000";
+// const SERVER_ROOT = window.location.origin;
 const API_PATH = "/api";
 const TOKEN_KEY = "JWT_AUTH_TOKEN";
 
@@ -60,8 +60,6 @@ export class AuthenticatedUser extends APIUser {
       // const TOKEN_KEY = "JWT_AUTH_TOKEN";
       // console.log("Signing out");
       // localStorage.removeItem(TOKEN_KEY);
-
-
     } else {
       console.log("Token not expired");
       this.authenticated = true; // Set authenticated to true if token is not expired
@@ -71,7 +69,6 @@ export class AuthenticatedUser extends APIUser {
 
     this.username = jsonPayload.username;
     this.signOut = signOut;
-
   }
 
   static authenticate(token: string, signOut: () => void) {
@@ -123,7 +120,19 @@ export class JSONRequest {
       method: "PUT",
       headers: this._headers(),
       body: this.json && JSON.stringify(this.json),
-    });
+    })
+      .then((response) => {
+        if (response.status === 413) {
+          return Promise.reject("Payload Too Large");
+        }
+        // Handle other response statuses if needed
+        return response.json(); // or response.text() if response body is text
+      })
+      .catch((error) => {
+        // Handle other types of errors
+        return Promise.reject(error);
+       
+      });
   }
 
   _headers() {

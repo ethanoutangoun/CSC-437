@@ -2,6 +2,7 @@ import { Router } from "@vaadin/router";
 import { LitElement, html } from "lit";
 import { customElement } from "lit/decorators.js";
 
+
 import "./trending-view";
 import "./user-profile";
 import "./account-view";
@@ -27,16 +28,18 @@ export class MyApp extends LitElement {
   firstUpdated() {
     const router = new Router(this.shadowRoot?.querySelector("#outlet"));
 
-    
     router.setRoutes([
       {
         path: "/app/profile/:userid",
-        component: "user-profile"
+        component: "user-profile",
       },
 
       {
         path: "/app/",
-        component: "trending-view"
+        component: "trending-view",
+        action: () => {
+          window.scrollTo(0, 0);
+        },
       },
 
       { path: "/app/account", component: "account-view" },
@@ -45,7 +48,13 @@ export class MyApp extends LitElement {
 
       { path: "/app/my-recipes", component: "user-recipes" },
 
-      { path: "/app/recipe/:recipeid", component: "recipe-view", action: () => {window.scrollTo(0, 0)}},
+      {
+        path: "/app/recipe/:recipeid",
+        component: "recipe-view",
+        action: () => {
+          window.scrollTo(0, 0);
+        },
+      },
 
       { path: "/app/settings", component: "setting-view" },
 
@@ -67,8 +76,6 @@ export class MyApp extends LitElement {
       },
     ]);
   }
-
-
 
   render() {
     return html`

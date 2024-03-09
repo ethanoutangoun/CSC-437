@@ -79,7 +79,7 @@ export class RecipeCard extends LitElement {
   render() {
     return html`
       <li class="recipe-container">
-        <div @click = ${()=> Router.go("/app/recipe/1")}>
+        <div @click = ${()=> Router.go("/app/recipe/65ebef158361e8ce1926edd6")}>
           <div class="recipe-img-container">
            <slot name="image"></slot>
           </div>

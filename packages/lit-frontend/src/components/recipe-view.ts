@@ -1,11 +1,19 @@
 import { css, html, LitElement } from "lit";
-import { customElement, state } from "lit/decorators.js";
-
+import { customElement, property, state } from "lit/decorators.js";
+import { RouterLocation } from "@vaadin/router";
+import { Recipe } from "../models/recipe";
+import { APIRequest } from "./rest";
 
 @customElement("recipe-view")
-export class Recipe extends LitElement {
+export class RecipeElement extends LitElement {
+
+
+  @property({ attribute: false })
+  location: RouterLocation | undefined;
+
   @state()
   activeTab: number = 0;
+  recipe?: Recipe;
 
   private changeTab(tabNum: number) {
     this.activeTab = tabNum;
@@ -14,57 +22,15 @@ export class Recipe extends LitElement {
   private renderDirections() {
     return html`
       <div class="card-directions">
-        <h4>Step 1</h4>
-        <p>
-          Season steaks with black pepper and place on a wire rack set over a
-          tray; refrigerate uncovered, 8 hours to overnight.
-        </p>
 
-        <h4>Step 2</h4>
-        <p>
-          Heat vegetable oil in a large skillet over high heat. Cook steaks in
-          hot oil until browned on one side, 4 to 5 minutes. Reduce heat to
-          medium-high and turn steaks. Continue cooking until steaks start to
-          firm and are reddish-pink and juicy in the center, 4 to 6 minutes
-          more. An instant-read thermometer inserted into the center should read
-          130 degrees F (54 degrees C) for medium-rare. Transfer meat to a plate
-          to rest, 5 to 10 minutes. Set the skillet aside
-        </p>
+        ${this.recipe?.directions.map(
+          (direction, index) => html`
+          <h4>Step ${index + 1}</h4>  
+          <p>${direction}</p>`
+        )}  
+          
+        
 
-        <h4>Step 3</h4>
-        <p>
-          Place chopped beef scraps in a cold skillet and heat over medium-high
-          heat. Cook and stir until meat is browned and caramelized. Add
-          shallots and a pinch of salt; saute until shallots are golden brown
-          and are softened, about 5 minutes more.
-        </p>
-
-        <h4>Step 4</h4>
-        <p>
-          Pour red wine into the skillet and bring to a boil; cook and stir
-          until wine is almost completely evaporated, 2 to 4 minutes. Add
-          chicken broth and bring to a simmer. Reduce heat to low and cook until
-          reduced by about half, 60 to 90 minutes. Strain sauce into a bowl and
-          skim any fat that rises to the top.
-        </p>
-
-        <h4>Step 5</h4>
-        <p>
-          Heat the empty steak skillet over medium-high heat. Pour strained
-          sauce into the skillet and bring to a boil while scraping the browned
-          bits of food off of the bottom of the pan with a wooden spoon. Season
-          sauce with salt and pepper. Continue cooking until reduced and
-          thickened, 3 to 5 minutes
-        </p>
-
-        <h4>Step 6</h4>
-        <p>
-          Remove the skillet from the heat. Whisk butter into sauce until melted
-          and smooth.
-        </p>
-
-        <h4>Step 7</h4>
-        <p>Spoon sauce over top of steak and plate.</p>
       </div>
     `;
   }
@@ -73,14 +39,12 @@ export class Recipe extends LitElement {
     return html`
       <div class="card-ingredients">
         <h4>Ingredients</h4>
-        <p>2 (1 1/2-inch-thick) bone-in rib-eye steaks</p>
-        <p>1/2 teaspoon freshly ground black pepper</p>
-        <p>1 tablespoon vegetable oil</p>
-        <p>1/4 cup chopped beef scraps</p>
-        <p>1/2 cup chopped shallots</p>
-        <p>1/2 cup red wine</p>
-        <p>1 cup chicken broth</p>
-        <p>1/4 cup unsalted butter</p>
+
+        ${this.recipe?.ingredients.map(
+          (ingredient) => html`
+          <p>${ingredient}</p>`
+        )}
+     
       </div>
     `;
   }
@@ -89,30 +53,81 @@ export class Recipe extends LitElement {
     return html`
       <div class="card-tools">
         <h4>Tools</h4>
-        <p>Skillet</p>
-        <p>Wire rack</p>
-        <p>Instant-read thermometer</p>
-        <p>Wooden spoon</p>
+        
+        ${this.recipe?.tools.map(
+          (tool) => html`
+          <p>${tool}</p>`
+        )}
       </div>
     `;
   }
 
 
+  _getData(path: string) {
+    const request = new APIRequest();
+
+    request
+      .get(path)
+      .then((response: Response) => {
+        if (response.status === 200) {
+          return response.json();
+        }
+        return null;
+      })
+      .then((json: unknown) => {
+        this.recipe = json as Recipe;
+        console.log(this.recipe);
+        this.requestUpdate();
+      })
+      .catch((error) => {
+        console.log("Error fetching data", error);
+      });
+  }
+
+
+
+  connectedCallback(): void {
+    super.connectedCallback();
+    window.scrollTo(0, 0);
+
+
+    const id = (this.location?.params.recipeid); 
+    const path = `/recipes/${id}`;
+    this._getData(path);
+
+    
+
+
+
+
+
+
+
+  }
+
+
+  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+    if (name === "path" && oldValue !== newValue && oldValue) {
+      this._getData(newValue);
+    }
+    super.attributeChangedCallback(name, oldValue, newValue);
+  }
+
   render() {
     return html`
       <div>
         <section class="recipe-content">
-          <h2>Steak and Bordelaise Sauce</h2>
+          <h2>${this.recipe?.name}</h2>
 
           <div class="recipe-stats">
             <div class="time-stat">
               <img src="/icons/alarm.svg" alt="heart" width="20px" />
-              <p>30 minutes</p>
+              <p>${this.recipe?.time + " minutes"}</p>
             </div>
 
             <div class="cost-stat">
               <img src="/icons/money.svg" alt="money" width="25px" />
-              <p>25$</p>
+              <p>${"$" + this.recipe?.cost}</p>
             </div>
           </div>
           <div class="tags-container">
@@ -122,9 +137,7 @@ export class Recipe extends LitElement {
             </div>
 
             <div class="tags">
-              <p>French</p>
-              <p>Beef</p>
-              <p>Date Night</p>
+            ${this.recipe?.tags.map((tag) => html`<p>${tag}</p>`)}
             </div>
           </div>
           <div class="recipe-intro">
@@ -394,7 +407,7 @@ export class Recipe extends LitElement {
       background-color: inherit;
     }
 
-    @media screen and (max-width: 1300px) {
+    @media screen and (max-width: 1000px) {
       .recipe-intro {
         display: flex;
         flex-direction: column-reverse;

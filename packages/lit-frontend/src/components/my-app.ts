@@ -1,7 +1,7 @@
 import { Router } from "@vaadin/router";
 import { LitElement, html } from "lit";
 import { customElement } from "lit/decorators.js";
-import { APIRequest } from "./rest";
+
 
 import "./trending-view";
 import "./user-profile";

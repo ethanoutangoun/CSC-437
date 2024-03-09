@@ -1,6 +1,7 @@
 import { css, html, LitElement } from "lit";
 import { customElement } from "lit/decorators.js";
 
+
 import "./recipe-grid";
 
 @customElement("category-view")

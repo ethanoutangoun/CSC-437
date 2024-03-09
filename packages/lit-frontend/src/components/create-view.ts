@@ -3,6 +3,7 @@ import { customElement, property, state } from "lit/decorators.js";
 import { JSONRequest, APIUser } from "./rest";
 import { consume } from "@lit/context";
 import { authContext } from "./auth-required";
+import { Router } from "@vaadin/router";
 
 @customElement("create-view")
 export class CreateView extends LitElement {
@@ -161,7 +162,9 @@ export class CreateView extends LitElement {
 
     }).then((recipe) => {
       console.log(recipe._id);
-      // window.location.href = `/recipes/${recipe._id}`;
+      
+      Router.go("/app/recipe/" + recipe._id); 
+
     })
     
     

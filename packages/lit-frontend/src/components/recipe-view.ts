@@ -172,7 +172,7 @@ export class RecipeElement extends LitElement {
             </div>
 
             <div class="recipe-images">
-              <img src="/images/steak.jpeg" alt="Recipe Image" />
+              <img src=${this.recipe?.picture} alt="Recipe Image" />
             </div>
           </div>
         </section>

@@ -63,7 +63,6 @@ export class RecipeElement extends LitElement {
       })
       .then((json: unknown) => {
         this.recipe = json as Recipe;
-        console.log(this.recipe);
         this.requestUpdate();
       })
       .catch((error) => {
@@ -101,7 +100,7 @@ export class RecipeElement extends LitElement {
 
             <div class="cost-stat">
               <img src="/icons/money.svg" alt="money" width="25px" />
-              <p>${"$" + this.recipe?.cost}</p>
+              <p>${"$" + this.recipe?.cost + " per serving"}</p>
             </div>
           </div>
           <div class="tags-container">

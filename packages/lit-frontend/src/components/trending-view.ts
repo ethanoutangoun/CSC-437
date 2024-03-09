@@ -1,5 +1,7 @@
 import { css, html, LitElement } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { customElement, property, state } from "lit/decorators.js";
+import { APIRequest } from "./rest.ts";
+import { Recipe } from "../models/recipe.ts";
 import "./category-list.ts";
 import "./recipe-grid.ts";
 
@@ -9,6 +11,32 @@ import "./recipe-grid.ts";
 export class TrendingView extends LitElement {
   @property({ reflect: true, type: Boolean })
   open: boolean = false;
+
+  @state() 
+  recipeList: Recipe[] = [];
+
+
+
+
+  connectedCallback(): void {
+    super.connectedCallback();
+    const path = "/recipes/trending";
+    const request = new APIRequest();
+    request
+      .getAbsolute(path)
+      .then((response: Response) => {
+        if (response.status === 200) {
+          return response.json();
+        }
+      })
+      .then((json) => {
+        this.recipeList = json;
+        this.requestUpdate();
+      });
+
+    
+  }
+
 
 
 
@@ -20,7 +48,7 @@ export class TrendingView extends LitElement {
         <section class="trending">
           <h2>Trending Recipes</h2>
 
-          <recipe-grid></recipe-grid>
+          <recipe-grid .recipeList=${this.recipeList}></recipe-grid>
         </section>
 
       </div>

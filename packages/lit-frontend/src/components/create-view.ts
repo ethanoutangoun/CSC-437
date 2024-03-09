@@ -1,30 +1,305 @@
 import { css, html, LitElement } from "lit";
-import { customElement } from "lit/decorators.js";
+import { customElement, property, state } from "lit/decorators.js";
+import { JSONRequest, APIUser } from "./rest";
+import { consume } from "@lit/context";
+import { authContext } from "./auth-required";
 
 @customElement("create-view")
 export class CreateView extends LitElement {
+  @consume({ context: authContext, subscribe: true })
+  @property({ attribute: false })
+  user?: APIUser;
+
+  @state()
+  activeTab: number = 0;
+  path = "/recipes";
+
+  private changeTab(tabNum: number) {
+    this.activeTab = tabNum;
+  }
+
+  @state()
+  recipeCost: number | null = null;
+  recipeTime: number | null = null;
+  steps: string[] = []; // array of steps
+  ingredients: string[] = []; // array of ingredients
+  tools: string[] = []; // array of tools
+  recipeTitle: string = "";
+  editTitle: boolean = true;
+  editTime: boolean = false;
+  editCost: boolean = false;
+  picture: string | null = null;
+
+  private _addSteps(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    const newValue = inputElement.value;
+
+    if (!newValue) return;
+
+    this.steps.push(newValue);
+    inputElement.value = "";
+    this.requestUpdate(); // Trigger re-render
+  }
+
+  private _addIngredients(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    const newValue = inputElement.value;
+
+    if (!newValue) return;
+
+    this.ingredients.push(newValue);
+    inputElement.value = "";
+    this.requestUpdate(); // Trigger re-render
+  }
+
+  private _addTools(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    const newValue = inputElement.value;
+
+    if (!newValue) return;
+
+    this.tools.push(newValue);
+    inputElement.value = "";
+    this.requestUpdate(); // Trigger re-render
+  }
+
+  private renderDirections() {
+    return html`<div class="card-directions">
+      ${this.steps.map((step, index) => {
+        return html`
+          <h4>Step ${index + 1}</h4>
+          <p>${step}</p>
+        `;
+      })}
+
+      <div class="directions-input">
+        <h4>Step ${this.steps.length + 1}</h4>
+        <input
+          type="text"
+          name="directions"
+          placeholder="Add Directions"
+          @change=${(event: KeyboardEvent) => this._addSteps(event)}
+        />
+        <button @click=${this._addSteps}>Submit</button>
+      </div>
+
+      <div class="add-directions"></div>
+    </div>`;
+  }
+
+  private renderIngredients() {
+    return html`<div class="card-directions">
+      ${this.ingredients.map((ingredient, index) => {
+        return html`
+          <h4>Ingredient ${index + 1}</h4>
+          <p>${ingredient}</p>
+        `;
+      })}
+
+      <div class="directions-input">
+        <h4>Ingredient ${this.ingredients.length + 1}</h4>
+        <input
+          type="text"
+          name="ingredients"
+          placeholder="Add Ingredients"
+          @change=${(event: KeyboardEvent) => this._addIngredients(event)}
+        />
+        <button @click=${this._addIngredients}>Submit</button>
+      </div>
+
+      <div class="add-directions"></div>
+    </div>`;
+  }
+
+  private renderTools() {
+    return html`<div class="card-directions">
+      ${this.tools.map((tool, index) => {
+        return html`
+          <h4>Tool ${index + 1}</h4>
+          <p>${tool}</p>
+        `;
+      })}
+
+      <div class="directions-input">
+        <h4>Tool ${this.tools.length + 1}</h4>
+        <input
+          type="text"
+          name="tools"
+          placeholder="Add Tools"
+          @change=${(event: KeyboardEvent) => this._addTools(event)}
+        />
+        <button @click=${this._addTools}>Submit</button>
+      </div>
+
+      <div class="add-directions"></div>
+    </div>`;
+  }
+
+  _handleSubmit() {
+    if (!this.user?.authenticated) {
+      console.log("User is not authenticated");
+      return;
+    }
+
+    const newRecipe = {
+      name: this.recipeTitle,
+      cost: this.recipeCost,
+      time: this.recipeTime,
+      directions: this.steps,
+      ingredients: this.ingredients,
+      tools: this.tools,
+      picture: this.picture || "",
+      userid: this.user?.username,
+    };
+    console.log(newRecipe);
+
+    const request = new JSONRequest(newRecipe);
+
+    request.post(this.path).then((response) => {
+      
+      return response.json(); // Parse JSON response
+
+    }).then((recipe) => {
+      console.log(recipe._id);
+      // window.location.href = `/recipes/${recipe._id}`;
+    })
+    
+    
+    .catch((error) => {
+      console.error(error)
+    });
+  }
+
+  handleEditTitle() {
+    this.editTitle = !this.editTitle;
+    this.requestUpdate();
+  }
+
+  handleTitleChange(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    const newValue = inputElement.value;
+    this.recipeTitle = newValue;
+    this.handleEditTitle();
+  }
+
+  handleTimeChange(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    const newValue = inputElement.value;
+
+    // if new value is not an int
+    if (isNaN(parseInt(newValue))) {
+      return;
+    }
+
+    this.recipeTime = parseInt(newValue);
+    this.handleEditTime();
+  }
+
+  handleCostChange(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    const newValue = inputElement.value;
+
+
+    // if new value is not an int
+    if (isNaN(parseInt(newValue))) {
+      return;
+    }
+
+    this.recipeCost = parseInt(newValue);
+    this.handleEditCost();
+  }
+
+  handleImageUpload() {
+    console.log("Image Upload");
+    const inputElement = document.createElement("input");
+    inputElement.type = "file";
+    inputElement.accept = "image/*"; // Allow only image files
+    inputElement.addEventListener("change", (event: Event) => {
+      const target = event.target as HTMLInputElement;
+      const selectedFile = (target.files as FileList)[0];
+
+      const reader: Promise<string> = new Promise((resolve, reject) => {
+        const fr = new FileReader();
+        fr.onload = () => resolve(fr.result as string);
+        fr.onerror = (err) => reject(err);
+        fr.readAsDataURL(selectedFile);
+      });
+
+      reader.then((result: string) => {
+        this.picture = result;
+        this.requestUpdate();
+      });
+    });
+    inputElement.click();
+  }
+
+  handleEditTime() {
+    this.editTime = !this.editTime;
+    this.requestUpdate();
+  }
+
+  handleEditCost() {
+    this.editCost = !this.editCost;
+    this.requestUpdate();
+  }
+
   render() {
     return html`<section class="recipe-content">
       <div class="space-between">
         <div class="create-class">
-          <h2>Recipe Title</h2>
-          <img src="/icons/edit.svg" alt="edit-icon" />
+          ${this.editTitle
+            ? html`<input
+                class="title-input"
+                type="text"
+                name="title"
+                placeholder="Recipe Title"
+                @change=${(event: KeyboardEvent) =>
+                  this.handleTitleChange(event)}
+              />`
+            : html`<h2 @click=${this.handleEditTitle}>${this.recipeTitle}</h2>`}
+          <img
+            @click=${this.handleEditTitle}
+            src="/icons/edit.svg"
+            alt="edit-icon"
+          />
         </div>
 
         <div class="post-container">
-          <button class="save-button"><h3>Post</h3></button>
+          <button class="save-button" @click=${this._handleSubmit}>
+            <h3>Post</h3>
+          </button>
         </div>
       </div>
 
       <div class="recipe-stats">
         <div class="time-stat">
-          <img src="/icons/alarm.svg" alt="heart" width="20px" />
-          <p>Add Time</p>
+          <img
+            @click=${this.handleEditTime}
+            src="/icons/alarm.svg"
+            alt="heart"
+            width="20px"
+          />
+          ${!this.editTime
+            ? html`<p @click=${this.handleEditTime}>${this.recipeTime ? this.recipeTime + " minutes" : html`Add Time`}</p>`
+            : html`<input class="time-cost-buttons" type="text" @change=${(event: KeyboardEvent) =>
+              this.handleTimeChange(event)} />`}
         </div>
 
         <div class="cost-stat">
-          <img src="/icons/money.svg" alt="money" width="25px" />
-          <p>Add Cost</p>
+          <img
+            @click=${this.handleEditCost}
+            src="/icons/money.svg"
+            alt="money"
+            width="25px"
+          />
+          ${!this.editCost
+            ? html`<p @click=${this.handleEditCost}>${this.recipeCost ? "$"+ this.recipeCost : html`Add Cost`}</p>`
+            : html`<input
+                class="time-cost-buttons"
+                type="text"
+                @change=${(event: KeyboardEvent) =>
+                  this.handleCostChange(event)}
+              />`}
         </div>
       </div>
       <div class="tags-container">
@@ -39,35 +314,45 @@ export class CreateView extends LitElement {
       <div class="recipe-intro">
         <div class="recipe-card">
           <div class="card-categories">
-            <p id="selected-tab">Directions</p>
-            <p>Ingredients</p>
-            <p>Tools</p>
+            <p
+              id="${this.activeTab === 0 ? "selected-tab" : ""}"
+              @click=${() => this.changeTab(0)}
+            >
+              Directions
+            </p>
+            <p
+              id="${this.activeTab === 1 ? "selected-tab" : ""}"
+              @click=${() => this.changeTab(1)}
+            >
+              Ingredients
+            </p>
+            <p
+              id="${this.activeTab === 2 ? "selected-tab" : ""}"
+              @click=${() => this.changeTab(2)}
+            >
+              Tools
+            </p>
           </div>
           <div class="card-content-container">
             <div class="card-content">
-              <div class="card-directions">
-                <h4>Step 1</h4>
-
-                <div class="directions-input">
-                  <input
-                    type="text"
-                    name="directions"
-                    placeholder="Add Directions"
-                  />
-                  <button>Submit</button>
-                </div>
-
-                <div class="add-directions">
-                  <p>Add More Directions</p>
-                  <img src="/icons/add-circle.svg" alt="add-icon" />
-                </div>
-              </div>
+              ${this.activeTab === 0
+                ? this.renderDirections()
+                : this.activeTab === 1
+                ? this.renderIngredients()
+                : this.renderTools()}
             </div>
           </div>
         </div>
 
-        <div class="edit-recipe-image">
-          <img src="/images/add-image.png" alt="Recipe Image" />
+        <div
+          @click=${this.handleImageUpload}
+          class=${this.picture === null
+            ? "edit-recipe-image"
+            : "uploaded-image"}
+        >
+          ${this.picture
+            ? html`<img src="${this.picture}" alt="Recipe Image" />`
+            : html`<img src="/images/add-image.png" alt="Recipe Image" />`}
         </div>
       </div>
     </section>`;
@@ -81,13 +366,33 @@ export class CreateView extends LitElement {
       background-color: var(--color-main-bg);
     }
 
-    * {
-      font-family: "Raleway", sans-serif;
-      padding: 0;
-      margin: 0;
-      background-color: var(--color-main-bg);
+    .time-cost-buttons {
+      padding: 5px;
+      border-radius: 5px;
+      border: 1px solid var(--color-light);
+      width: 55px;
     }
 
+    .uploaded-image {
+      cursor: pointer;
+      border: none:
+    }
+
+    .uploaded-image:hover {
+      opacity: 70%;
+    }
+
+    .title-input {
+      padding: 10px;
+      border: 1px solid var(--color-light);
+      border-radius: 5px;
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    button {
+      cursor: pointer;
+    }
     .recipe-content {
       padding-bottom: 40px;
     }
@@ -97,7 +402,7 @@ export class CreateView extends LitElement {
       font-weight: 500;
       font-size: 26px;
       padding-top: 20px;
-      padding-bottom: 10px;
+      padding-bottom: 20px;
       color: var(--color-primary);
     }
 
@@ -310,7 +615,7 @@ export class CreateView extends LitElement {
       background-color: inherit;
     }
 
-    @media screen and (max-width: 1300px) {
+    @media screen and (max-width: 1000px) {
       .recipe-intro {
         display: flex;
         flex-direction: column-reverse;
@@ -353,7 +658,6 @@ export class CreateView extends LitElement {
 
     .create-class img {
       width: 25px;
-      transform: translateY(5px);
     }
 
     .edit-recipe-image {

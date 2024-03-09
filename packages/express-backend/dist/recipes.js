@@ -31,4 +31,15 @@ function create(recipeData) {
         throw error;
     });
 }
-exports.default = { getTrending, create };
+function getRecipeById(id) {
+    return recipe_1.default.findById(id)
+        .exec()
+        .then((recipe) => {
+        return recipe;
+    })
+        .catch((error) => {
+        console.error('Error fetching recipe by id:', error);
+        throw error;
+    });
+}
+exports.default = { getTrending, create, getRecipeById };

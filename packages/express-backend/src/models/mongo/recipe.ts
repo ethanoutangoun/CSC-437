@@ -6,12 +6,13 @@ const recipeSchema = new Schema<Recipe>(
     name: { type: String, trim: true, required: true },
     ingredients: { type: [String], required: true },
     directions: { type: [String], required: true },
-    tags: { type: [String], required: true },
+    tags: { type: [String] },
     date: { type: Date, default: Date.now },
-    picture: { data: Buffer, contentType: String},
-    numLikes: { type: Number, default: 0 },
-    numComments: { type: Number, default: 0 },
-    userid: { type: String, required: true }
+    picture: { type: String, required: true},
+    likes: { type: Number, default: 0 },
+    userid: { type: String, required: true },
+    cost: { type: Number },
+    time: { type: Number }
    
   },
   { collection: "recipes" }

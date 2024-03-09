@@ -36,4 +36,18 @@ function create(recipeData: Recipe): Promise<Recipe> {
 }
 
 
-export default { getTrending, create };
+function getRecipeById(id: string): Promise<Recipe | null> {
+    return RecipeModel.findById(id)
+        .exec()
+        .then((recipe) => {
+            return recipe;
+        })
+        .catch((error) => {
+            console.error('Error fetching recipe by id:', error);
+            throw error;
+        });
+    }
+
+
+
+export default { getTrending, create, getRecipeById };

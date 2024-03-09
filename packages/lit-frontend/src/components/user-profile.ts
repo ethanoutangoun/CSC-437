@@ -7,6 +7,7 @@ import "./auth-required";
 import { consume } from "@lit/context";
 import { authContext } from "./auth-required";
 
+
 // import RouterLocation
 import { Router, RouterLocation } from "@vaadin/router";
 

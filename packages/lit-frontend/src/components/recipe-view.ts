@@ -6,8 +6,6 @@ import { APIRequest } from "./rest";
 
 @customElement("recipe-view")
 export class RecipeElement extends LitElement {
-
-
   @property({ attribute: false })
   location: RouterLocation | undefined;
 
@@ -22,15 +20,10 @@ export class RecipeElement extends LitElement {
   private renderDirections() {
     return html`
       <div class="card-directions">
-
         ${this.recipe?.directions.map(
-          (direction, index) => html`
-          <h4>Step ${index + 1}</h4>  
-          <p>${direction}</p>`
-        )}  
-          
-        
-
+          (direction, index) => html` <h4>Step ${index + 1}</h4>
+            <p>${direction}</p>`
+        )}
       </div>
     `;
   }
@@ -41,10 +34,8 @@ export class RecipeElement extends LitElement {
         <h4>Ingredients</h4>
 
         ${this.recipe?.ingredients.map(
-          (ingredient) => html`
-          <p>${ingredient}</p>`
+          (ingredient) => html` <p>${ingredient}</p>`
         )}
-     
       </div>
     `;
   }
@@ -53,21 +44,17 @@ export class RecipeElement extends LitElement {
     return html`
       <div class="card-tools">
         <h4>Tools</h4>
-        
-        ${this.recipe?.tools.map(
-          (tool) => html`
-          <p>${tool}</p>`
-        )}
+
+        ${this.recipe?.tools.map((tool) => html` <p>${tool}</p>`)}
       </div>
     `;
   }
-
 
   _getData(path: string) {
     const request = new APIRequest();
 
     request
-      .get(path)
+      .getAbsolute(path)
       .then((response: Response) => {
         if (response.status === 200) {
           return response.json();
@@ -84,27 +71,14 @@ export class RecipeElement extends LitElement {
       });
   }
 
-
-
   connectedCallback(): void {
     super.connectedCallback();
     window.scrollTo(0, 0);
 
-
-    const id = (this.location?.params.recipeid); 
+    const id = this.location?.params.recipeid;
     const path = `/recipes/${id}`;
     this._getData(path);
-
-    
-
-
-
-
-
-
-
   }
-
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
     if (name === "path" && oldValue !== newValue && oldValue) {
@@ -137,9 +111,10 @@ export class RecipeElement extends LitElement {
             </div>
 
             <div class="tags">
-            ${this.recipe?.tags.map((tag) => html`<p>${tag}</p>`)}
+              ${this.recipe?.tags.map((tag) => html`<p>${tag}</p>`)}
             </div>
           </div>
+
           <div class="recipe-intro">
             <div class="recipe-card">
               <div class="card-categories">
@@ -176,7 +151,6 @@ export class RecipeElement extends LitElement {
             </div>
           </div>
         </section>
-
       </div>
     `;
   }

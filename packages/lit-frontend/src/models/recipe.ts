@@ -11,4 +11,5 @@ export interface Recipe{
     userPicture: string;
     cost: number;
     time: number;
+    cuisine: string;
 }

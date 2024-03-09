@@ -107,8 +107,26 @@ export class JSONRequest {
     });
   }
 
+  // gets absolute path
+  getAbsolute(endpoint: string): Promise<Response> {
+    const path = `${SERVER_ROOT}${endpoint}`;
+    return fetch(path, {
+      headers: this._headers(),
+      body: this.json && JSON.stringify(this.json),
+    });
+  }
+
   post(endpoint: string) {
     return fetch(this._url(endpoint), {
+      method: "POST",
+      headers: this._headers(),
+      body: this.json && JSON.stringify(this.json),
+    });
+  }
+
+  postAbsolute(endpoint: string) {
+    const path = `${SERVER_ROOT}${endpoint}`;
+    return fetch(path, {
       method: "POST",
       headers: this._headers(),
       body: this.json && JSON.stringify(this.json),

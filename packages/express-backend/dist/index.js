@@ -34,6 +34,7 @@ const profiles_1 = __importDefault(require("./profiles"));
 const path = __importStar(require("path"));
 const auth_1 = require("./auth");
 const api_1 = __importDefault(require("./routers/api"));
+const recipes_1 = __importDefault(require("./routers/recipes"));
 const promises_1 = __importDefault(require("fs/promises"));
 const app = (0, express_1.default)();
 const port = process.env.PORT || 3000;
@@ -56,6 +57,15 @@ if (dist)
 app.post("/api/login", auth_1.loginUser);
 app.post("/api/signup", auth_1.registerUser);
 app.use("/api", api_1.default);
+app.use("/recipes", recipes_1.default);
+// app.post("/api/recipes", (req: Request, res: Response) => {
+//   const newRecipe = req.body;
+//   recipes
+//     .create(newRecipe)
+//     .then((recipe: Recipe) => res.status(201).send(recipe))
+//     .catch((err) => res.status(500).send(err));
+// }
+// );
 app.post("/api/profiles", (req, res) => {
     const newProfile = req.body;
     profiles_1.default

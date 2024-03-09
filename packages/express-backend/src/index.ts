@@ -7,10 +7,10 @@ import { Profile } from "./models/profile";
 import * as path from "path";
 import { loginUser, registerUser } from "./auth";
 import apiRouter from "./routers/api";
+import recipeRouter from "./routers/recipes"
 
 import recipes from "./recipes";
 import { Recipe } from "./models/recipe";
-
 import fs from "fs/promises";
 const app = express();
 const port = process.env.PORT || 3000;
@@ -50,6 +50,17 @@ app.post("/api/signup", registerUser);
 app.use("/api", apiRouter);
 
 
+app.use("/recipes", recipeRouter);
+
+// app.post("/api/recipes", (req: Request, res: Response) => {
+//   const newRecipe = req.body;
+
+//   recipes
+//     .create(newRecipe)
+//     .then((recipe: Recipe) => res.status(201).send(recipe))
+//     .catch((err) => res.status(500).send(err));
+// }
+// );
 
 
 app.post("/api/profiles", (req: Request, res: Response) => {

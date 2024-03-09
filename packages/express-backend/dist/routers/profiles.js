@@ -6,13 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const profiles_1 = __importDefault(require("../profiles"));
 const router = express_1.default.Router();
-// router.post("/", (req: Request, res: Response) => {
-//   const newProfile = req.body;
-//   profiles
-//     .create(newProfile)
-//     .then((profile: Profile) => res.status(201).send(profile))
-//     .catch((err) => res.status(500).send(err));
-// });
 router.get("/:userid", (req, res) => {
     const { userid } = req.params;
     profiles_1.default

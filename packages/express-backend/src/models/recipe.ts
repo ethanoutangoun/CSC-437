@@ -4,6 +4,7 @@ export interface Recipe{
     directions: string[];
     tools: string[];
     tags: string[];
+    cuisine: string;
     date: Date;
     picture: string;
     likes: number;

@@ -1,79 +1,70 @@
 import { css, html, LitElement } from "lit";
-import { customElement } from "lit/decorators.js";
+import { customElement, property } from "lit/decorators.js";
 import "./recipe-card.ts";
-import { property } from "lit/decorators.js";
-
-
+import { Recipe } from "../models/recipe.ts";
 
 @customElement("recipe-grid")
 export class RecipeGrid extends LitElement {
   @property({ reflect: true, type: Boolean })
   sorted: boolean = false;
 
+  @property({ reflect: true, type: Array })
+  recipeList: Recipe[] = [];
 
-  recipes = [
-    { 
-      title: "Steak and Bordelaise Sauce", 
-      cuisine: "American", 
-      price: "$$$", 
-      image: "/images/steak.jpeg" 
-    },
-    { 
-      title: "Beef Pho", 
-      cuisine: "Vietnamese", 
-      price: "$$", 
-      image: "/images/pho.jpeg" 
-    },
-    { 
-      title: "Scalloped Potatoes", 
-      cuisine: "American", 
-      price: "$", 
-      image: "/images/potatoes.jpeg" 
-    },
-    { 
-      title: "Lemon Garlic Chicken Pasta", 
-      cuisine: "American", 
-      price: "$", 
-      image: "/images/lemon-chicken.png" 
-    },
-    { 
-      title: "Beef Pho", 
-      cuisine: "Vietnamese", 
-      price: "$$", 
-      image: "/images/pho.jpeg" 
+  sortedRecipes = [...this.recipeList]; // Copy of the recipes array for sorting
+
+  // convert price (number) to $$$
+  convertPrice(price: number) {
+    let cost = "";
+    let count = 0;
+    for (let i = 0; i < price; i+=10) {
+      cost += "$";
+      count++;
+
+      if (count > 4)
+      {
+        break;
+      }
     }
-  ];
+    return cost;
+  }
 
-  
-
-  sortedRecipes = [...this.recipes]; // Copy of the recipes array for sorting
 
   sortAlphabetically() {
     if (this.sorted) {
-      this.sortedRecipes = this.sortedRecipes.sort((a, b) => b.title.localeCompare(a.title));
+      this.sortedRecipes = this.sortedRecipes.sort((a, b) =>
+        b.name.localeCompare(a.name)
+      );
       this.sorted = false;
-    }
-    else {
-      this.sortedRecipes = this.sortedRecipes.sort((a, b) => a.title.localeCompare(b.title));
+    } else {
+      this.sortedRecipes = this.sortedRecipes.sort((a, b) =>
+        a.name.localeCompare(b.name)
+      );
       this.sorted = true;
     }
-
+    console.log("Sorted recipes", this.sortedRecipes);
     this.requestUpdate(); // Trigger LitElement to update the UI
   }
 
   render() {
     return html`
       <div class="container">
-        ${false ? html`<button @click="${this.sortAlphabetically}" class="sort-button">Sort Alphabetically</button>` :  ""}
+ 
         <ul class="recipe-list">
-          ${this.sortedRecipes.map(recipe => html`
-            <recipe-card>
-              <img slot="image" src="${recipe.image}" alt="${recipe.title}" />
-              <span slot="title">${recipe.title}</span>
-              <span slot="cuisine">${recipe.cuisine}</span>
-              <span slot="price">${recipe.price}</span>
-            </recipe-card>
-          `)}
+          ${this.recipeList.map(
+            (recipe) => html`
+              <recipe-card .id = ${recipe._id}>
+                <img
+                  slot="image"
+                  src="${recipe.picture}"
+                  alt="${recipe.name}"
+                />
+                <span slot="title">${recipe.name}</span>
+                <span slot="cuisine">${recipe.cuisine}</span>
+                <span slot="price">${this.convertPrice(recipe.cost)}</span>
+              </recipe-card>
+            `
+          )}
         </ul>
       </div>
     `;

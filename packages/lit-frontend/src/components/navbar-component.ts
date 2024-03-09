@@ -1,9 +1,10 @@
 import { css, html, LitElement } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { customElement, property, state } from "lit/decorators.js";
 import { Router } from "@vaadin/router";
 import { consume } from "@lit/context";
 import { authContext } from "./auth-required";
-import { APIUser } from "./rest.ts";
+import { APIUser, APIRequest } from "./rest.ts";
+import { Profile } from "../models/profile.ts";  
 
 import "./drop-down.ts";
 
@@ -15,6 +16,38 @@ export class Navbar extends LitElement {
   @consume({ context: authContext, subscribe: true })
   @property({ attribute: false })
   user?: APIUser;
+
+
+  _getData(path: string) {
+    const request = new APIRequest();
+
+    request
+      .get(path)
+      .then((response: Response) => {
+        if (response.status === 200) {
+          return response.json();
+        }
+        return null;
+      })
+      .then((json: unknown) => {
+        this.profile = json as Profile;
+      })
+      .catch((error) => {
+        console.log("Error fetching data", error);
+      });
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    if (this.user?.authenticated) {
+      this._getData(`/profiles/${this.user?.username}`);
+    }
+  }
+
+
+
+  @state()
+  profile? : Profile;
 
   render() {
     return html`
@@ -49,7 +82,7 @@ export class Navbar extends LitElement {
                 </div>`
               : html``}
 
-            <drop-down></drop-down>
+            <drop-down profile = ${this.profile}></drop-down>
           </div>
         </div>
       </header>

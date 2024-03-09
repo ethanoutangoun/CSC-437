@@ -1,4 +1,5 @@
 export interface Recipe{
+    _id: string;
     name: string;
     ingredients: string[];
     directions: string[];
@@ -11,4 +12,5 @@ export interface Recipe{
     userPicture: string;
     cost: number;
     time: number;
+    cuisine: string;
 }

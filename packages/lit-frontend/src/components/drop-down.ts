@@ -3,6 +3,7 @@ import { customElement, property, state } from "lit/decorators.js";
 import { Router } from "@vaadin/router";
 import "./toggle-switch.ts";
 import { APIUser, AuthenticatedUser } from "./rest";
+import { Profile } from "../models/profile";
 
 @customElement("drop-down")
 export class DropDownElement extends LitElement {
@@ -13,6 +14,10 @@ export class DropDownElement extends LitElement {
   user: APIUser = AuthenticatedUser.authenticateFromLocalStorage(() =>
     this._signOut()
   );
+
+  @property({ reflect: true })
+  profile?: Profile;
+
 
   
 

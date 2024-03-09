@@ -4,14 +4,7 @@ import profiles from "../profiles";
 
 const router = express.Router();
 
-// router.post("/", (req: Request, res: Response) => {
-//   const newProfile = req.body;
 
-//   profiles
-//     .create(newProfile)
-//     .then((profile: Profile) => res.status(201).send(profile))
-//     .catch((err) => res.status(500).send(err));
-// });
 
 router.get("/:userid", (req: Request, res: Response) => {
   const { userid } = req.params;

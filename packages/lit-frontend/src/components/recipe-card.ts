@@ -1,5 +1,5 @@
 import { css, html, LitElement } from "lit";
-import { customElement} from "lit/decorators.js";
+import { customElement, property } from "lit/decorators.js";
 import { Router } from "@vaadin/router";
 
 @customElement("recipe-card")
@@ -76,10 +76,23 @@ export class RecipeCard extends LitElement {
     }
   `;
 
+
+  @property({ reflect: true, type: String })
+  id: string = "";
+
+
+
+
+
+  handleClick() {
+    const path = "/app/recipe/" + this.id;
+    Router.go(path);
+  }
+
   render() {
     return html`
       <li class="recipe-container">
-        <div @click = ${()=> Router.go("/app/recipe/65ebef158361e8ce1926edd6")}>
+        <div @click = ${this.handleClick}>
           <div class="recipe-img-container">
            <slot name="image"></slot>
           </div>

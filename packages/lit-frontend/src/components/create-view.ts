@@ -3,6 +3,7 @@ import { customElement, property, state } from "lit/decorators.js";
 import { JSONRequest, APIUser } from "./rest";
 import { consume } from "@lit/context";
 import { authContext } from "./auth-required";
+import { Router } from "@vaadin/router";
 
 @customElement("create-view")
 export class CreateView extends LitElement {
@@ -29,6 +30,7 @@ export class CreateView extends LitElement {
   editTime: boolean = false;
   editCost: boolean = false;
   picture: string | null = null;
+  cuisine: string | null = null;
 
   private _addSteps(event: Event) {
     const inputElement = event.target as HTMLInputElement;
@@ -150,24 +152,26 @@ export class CreateView extends LitElement {
       tools: this.tools,
       picture: this.picture || "",
       userid: this.user?.username,
+      cuisine: this.cuisine
     };
     console.log(newRecipe);
 
     const request = new JSONRequest(newRecipe);
 
-    request.post(this.path).then((response) => {
-      
-      return response.json(); // Parse JSON response
+    request
+      .postAbsolute(this.path)
+      .then((response) => {
+        return response.json(); // Parse JSON response
+      })
+      .then((recipe) => {
+        console.log(recipe._id);
 
-    }).then((recipe) => {
-      console.log(recipe._id);
-      // window.location.href = `/recipes/${recipe._id}`;
-    })
-    
-    
-    .catch((error) => {
-      console.error(error)
-    });
+        Router.go("/app/recipe/" + recipe._id);
+      })
+
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   handleEditTitle() {
@@ -198,7 +202,6 @@ export class CreateView extends LitElement {
   handleCostChange(event: Event) {
     const inputElement = event.target as HTMLInputElement;
     const newValue = inputElement.value;
-
 
     // if new value is not an int
     if (isNaN(parseInt(newValue))) {
@@ -243,6 +246,13 @@ export class CreateView extends LitElement {
     this.requestUpdate();
   }
 
+  handleCuisineChange(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    const newValue = inputElement.value;
+    this.cuisine = newValue;
+    this.requestUpdate();
+  }
+
   render() {
     return html`<section class="recipe-content">
       <div class="space-between">
@@ -280,9 +290,17 @@ export class CreateView extends LitElement {
             width="20px"
           />
           ${!this.editTime
-            ? html`<p @click=${this.handleEditTime}>${this.recipeTime ? this.recipeTime + " minutes" : html`Add Time`}</p>`
-            : html`<input class="time-cost-buttons" type="text" @change=${(event: KeyboardEvent) =>
-              this.handleTimeChange(event)} />`}
+            ? html`<p @click=${this.handleEditTime}>
+                ${this.recipeTime
+                  ? this.recipeTime + " minutes"
+                  : html`Add Time`}
+              </p>`
+            : html`<input
+                class="time-cost-buttons"
+                type="text"
+                @change=${(event: KeyboardEvent) =>
+                  this.handleTimeChange(event)}
+              />`}
         </div>
 
         <div class="cost-stat">
@@ -293,7 +311,9 @@ export class CreateView extends LitElement {
             width="25px"
           />
           ${!this.editCost
-            ? html`<p @click=${this.handleEditCost}>${this.recipeCost ? "$"+ this.recipeCost : html`Add Cost`}</p>`
+            ? html`<p @click=${this.handleEditCost}>
+                ${this.recipeCost ? "$" + this.recipeCost : html`Add Cost`}
+              </p>`
             : html`<input
                 class="time-cost-buttons"
                 type="text"
@@ -311,6 +331,28 @@ export class CreateView extends LitElement {
           </div>
         </div>
       </div>
+
+      <div class="tags-container">
+        <div class="tag-title">
+          <img src="/icons/tag.svg" alt="tag icon" width="25px" />
+          <h5>Cuisine:</h5>
+        </div>
+
+        <div class="tags">
+          
+            ${this.cuisine
+              ? html`<p>${this.cuisine}</p>`
+              : html` <input
+                  class = "cuisine-input"
+                  type="text"
+                  placeholder="Add Cuisine"
+                  @change=${(event: KeyboardEvent) => this.handleCuisineChange(event)}
+                />`}
+          
+        </div>
+      </div>
+
+
       <div class="recipe-intro">
         <div class="recipe-card">
           <div class="card-categories">
@@ -364,6 +406,12 @@ export class CreateView extends LitElement {
       padding: 0;
       margin: 0;
       background-color: var(--color-main-bg);
+    }
+
+    .cuisine-input {
+      padding: 7px;
+      border: 1px solid var(--color-light);
+      border-radius: 5px;
     }
 
     .time-cost-buttons {

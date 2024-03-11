@@ -1,7 +1,7 @@
 {
   "name": "csc-437",
   "version": "1.0.0",
-  "description": "hello",
+  "description": "Cooked app for recipes!",
   "main": "index.js",
   "scripts": {
     "build:frontend": "npm run -w lit-frontend build",

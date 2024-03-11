@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -16,18 +25,19 @@ function getTrending(pageNumber, pageSize) {
         return recipes;
     })
         .catch((error) => {
-        console.error('Error fetching recipes by likes:', error);
+        console.error("Error fetching recipes by likes:", error);
         throw error;
     });
 }
 function create(recipeData) {
     const newRecipe = new recipe_1.default(recipeData);
-    return newRecipe.save()
+    return newRecipe
+        .save()
         .then((recipe) => {
         return recipe;
     })
         .catch((error) => {
-        console.error('Error creating recipe:', error);
+        console.error("Error creating recipe:", error);
         throw error;
     });
 }
@@ -38,8 +48,21 @@ function getRecipeById(id) {
         return recipe;
     })
         .catch((error) => {
-        console.error('Error fetching recipe by id:', error);
+        console.error("Error fetching recipe by id:", error);
         throw error;
     });
 }
-exports.default = { getTrending, create, getRecipeById };
+function getRecipesByTag(tag) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            // Find recipes that contain the provided tag in their 'tags' array
+            const recipes = yield recipe_1.default.find({ tags: tag }).exec();
+            return recipes;
+        }
+        catch (error) {
+            console.error("Error fetching recipes by tag:", error);
+            throw error;
+        }
+    });
+}
+exports.default = { getTrending, create, getRecipeById, getRecipesByTag };

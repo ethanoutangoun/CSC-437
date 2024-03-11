@@ -58,14 +58,6 @@ app.post("/api/login", auth_1.loginUser);
 app.post("/api/signup", auth_1.registerUser);
 app.use("/api", api_1.default);
 app.use("/recipes", recipes_1.default);
-// app.post("/api/recipes", (req: Request, res: Response) => {
-//   const newRecipe = req.body;
-//   recipes
-//     .create(newRecipe)
-//     .then((recipe: Recipe) => res.status(201).send(recipe))
-//     .catch((err) => res.status(500).send(err));
-// }
-// );
 app.post("/api/profiles", (req, res) => {
     const newProfile = req.body;
     profiles_1.default

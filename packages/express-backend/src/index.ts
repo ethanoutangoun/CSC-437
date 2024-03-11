@@ -52,15 +52,7 @@ app.use("/api", apiRouter);
 
 app.use("/recipes", recipeRouter);
 
-// app.post("/api/recipes", (req: Request, res: Response) => {
-//   const newRecipe = req.body;
 
-//   recipes
-//     .create(newRecipe)
-//     .then((recipe: Recipe) => res.status(201).send(recipe))
-//     .catch((err) => res.status(500).send(err));
-// }
-// );
 
 
 app.post("/api/profiles", (req: Request, res: Response) => {

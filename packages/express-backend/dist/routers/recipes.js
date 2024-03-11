@@ -41,4 +41,11 @@ router.get("/:id", (req, res) => {
         res.status(500).send(error);
     });
 });
+router.get("/tag/:tag", (req, res) => {
+    let tag = req.params.tag;
+    recipes_1.default
+        .getRecipesByTag(tag)
+        .then((recipes) => res.json(recipes))
+        .catch((error) => res.status(500).send(error));
+});
 exports.default = router;

@@ -86,6 +86,10 @@ export class RecipeElement extends LitElement {
     super.attributeChangedCallback(name, oldValue, newValue);
   }
 
+  private capitalize(str: string): string {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
   render() {
     return html`
       <div>
@@ -110,7 +114,7 @@ export class RecipeElement extends LitElement {
             </div>
 
             <div class="tags">
-              ${this.recipe?.tags.map((tag) => html`<p>${tag}</p>`)}
+              ${this.recipe?.tags.map((tag) => html`<p>${this.capitalize(tag)}</p>`)}
             </div>
           </div>
 

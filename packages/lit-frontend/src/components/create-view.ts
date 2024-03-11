@@ -221,20 +221,53 @@ export class CreateView extends LitElement {
       const target = event.target as HTMLInputElement;
       const selectedFile = (target.files as FileList)[0];
 
-      const reader: Promise<string> = new Promise((resolve, reject) => {
+      const reader: Promise<HTMLImageElement> = new Promise((resolve, reject) => {
         const fr = new FileReader();
-        fr.onload = () => resolve(fr.result as string);
+        fr.onload = () => {
+          const img = new Image();
+          img.onload = () => resolve(img);
+          img.onerror = (err) => reject(err);
+          img.src = fr.result as string;
+        };
         fr.onerror = (err) => reject(err);
         fr.readAsDataURL(selectedFile);
       });
 
-      reader.then((result: string) => {
-        this.picture = result;
+      reader.then((img: HTMLImageElement) => {
+        // Calculate aspect ratio (e.g., 4:3)
+        const aspectRatio = 3 / 3;
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d')!;
+        
+        // Calculate dimensions for cropping
+        let newWidth, newHeight, offsetX = 0, offsetY = 0;
+        if (img.width / img.height > aspectRatio) {
+          newHeight = img.height;
+          newWidth = img.height * aspectRatio;
+          offsetX = (img.width - newWidth) / 2;
+        } else {
+          newWidth = img.width;
+          newHeight = img.width / aspectRatio;
+          offsetY = (img.height - newHeight) / 2;
+        }
+
+        // Set canvas dimensions
+        canvas.width = newWidth;
+        canvas.height = newHeight;
+
+        // Perform the crop
+        ctx.drawImage(img, offsetX, offsetY, newWidth, newHeight, 0, 0, newWidth, newHeight);
+
+        // Convert the cropped image to base64 data URL
+        const croppedImage = canvas.toDataURL('image/jpeg', 1.0);
+
+        this.picture = croppedImage;
         this.requestUpdate();
       });
     });
     inputElement.click();
-  }
+}
+
 
   handleEditTime() {
     this.editTime = !this.editTime;

@@ -17,7 +17,7 @@ export class CategoryList extends LitElement {
             <li>
               <div
                 class="category-item"
-                @click="${() => Router.go("/app/category/1")}"
+                @click="${() => Router.go("/app/")}"
               >
                 <div class="image-border">
                   <img src="/icons/flame.svg" alt="flame-icon" width="33px" />
@@ -29,7 +29,7 @@ export class CategoryList extends LitElement {
             <li>
               <div
                 class="category-item"
-                @click="${() => Router.go("/app/category/1")}"
+                @click="${() => Router.go("/app/category/american")}"
               >
                 <div class="image-border">
                   <img src="/icons/american.svg" alt="American" width="35px" />
@@ -41,7 +41,7 @@ export class CategoryList extends LitElement {
             <li>
               <div
                 class="category-item"
-                @click="${() => Router.go("/app/category/1")}"
+                @click="${() => Router.go("/app/category/italian")}"
               >
                 <div class="image-border">
                   <img src="/icons/italian.svg" alt="Italian" width="35px" />
@@ -53,7 +53,7 @@ export class CategoryList extends LitElement {
             <li>
               <div
                 class="category-item"
-                @click="${() => Router.go("/app/category/1")}"
+                @click="${() => Router.go("/app/category/mexican")}"
               >
                 <div class="image-border">
                   <img
@@ -69,7 +69,7 @@ export class CategoryList extends LitElement {
             <li>
               <div
                 class="category-item"
-                @click="${() => Router.go("/app/category/1")}"
+                @click="${() => Router.go("/app/category/japanese")}"
               >
                 <div class="image-border">
                   <img
@@ -85,7 +85,7 @@ export class CategoryList extends LitElement {
             <li>
               <div
                 class="category-item"
-                @click="${() => Router.go("/app/category/1")}"
+                @click="${() => Router.go("/app/category/indian")}"
               >
                 <div class="image-border">
                   <img src="/icons/indian.svg" alt="indian-icon" width="42px" />
@@ -97,7 +97,7 @@ export class CategoryList extends LitElement {
             <li>
               <div
                 class="category-item"
-                @click="${() => Router.go("/app/category/1")}"
+                @click="${() => Router.go("/app/category/date-night")}"
               >
                 <div class="image-border">
                   <img src="/icons/wine.svg" alt="wine-icon" width="36px" />
@@ -109,7 +109,7 @@ export class CategoryList extends LitElement {
             <li>
               <div
                 class="category-item"
-                @click="${() => Router.go("/app/category/1")}"
+                @click="${() => Router.go("/app/category/chicken")}"
               >
                 <div class="image-border">
                   <img
@@ -123,13 +123,13 @@ export class CategoryList extends LitElement {
             </li>
 
             <li>
-              <a href="/app/category/1">
+              <div class = "category-item">
                 <div class="more-icon">
                   <svg class="m-icon">
                     <use href="/icons/right-arrow-2.svg#icon-right-arrow" />
                   </svg>
                 </div>
-              </a>
+              </div>
             </li>
           </ul>
         </div>

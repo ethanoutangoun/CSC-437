@@ -11,7 +11,12 @@ export class RecipeGrid extends LitElement {
   @property({ reflect: true, type: Array })
   recipeList: Recipe[] = [];
 
+  @property({ reflect: true, type: Boolean})
+  sort : boolean = false;
+
   sortedRecipes = [...this.recipeList]; // Copy of the recipes array for sorting
+  
+  
 
   // convert price (number) to $$$
   convertPrice(price: number) {
@@ -29,26 +34,40 @@ export class RecipeGrid extends LitElement {
   }
 
   sortAlphabetically() {
-    if (this.sorted) {
+    this.sortedRecipes = [...this.recipeList]; // Copy of the recipes array for sorting
+    if (this.sort) {
       this.sortedRecipes = this.sortedRecipes.sort((a, b) =>
         b.name.localeCompare(a.name)
       );
-      this.sorted = false;
+     
     } else {
       this.sortedRecipes = this.sortedRecipes.sort((a, b) =>
         a.name.localeCompare(b.name)
       );
-      this.sorted = true;
+   
     }
     console.log("Sorted recipes", this.sortedRecipes);
     this.requestUpdate(); // Trigger LitElement to update the UI
   }
 
+  updated(changedProperties: Map<string | number | symbol, unknown>) {
+
+    if (changedProperties.has('recipeList')) { 
+      this.sortedRecipes = [...this.recipeList]; // Copy of the recipes array for sorting
+      this.requestUpdate(); // Trigger LitElement to update the UI
+    }
+
+    if (changedProperties.has('sort')) {
+      this.sortAlphabetically(); // Update sortedRecipes whenever recipeList changes
+    }
+  }
+
   render() {
     return html`
       <div class="container">
+      
         <ul class="recipe-list">
-          ${this.recipeList.map(
+          ${this.sortedRecipes.map(
             (recipe) => html`
               <recipe-card .id=${recipe._id}>
                 <img
@@ -80,7 +99,7 @@ export class RecipeGrid extends LitElement {
     }
 
     .recipe-list {
-     
+      
 
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));

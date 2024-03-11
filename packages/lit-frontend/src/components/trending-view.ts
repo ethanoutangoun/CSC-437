@@ -5,18 +5,14 @@ import { Recipe } from "../models/recipe.ts";
 import "./category-list.ts";
 import "./recipe-grid.ts";
 
-
-
 @customElement("trending-view")
 export class TrendingView extends LitElement {
   @property({ reflect: true, type: Boolean })
   open: boolean = false;
 
-  @state() 
+  @state()
   recipeList: Recipe[] = [];
-
-
-
+  sort: boolean = false;
 
   connectedCallback(): void {
     super.connectedCallback();
@@ -33,24 +29,26 @@ export class TrendingView extends LitElement {
         this.recipeList = json;
         this.requestUpdate();
       });
-
-    
   }
 
-
-
+  handleSort(event: CustomEvent) {
+    let result = event.detail;
+    this.sort = result;
+    this.requestUpdate();
+  }
 
   render() {
     return html`
       <div>
-  
-        <category-list></category-list>
+        <category-list @sort-requested=${this.handleSort}></category-list>
         <section class="trending">
           <h2>Trending Recipes</h2>
 
-          <recipe-grid .recipeList=${this.recipeList}></recipe-grid>
+          <recipe-grid
+            .recipeList=${this.recipeList}
+            .sort=${this.sort}
+          ></recipe-grid>
         </section>
-
       </div>
     `;
   }

@@ -19,10 +19,10 @@
 .dark-mode {
   --color-primary: #ffffff;
   --color-primary-orange: rgb(247, 145, 1);
-  --color-light: #d6d5d5;
+  --color-light: #afacac;
   --color-light-alt: #aaa8a8;
   --time-transition-control: 0.2s ease;
-  --color-border: #8d8d8d;
-  --color-main-bg: #3e3964;
+  --color-border: #646464;
+  --color-main-bg: #363255;
   --color-card-highlight: rgba(255, 255, 255, 0.2);
 }

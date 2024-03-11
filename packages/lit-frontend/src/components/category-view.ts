@@ -4,12 +4,10 @@ import { RouterLocation } from "@vaadin/router";
 import { APIRequest } from "./rest.ts";
 import { Recipe } from "../models/recipe.ts";
 
-
 import "./recipe-grid";
 
 @customElement("category-view")
 export class CategoryView extends LitElement {
-
   @property({ attribute: false })
   location: RouterLocation | undefined;
 
@@ -20,19 +18,21 @@ export class CategoryView extends LitElement {
   @state()
   Category: string | undefined;
 
-  @state() 
+  @state()
   recipeList: Recipe[] = [];
-
+  sort: boolean = false;
 
   convertToTitleCase(word: string): string {
-    const words = word.split('-');
-    const capitalizedWords = words.map(w => w.charAt(0).toUpperCase() + w.slice(1));
-    return capitalizedWords.join(' ');
+    const words = word.split("-");
+    const capitalizedWords = words.map(
+      (w) => w.charAt(0).toUpperCase() + w.slice(1)
+    );
+    return capitalizedWords.join(" ");
   }
 
   connectedCallback(): void {
     super.connectedCallback();
- 
+
     if (this.location) {
       const pathnameParts = this.location.pathname.split("/");
       const categoryIndex = pathnameParts.indexOf("category") + 1; // Get the index of the next segment after 'profile'
@@ -43,11 +43,7 @@ export class CategoryView extends LitElement {
 
       this.Category = capitalizedCategory;
 
-
       const path = `/recipes/tag/${this.category}`;
-
-  
-
 
       const request = new APIRequest();
       request
@@ -62,20 +58,25 @@ export class CategoryView extends LitElement {
           this.requestUpdate();
         });
     }
-    
   }
 
-
-
+  handleSort(event: CustomEvent) {
+    let result = event.detail;
+    this.sort = result;
+    this.requestUpdate();
+  }
 
   render() {
     return html`
       <div>
-        <category-list></category-list>
+        <category-list @sort-requested=${this.handleSort}></category-list>
         <section class="trending">
           <h2>${this.Category} Recipes</h2>
 
-          <recipe-grid .recipeList=${this.recipeList}></recipe-grid>
+          <recipe-grid
+            .recipeList=${this.recipeList}
+            .sort=${this.sort}
+          ></recipe-grid>
         </section>
       </div>
     `;
@@ -92,13 +93,12 @@ export class CategoryView extends LitElement {
     .trending {
       margin-bottom: 20px;
     }
-    
+
     .trending h2 {
       font-size: 20px;
       font-weight: 500;
       color: var(--color-primary);
       margin-bottom: 10px;
     }
-    
   `;
 }

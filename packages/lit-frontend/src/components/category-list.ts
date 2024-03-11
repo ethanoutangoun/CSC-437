@@ -4,6 +4,7 @@ import { Router } from "@vaadin/router";
 
 import "./filter-popup.ts";
 
+
 @customElement("category-list")
 export class CategoryList extends LitElement {
   @property({ reflect: true, type: Boolean })
@@ -134,9 +135,15 @@ export class CategoryList extends LitElement {
           </ul>
         </div>
 
-        <filter-popup></filter-popup>
+
+        <filter-popup @sort-requested=${this.handleSort}></filter-popup>
       </section>
     `;
+  }
+
+  handleSort(event: CustomEvent) {
+    let sort = event.detail;
+    this.dispatchEvent(new CustomEvent("sort-requested", { detail : sort}));
   }
 
   static styles = css`

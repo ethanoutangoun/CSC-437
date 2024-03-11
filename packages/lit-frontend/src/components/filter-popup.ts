@@ -1,9 +1,12 @@
 import { LitElement, html, css } from "lit";
-import { property } from "lit/decorators.js";
+import { property, state } from "lit/decorators.js";
 
 class FilterPopup extends LitElement {
   @property({ reflect: true, type: Boolean })
   open: boolean = false;
+
+  @state()
+  sort: boolean = false;
 
   static styles = css`
     * {
@@ -27,15 +30,10 @@ class FilterPopup extends LitElement {
     .popup {
       background-color: white;
       padding: 20px;
+      height: 40vh;
+      width: 40vw;
       border-radius: 5px;
       position: relative;
-    }
-
-    .close-button {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      cursor: pointer;
     }
 
     .filter-container {
@@ -72,6 +70,26 @@ class FilterPopup extends LitElement {
       cursor: pointer;
       background-color: rgb(230, 230, 230);
     }
+
+    .filter-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .close {
+      cursor: pointer;
+    }
+
+    button {
+      cursor: pointer;
+      background-color: white;
+      border: 1px solid var(--color-light);
+      padding: 10px 20px;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
   `;
 
   openPopup() {
@@ -79,13 +97,21 @@ class FilterPopup extends LitElement {
     // document.body.style.overflow = 'hidden'; // Disable scrolling on the background
   }
 
-  closePopup() {
-    this.open = false;
-    document.body.style.overflow = ""; // Enable scrolling back on the background
+  closePopup(event: MouseEvent) {
+    const clickedElement = event.target as HTMLElement;
+    if (clickedElement.classList.contains("popup-overlay")) {
+      this.open = false;
+      document.body.style.overflow = ""; // Enable scrolling back on the background
+      console.log("Closing popup...");
+    }
   }
 
   triggerSort() {
-    this.dispatchEvent(new CustomEvent("sort-requested"));
+    this.sort = !this.sort;
+    this.dispatchEvent(
+      new CustomEvent("sort-requested", { detail: this.sort })
+    );
+    // this.open = false;
   }
 
   render() {
@@ -101,17 +127,24 @@ class FilterPopup extends LitElement {
         ${
           this.open
             ? html`
-                <div class="popup-overlay" @click="${this.closePopup}"  >
+                <div class="popup-overlay" @click="${this.closePopup}">
                   <div class="popup">
-                    <button @click="${this.closePopup}" class="close-button">
-                      Close
-                    </button>
+                    <div class="filter-title">
+                      <h3>Change Filters</h3>
+
+                      <img
+                        class="close"
+                        src="/icons/close.svg"
+                        alt="close"
+                        class="close-button"
+                        @click="${() => (this.open = false)}"
+                        width="30px"
+                      />
+                    </div>
 
                     <button @click="${this.triggerSort}" class="sort-button">
                       Sort Alphabetically
                     </button>
-                 
-                    <p>This is the filter popup content.</p>
                   </div>
                 </div>
               `

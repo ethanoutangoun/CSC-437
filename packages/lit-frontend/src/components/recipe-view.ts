@@ -3,6 +3,7 @@ import { customElement, property, state } from "lit/decorators.js";
 import { RouterLocation } from "@vaadin/router";
 import { Recipe } from "../models/recipe";
 import { APIRequest } from "./rest";
+import { Router } from "@vaadin/router";
 
 @customElement("recipe-view")
 export class RecipeElement extends LitElement {
@@ -94,19 +95,29 @@ export class RecipeElement extends LitElement {
     return html`
       <div>
         <section class="recipe-content">
-          <h2>${this.recipe?.name}</h2>
+          <div class="recipe-header">
+            <h2>${this.recipe?.name}</h2>
 
-          <div class="recipe-stats">
-            <div class="time-stat">
-              <img src="/icons/alarm.svg" alt="heart" width="20px" />
-              <p>${this.recipe?.time ? this.recipe?.time + " minutes" : "N/A"}</p>
-            </div>
+            <div class="recipe-stats">
+              <div class="time-stat">
+                <img src="/icons/alarm.svg" alt="heart" width="20px" />
+                <p>
+                  ${this.recipe?.time ? this.recipe?.time + " minutes" : "N/A"}
+                </p>
+              </div>
 
-            <div class="cost-stat">
-              <img src="/icons/money.svg" alt="money" width="25px" />
-              <p>${this.recipe?.cost ? "$" + this.recipe?.cost + " per serving" : "N/A"}</p>
+              <div class="cost-stat">
+                <img src="/icons/money.svg" alt="money" width="25px" />
+                <p>
+                  ${this.recipe?.cost
+                    ? "$" + this.recipe?.cost + " per serving"
+                    : "N/A"}
+                </p>
+              </div>
             </div>
           </div>
+          <p class="author">By ${this.recipe?.userid}</p>
+
           <div class="tags-container">
             <div class="tag-title">
               <img src="/icons/tag.svg" alt="tag icon" width="25px" />
@@ -114,7 +125,9 @@ export class RecipeElement extends LitElement {
             </div>
 
             <div class="tags">
-              ${this.recipe?.tags.map((tag) => html`<p>${this.capitalize(tag)}</p>`)}
+              ${this.recipe?.tags.map(
+                (tag) => html`<p @click = ${()=>  Router.go("/app/category/" + tag)}>${this.capitalize(tag)}</p>`
+              )}
             </div>
           </div>
 
@@ -166,12 +179,27 @@ export class RecipeElement extends LitElement {
       background-color: var(--color-main-bg);
     }
 
+    .recipe-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .author {
+      font-size: 15px;
+      font-weight: 300;
+      color: #333;
+      margin-bottom: 10px;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
     .recipe-content h2 {
       font-family: "Montserrat", sans-serif;
       font-weight: 500;
       font-size: 26px;
       padding-top: 20px;
-      padding-bottom: 10px;
+      padding-bottom: 20px;
       color: var(--color-primary);
     }
 

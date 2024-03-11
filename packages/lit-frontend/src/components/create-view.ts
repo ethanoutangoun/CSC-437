@@ -4,6 +4,7 @@ import { JSONRequest, APIUser } from "./rest";
 import { consume } from "@lit/context";
 import { authContext } from "./auth-required";
 import { Router } from "@vaadin/router";
+import "./cuisine-drop-down";
 
 @customElement("create-view")
 export class CreateView extends LitElement {
@@ -31,6 +32,7 @@ export class CreateView extends LitElement {
   editCost: boolean = false;
   picture: string | null = null;
   cuisine: string | null = null;
+  tags: string[] = [];
 
   private _addSteps(event: Event) {
     const inputElement = event.target as HTMLInputElement;
@@ -152,7 +154,8 @@ export class CreateView extends LitElement {
       tools: this.tools,
       picture: this.picture || "",
       userid: this.user?.username,
-      cuisine: this.cuisine
+      cuisine: this.cuisine,
+      tags: this.tags,
     };
     console.log(newRecipe);
 
@@ -221,26 +224,31 @@ export class CreateView extends LitElement {
       const target = event.target as HTMLInputElement;
       const selectedFile = (target.files as FileList)[0];
 
-      const reader: Promise<HTMLImageElement> = new Promise((resolve, reject) => {
-        const fr = new FileReader();
-        fr.onload = () => {
-          const img = new Image();
-          img.onload = () => resolve(img);
-          img.onerror = (err) => reject(err);
-          img.src = fr.result as string;
-        };
-        fr.onerror = (err) => reject(err);
-        fr.readAsDataURL(selectedFile);
-      });
+      const reader: Promise<HTMLImageElement> = new Promise(
+        (resolve, reject) => {
+          const fr = new FileReader();
+          fr.onload = () => {
+            const img = new Image();
+            img.onload = () => resolve(img);
+            img.onerror = (err) => reject(err);
+            img.src = fr.result as string;
+          };
+          fr.onerror = (err) => reject(err);
+          fr.readAsDataURL(selectedFile);
+        }
+      );
 
       reader.then((img: HTMLImageElement) => {
         // Calculate aspect ratio (e.g., 4:3)
         const aspectRatio = 3 / 3;
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d')!;
-        
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d")!;
+
         // Calculate dimensions for cropping
-        let newWidth, newHeight, offsetX = 0, offsetY = 0;
+        let newWidth,
+          newHeight,
+          offsetX = 0,
+          offsetY = 0;
         if (img.width / img.height > aspectRatio) {
           newHeight = img.height;
           newWidth = img.height * aspectRatio;
@@ -256,18 +264,27 @@ export class CreateView extends LitElement {
         canvas.height = newHeight;
 
         // Perform the crop
-        ctx.drawImage(img, offsetX, offsetY, newWidth, newHeight, 0, 0, newWidth, newHeight);
+        ctx.drawImage(
+          img,
+          offsetX,
+          offsetY,
+          newWidth,
+          newHeight,
+          0,
+          0,
+          newWidth,
+          newHeight
+        );
 
         // Convert the cropped image to base64 data URL
-        const croppedImage = canvas.toDataURL('image/jpeg', 1.0);
+        const croppedImage = canvas.toDataURL("image/jpeg", 1.0);
 
         this.picture = croppedImage;
         this.requestUpdate();
       });
     });
     inputElement.click();
-}
-
+  }
 
   handleEditTime() {
     this.editTime = !this.editTime;
@@ -286,6 +303,13 @@ export class CreateView extends LitElement {
     this.requestUpdate();
   }
 
+  handleCuisineSelected(event: CustomEvent) {
+    let selectedCuisine = event.detail;
+    selectedCuisine = selectedCuisine.toLowerCase();
+    this.cuisine = selectedCuisine;
+    this.tags.push(selectedCuisine);
+  }
+
   render() {
     return html`<section class="recipe-content">
       <div class="space-between">
@@ -295,22 +319,32 @@ export class CreateView extends LitElement {
                 class="title-input"
                 type="text"
                 name="title"
+                value=${this.recipeTitle}
                 placeholder="Recipe Title"
                 @change=${(event: KeyboardEvent) =>
                   this.handleTitleChange(event)}
               />`
             : html`<h2 @click=${this.handleEditTitle}>${this.recipeTitle}</h2>`}
           <img
-            @click=${this.handleEditTitle}
+            @click=${this.recipeTitle != "" && this.handleEditTitle}
             src="/icons/edit.svg"
             alt="edit-icon"
           />
         </div>
 
         <div class="post-container">
-          <button class="save-button" @click=${this._handleSubmit}>
-            <h3>Post</h3>
-          </button>
+          ${this.recipeTitle &&
+          this.picture &&
+          this.cuisine &&
+          this.steps &&
+          this.ingredients &&
+          this.tools
+            ? html`<button class="save-button" @click=${this._handleSubmit}>
+                <h3>Post</h3>
+              </button>`
+            : html`<button class="save-button-disabled" disabled>
+                <h3>Post</h3>
+              </button>`}
         </div>
       </div>
 
@@ -355,36 +389,13 @@ export class CreateView extends LitElement {
               />`}
         </div>
       </div>
-      <div class="tags-container">
-        <div class="tag-title">
-          <img src="/icons/tag.svg" alt="tag icon" width="25px" />
-          <h5>Tags:</h5>
-          <div class="tag-input">
-            <input type="text" name="tags" placeholder="Add Tags" />
-          </div>
-        </div>
+
+      <div class="cuisine-input">
+        <p>Cuisine:</p>
+        <cuisine-drop-down
+          @cuisine-selected=${this.handleCuisineSelected}
+        ></cuisine-drop-down>
       </div>
-
-      <div class="tags-container">
-        <div class="tag-title">
-          <img src="/icons/tag.svg" alt="tag icon" width="25px" />
-          <h5>Cuisine:</h5>
-        </div>
-
-        <div class="tags">
-          
-            ${this.cuisine
-              ? html`<p>${this.cuisine}</p>`
-              : html` <input
-                  class = "cuisine-input"
-                  type="text"
-                  placeholder="Add Cuisine"
-                  @change=${(event: KeyboardEvent) => this.handleCuisineChange(event)}
-                />`}
-          
-        </div>
-      </div>
-
 
       <div class="recipe-intro">
         <div class="recipe-card">
@@ -442,9 +453,40 @@ export class CreateView extends LitElement {
     }
 
     .cuisine-input {
-      padding: 7px;
-      border: 1px solid var(--color-light);
-      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      margin-top: 20px;
+    }
+
+    .save-button {
+      padding: 20px;
+      border-radius: 10px;
+      border: none;
+      background-color: var(--color-primary-orange);
+      color: white;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .save-button-disabled{
+      padding: 20px;
+      border-radius: 10px;
+      border: none;
+      background-color: lightgray;
+      color: white;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    
+
+
+    .cuisine-input p {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--color-primary);
     }
 
     .time-cost-buttons {
@@ -457,10 +499,19 @@ export class CreateView extends LitElement {
     .uploaded-image {
       cursor: pointer;
       border: none:
+      width: 100%;
+      height: 70vh;
     }
 
     .uploaded-image:hover {
       opacity: 70%;
+    }
+
+    .uploaded-image img {
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      object-fit: cover;
     }
 
     .title-input {
@@ -776,15 +827,6 @@ export class CreateView extends LitElement {
       background-color: inherit;
     }
 
-    .post-container button {
-      padding: 20px;
-      border-radius: 10px;
-      border: none;
-      background-color: var(--color-primary-orange);
-      color: white;
-      font-size: 15px;
-      font-weight: 600;
-    }
 
     .post-container button:hover {
       cursor: pointer;

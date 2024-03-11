@@ -36,7 +36,7 @@ export class MyApp extends LitElement {
 
       {
         path: "/app/",
-        component: "create-view",
+        component: "trending-view",
         action: () => {
           window.scrollTo(0, 0);
         },

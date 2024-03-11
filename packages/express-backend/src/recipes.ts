@@ -56,8 +56,21 @@ async function getRecipesByTag(tag: string): Promise<Recipe[]> {
     }
   }
 
+
+  function getRecipesByUserId(userid: string): Promise<Recipe[]> {
+    return RecipeModel.find({ userid })
+      .exec()
+      .then((recipes) => {
+        return recipes;
+      })
+      .catch((error) => {
+        console.error("Error fetching recipes by user id:", error);
+        throw error;
+      });
+  }
+
   
 
 
 
-export default { getTrending, create, getRecipeById, getRecipesByTag };
+export default { getTrending, create, getRecipeById, getRecipesByTag, getRecipesByUserId };

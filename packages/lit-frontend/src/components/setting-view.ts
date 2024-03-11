@@ -1,5 +1,6 @@
 import { css, html, LitElement } from "lit";
 import { customElement } from "lit/decorators.js";
+import "./toggle-switch";
 
 @customElement("setting-view")
 export class SettingView extends LitElement {

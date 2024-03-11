@@ -65,4 +65,15 @@ function getRecipesByTag(tag) {
         }
     });
 }
-exports.default = { getTrending, create, getRecipeById, getRecipesByTag };
+function getRecipesByUserId(userid) {
+    return recipe_1.default.find({ userid })
+        .exec()
+        .then((recipes) => {
+        return recipes;
+    })
+        .catch((error) => {
+        console.error("Error fetching recipes by user id:", error);
+        throw error;
+    });
+}
+exports.default = { getTrending, create, getRecipeById, getRecipesByTag, getRecipesByUserId };

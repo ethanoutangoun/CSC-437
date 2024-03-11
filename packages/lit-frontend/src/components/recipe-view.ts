@@ -99,12 +99,12 @@ export class RecipeElement extends LitElement {
           <div class="recipe-stats">
             <div class="time-stat">
               <img src="/icons/alarm.svg" alt="heart" width="20px" />
-              <p>${this.recipe?.time + " minutes"}</p>
+              <p>${this.recipe?.time ? this.recipe?.time + " minutes" : "N/A"}</p>
             </div>
 
             <div class="cost-stat">
               <img src="/icons/money.svg" alt="money" width="25px" />
-              <p>${"$" + this.recipe?.cost + " per serving"}</p>
+              <p>${this.recipe?.cost ? "$" + this.recipe?.cost + " per serving" : "N/A"}</p>
             </div>
           </div>
           <div class="tags-container">

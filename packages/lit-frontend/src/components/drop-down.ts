@@ -54,7 +54,7 @@ export class DropDownElement extends LitElement {
 
         <slot name="menu">
           <ul>
-            <li class="switch"><toggle-switch></toggle-switch></li>
+            <li class="no-display"><toggle-switch></toggle-switch></li>
             ${this.user.authenticated
               ? html`<li class="command">
             
@@ -138,6 +138,10 @@ export class DropDownElement extends LitElement {
       font-family: "Raleway", sans-serif;
       padding: 0;
       margin: 0;
+    }
+
+    .no-display {
+      display: none;
     }
 
     svg.icon {

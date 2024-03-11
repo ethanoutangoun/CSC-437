@@ -30,11 +30,11 @@ export class AccountView extends LitElement {
             <h3>Personal Info</h3>
             <p>Personal Details and Account information</p>
           </div>
-          <div @click=${() => Router.go("/app/groups")}>
+          <!-- <div @click=${() => Router.go("/app/groups")}>
             <img src="/images/groups.png" alt="groups-icon" />
             <h3>Groups</h3>
             <p>Find and create groups</p>
-          </div>
+          </div> -->
           <div @click=${() => Router.go("/app/my-recipes")}>
             <img src="/icons/notes.svg" alt="recipe-icon" />
             <h3>My Recipes</h3>

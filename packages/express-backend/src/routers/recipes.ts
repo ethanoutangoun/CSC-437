@@ -49,8 +49,6 @@ router.get("/tag/:tag", (req: Request, res: Response) => {
   
 
 
-
-
   recipes
     .getRecipesByTag(tag)
     .then((recipes) => res.json(recipes))
@@ -58,6 +56,17 @@ router.get("/tag/:tag", (req: Request, res: Response) => {
 
 
   });
+
+router.get("/user/:userId", (req: Request, res: Response) => {
+  let userId = req.params.userId;
+
+  recipes
+    .getRecipesByUserId(userId)
+    .then((recipes) => res.json(recipes))
+    .catch((error) => res.status(500).send(error
+    ));
+}
+);
 
 
 export default router;

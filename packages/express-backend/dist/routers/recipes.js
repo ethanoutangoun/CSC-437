@@ -8,7 +8,7 @@ const recipes_1 = __importDefault(require("../recipes"));
 const router = express_1.default.Router();
 router.get("/trending", (req, res) => {
     const pageNumber = Number(req.query.page) || 1;
-    const pageSize = Number(req.query.size) || 10;
+    const pageSize = Number(req.query.size) || 20;
     recipes_1.default
         .getTrending(pageNumber, pageSize)
         .then((recipes) => res.json(recipes))

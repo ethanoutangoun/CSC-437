@@ -119,7 +119,7 @@ export class DropDownElement extends LitElement {
                     this._toggle(false);
                   }}
                 >
-                  <p>Logout</p>
+                  <p>Log Out</p>
                 </li>`
               : html``}
           </ul>
@@ -132,6 +132,10 @@ export class DropDownElement extends LitElement {
     :host {
       display: inline-block;
       position: relative;
+    }
+
+    .all {
+      background-color: inherit;
     }
 
     * {
@@ -198,7 +202,7 @@ export class DropDownElement extends LitElement {
 
     .command:hover {
       cursor: pointer;
-      background-color: var(--color-light);
+      background-color: var(--color-border);
     }
 
     .navbar-menu {
@@ -218,12 +222,11 @@ export class DropDownElement extends LitElement {
       padding: 10px;
       padding-left: 20px;
       width: 180px;
+      font-size: 15px;
       text-decoration: none;
     }
 
-    .all {
-      background-color: inherit;
-    }
+    
 
     .switch {
       display: flex;

@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get("/trending", (req: Request, res: Response) => {
   const pageNumber = Number(req.query.page) || 1;
-  const pageSize = Number(req.query.size) || 10;
+  const pageSize = Number(req.query.size) || 20;
 
   recipes
     .getTrending(pageNumber, pageSize)

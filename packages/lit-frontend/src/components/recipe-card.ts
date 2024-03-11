@@ -55,7 +55,6 @@ export class RecipeCard extends LitElement {
       position: relative;
       display: flex;
       align-items: stretch;
-
       height: calc(100% - 100px);
     }
 
@@ -65,6 +64,7 @@ export class RecipeCard extends LitElement {
       width: 100%;
       object-fit: cover;
       border-radius: 20px;
+      
     }
 
     ::slotted(img){

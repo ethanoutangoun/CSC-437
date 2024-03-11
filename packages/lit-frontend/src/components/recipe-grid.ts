@@ -11,18 +11,16 @@ export class RecipeGrid extends LitElement {
   @property({ reflect: true, type: Array })
   recipeList: Recipe[] = [];
 
-  @property({ reflect: true, type: Boolean})
-  sort : boolean = false;
+  @property({ reflect: true, type: Boolean })
+  sort: boolean = false;
 
   sortedRecipes = [...this.recipeList]; // Copy of the recipes array for sorting
-  
-  
 
   // convert price (number) to $$$
   convertPrice(price: number) {
     let cost = "";
     let count = 0;
-    for (let i = 0; i < price; i += 10) {
+    for (let i = 0; i < price; i += 5) {
       cost += "$";
       count++;
 
@@ -39,25 +37,22 @@ export class RecipeGrid extends LitElement {
       this.sortedRecipes = this.sortedRecipes.sort((a, b) =>
         b.name.localeCompare(a.name)
       );
-     
     } else {
       this.sortedRecipes = this.sortedRecipes.sort((a, b) =>
         a.name.localeCompare(b.name)
       );
-   
     }
     console.log("Sorted recipes", this.sortedRecipes);
     this.requestUpdate(); // Trigger LitElement to update the UI
   }
 
   updated(changedProperties: Map<string | number | symbol, unknown>) {
-
-    if (changedProperties.has('recipeList')) { 
+    if (changedProperties.has("recipeList")) {
       this.sortedRecipes = [...this.recipeList]; // Copy of the recipes array for sorting
       this.requestUpdate(); // Trigger LitElement to update the UI
     }
 
-    if (changedProperties.has('sort')) {
+    if (changedProperties.has("sort")) {
       this.sortAlphabetically(); // Update sortedRecipes whenever recipeList changes
     }
   }
@@ -65,7 +60,6 @@ export class RecipeGrid extends LitElement {
   render() {
     return html`
       <div class="container">
-      
         <ul class="recipe-list">
           ${this.sortedRecipes.map(
             (recipe) => html`
@@ -93,17 +87,15 @@ export class RecipeGrid extends LitElement {
       font-family: "Raleway", sans-serif;
     }
 
-    :host {
-      display: inline-block;
-      position: relative;
-    }
+    // :host {
+    //   display: inline-block;
+    //   position: relative;
+    // }
 
     .recipe-list {
-      
-
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-   
+
       grid-auto-rows: 1fr;
 
       gap: 20px;

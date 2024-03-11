@@ -90,6 +90,11 @@ class FilterPopup extends LitElement {
       border-radius: 5px;
       margin-top: 10px;
     }
+
+    button:hover {
+      background-color: rgb(230, 230, 230);
+    }
+    
   `;
 
   openPopup() {
@@ -145,6 +150,15 @@ class FilterPopup extends LitElement {
                     <button @click="${this.triggerSort}" class="sort-button">
                       Sort Alphabetically
                     </button>
+
+                    <button @click="${this.triggerSort}" class="sort-button">
+                      Sort By Date
+                    </button>
+
+                    <button @click="${this.triggerSort}" class="sort-button">
+                      Sort By Price
+                    </button>
+
                   </div>
                 </div>
               `

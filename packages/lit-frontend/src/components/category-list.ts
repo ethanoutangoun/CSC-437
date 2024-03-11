@@ -4,7 +4,6 @@ import { Router } from "@vaadin/router";
 
 import "./filter-popup.ts";
 
-
 @customElement("category-list")
 export class CategoryList extends LitElement {
   @property({ reflect: true, type: Boolean })
@@ -16,10 +15,7 @@ export class CategoryList extends LitElement {
         <div>
           <ul class="category-list">
             <li>
-              <div
-                class="category-item"
-                @click="${() => Router.go("/app/")}"
-              >
+              <div class="category-item" @click="${() => Router.go("/app/")}">
                 <div class="image-border">
                   <img src="/icons/flame.svg" alt="flame-icon" width="33px" />
                 </div>
@@ -124,17 +120,32 @@ export class CategoryList extends LitElement {
             </li>
 
             <li>
-              <div class = "category-item">
+              <div
+                class="category-item"
+                @click="${() => Router.go("/app/category/beef")}"
+              >
+                <div class="image-border">
+                  <img
+                    src="/icons/beef.svg"
+                    alt="beef-icon"
+                    width="30px"
+                  />
+                </div>
+                <p>Beef</p>
+              </div>
+            </li>
+
+            <li>
+            
                 <div class="more-icon">
                   <svg class="m-icon">
                     <use href="/icons/right-arrow-2.svg#icon-right-arrow" />
                   </svg>
                 </div>
-              </div>
+         
             </li>
           </ul>
         </div>
-
 
         <filter-popup @sort-requested=${this.handleSort}></filter-popup>
       </section>
@@ -143,7 +154,7 @@ export class CategoryList extends LitElement {
 
   handleSort(event: CustomEvent) {
     let sort = event.detail;
-    this.dispatchEvent(new CustomEvent("sort-requested", { detail : sort}));
+    this.dispatchEvent(new CustomEvent("sort-requested", { detail: sort }));
   }
 
   static styles = css`
@@ -209,6 +220,11 @@ export class CategoryList extends LitElement {
       padding: 6px;
       padding-left: 8px;
       border-radius: 50%;
+    }
+
+    .more-icon:hover {
+      cursor: pointer;
+      background-color: var(--color-light);
     }
 
     .m-icon {

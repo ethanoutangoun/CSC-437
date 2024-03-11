@@ -19,9 +19,11 @@
   "bugs": {
     "url": "https://github.com/ethanoutangoun/CSC-437/issues"
   },
-  "homepage": "https://github.com/ethanoutangoun/CSC-437#readme"
-  ,
+  "homepage": "https://github.com/ethanoutangoun/CSC-437#readme",
   "workspaces": [
-      "packages/*"
-  ]
+    "packages/*"
+  ],
+  "dependencies": {
+    "core-js": "^3.36.0"
+  }
 }

@@ -20,7 +20,7 @@ export class AccountView extends LitElement {
           <div class="inline">
             ${this.user?.username ? html`<p>${this.user.username}</p>` : html``}
             <p>· Go to</p>
-            <p class="link" @click=${() => Router.go("/app/user/1")}>Profile</p>
+            <p class="link" @click=${() => Router.go("/app/profile/" + this.user?.username)}>Profile</p>
           </div>
         </div>
 

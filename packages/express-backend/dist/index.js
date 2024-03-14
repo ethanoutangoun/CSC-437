@@ -38,21 +38,25 @@ const recipes_1 = __importDefault(require("./routers/recipes"));
 const promises_1 = __importDefault(require("fs/promises"));
 const app = (0, express_1.default)();
 const port = process.env.PORT || 3000;
+(0, mongoConnect_1.connect)("cooked");
+const frontend = "lit-frontend";
+let cwd = process.cwd();
 let dist;
-let frontend;
+let indexHtml;
 try {
-    frontend = require.resolve("lit-frontend");
-    dist = path.resolve(frontend, "..", "..");
-    console.log("Serving lit-frontend from", dist);
+    indexHtml = require.resolve(frontend);
+    dist = path.dirname(indexHtml.toString());
 }
 catch (error) {
-    console.log("Cannot find static assets in lit-frontend", error.code);
+    console.log(`Could not resolve ${frontend}:`, error.code);
+    dist = path.resolve(cwd, "..", frontend, "dist");
+    indexHtml = path.resolve(dist, "index.html");
 }
-app.use((0, cors_1.default)());
-app.use(express_1.default.json({ limit: "5mb" }));
-(0, mongoConnect_1.connect)("cooked");
+console.log(`Serving ${frontend} from`, dist);
 if (dist)
     app.use(express_1.default.static(dist));
+app.use((0, cors_1.default)());
+app.use(express_1.default.json({ limit: "5mb" }));
 // BACKEND ROUTES
 app.post("/api/login", auth_1.loginUser);
 app.post("/api/signup", auth_1.registerUser);
@@ -73,16 +77,17 @@ app.put("/api/profiles/:userid", (req, res) => {
         .then((profile) => res.json(profile))
         .catch((err) => res.status(404).end());
 });
-// SPA routes ignore parameters when locating index.html
-app.use("/:spa(app)", (req, res) => {
-    const { spa } = req.params;
-    if (!dist) {
-        res.status(404).send("Not found; frontend module not loaded");
+// SPA route; always returns index.html
+app.use("/app", (req, res) => {
+    if (!indexHtml) {
+        console.log("Did not findin dist");
+        res
+            .status(404)
+            .send(`Not found; ${frontend} not available, running in ${cwd}`);
     }
     else {
-        const indexHtml = path.resolve(dist, spa, "index.html");
+        console.log("Found index.html");
         promises_1.default.readFile(indexHtml, { encoding: "utf8" }).then((html) => res.send(html));
-        console.log("Sent SPA from", indexHtml);
     }
 });
 app.listen(port, () => {

@@ -2,7 +2,7 @@
   "name": "csc-437",
   "version": "1.0.0",
   "description": "Cooked app for recipes!",
-  "main": " packages/express-backend/dist/index.js ",
+  "main": " packages/express-backend/dist/index.js ", 
   "scripts": {
     "build:frontend": "npm run -w lit-frontend build",
     "deploy": "npm run build:frontend && npm run start:backend",

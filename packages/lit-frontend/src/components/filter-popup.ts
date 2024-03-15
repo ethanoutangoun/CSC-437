@@ -6,7 +6,12 @@ class FilterPopup extends LitElement {
   open: boolean = false;
 
   @state()
-  sort: boolean = false;
+  alphAsc: boolean = false;
+  dateAsc: boolean = false;
+  priceAsc: boolean = false;
+
+  @state()
+  sort: [string, boolean] = ["", true];
 
   static styles = css`
     * {
@@ -94,7 +99,6 @@ class FilterPopup extends LitElement {
     button:hover {
       background-color: rgb(230, 230, 230);
     }
-    
   `;
 
   openPopup() {
@@ -111,11 +115,25 @@ class FilterPopup extends LitElement {
     }
   }
 
-  triggerSort() {
-    this.sort = !this.sort;
+  triggerSort(sortType: [string, boolean]) {
+    if (sortType[0] === "alphabetical") {
+      this.alphAsc = !this.alphAsc;
+    }
+
+    if (sortType[0] === "date") {
+      this.dateAsc = !this.dateAsc;
+    }
+
+    if (sortType[0] === "price") {
+      this.priceAsc = !this.priceAsc;
+    }
+
+    this.sort = sortType;
+
     this.dispatchEvent(
       new CustomEvent("sort-requested", { detail: this.sort })
     );
+    // console.log("Sort type: ", this.sort);
     // this.open = false;
   }
 
@@ -147,18 +165,28 @@ class FilterPopup extends LitElement {
                       />
                     </div>
 
-                    <button @click="${this.triggerSort}" class="sort-button">
+                    <button
+                      @click="${() =>
+                        this.triggerSort(["alphabetical", this.alphAsc])}"
+                      class="sort-button"
+                    >
                       Sort Alphabetically
                     </button>
 
-                    <button @click="${this.triggerSort}" class="sort-button">
+                    <button
+                      @click="${() => this.triggerSort(["date", this.dateAsc])}"
+                      class="sort-button"
+                    >
                       Sort By Date
                     </button>
 
-                    <button @click="${this.triggerSort}" class="sort-button">
+                    <button
+                      @click="${() =>
+                        this.triggerSort(["price", this.priceAsc])}"
+                      class="sort-button"
+                    >
                       Sort By Price
                     </button>
-
                   </div>
                 </div>
               `

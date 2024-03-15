@@ -12,7 +12,7 @@ export class TrendingView extends LitElement {
 
   @state()
   recipeList: Recipe[] = [];
-  sort: boolean = false;
+  sort: [string, boolean] = ["", true];
 
   connectedCallback(): void {
     super.connectedCallback();

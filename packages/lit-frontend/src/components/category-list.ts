@@ -154,6 +154,7 @@ export class CategoryList extends LitElement {
 
   handleSort(event: CustomEvent) {
     let sort = event.detail;
+    // console.log("Sort type: ", sort);
     this.dispatchEvent(new CustomEvent("sort-requested", { detail: sort }));
   }
 

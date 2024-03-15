@@ -1,5 +1,5 @@
 import { css, html, LitElement } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { customElement, property, state } from "lit/decorators.js";
 import "./recipe-card.ts";
 import { Recipe } from "../models/recipe.ts";
 
@@ -12,7 +12,7 @@ export class RecipeGrid extends LitElement {
   recipeList: Recipe[] = [];
 
   @property({ reflect: true, type: Boolean })
-  sort: boolean = false;
+  sort: [string, boolean] = ["", true];
 
   sortedRecipes = [...this.recipeList]; // Copy of the recipes array for sorting
 
@@ -33,16 +33,44 @@ export class RecipeGrid extends LitElement {
 
   sortAlphabetically() {
     this.sortedRecipes = [...this.recipeList]; // Copy of the recipes array for sorting
-    if (this.sort) {
-      this.sortedRecipes = this.sortedRecipes.sort((a, b) =>
-        b.name.localeCompare(a.name)
-      );
-    } else {
-      this.sortedRecipes = this.sortedRecipes.sort((a, b) =>
-        a.name.localeCompare(b.name)
-      );
+
+    if (this.sort[0] == "alphabetical") {
+      if (this.sort[1]) {
+        this.sortedRecipes = this.sortedRecipes.sort((a, b) =>
+          b.name.localeCompare(a.name)
+        );
+      } else {
+        this.sortedRecipes = this.sortedRecipes.sort((a, b) =>
+          a.name.localeCompare(b.name)
+        );
+      }
     }
-    console.log("Sorted recipes", this.sortedRecipes);
+
+    if (this.sort[0] == "price") {
+      if (this.sort[1]) {
+        this.sortedRecipes = this.sortedRecipes.sort((a, b) => b.cost - a.cost);
+      } else {
+        this.sortedRecipes = this.sortedRecipes.sort((a, b) => a.cost - b.cost);
+      }
+    }
+
+    if (this.sort[0] === "date") {
+      const ascendingOrder = this.sort[1]; // Boolean indicating sorting order
+      this.sortedRecipes = this.sortedRecipes.sort((a, b) => {
+        const dateA = new Date(a.date).getTime(); // Convert date to milliseconds
+        const dateB = new Date(b.date).getTime(); // Convert date to milliseconds
+        if (ascendingOrder) {
+          return dateA - dateB; // Sort in ascending order
+        } else {
+          return dateB - dateA; // Sort in descending order
+        }
+      });
+    }
+    
+    
+
+
+    // console.log("Sorted recipes", this.sortedRecipes);
     this.requestUpdate(); // Trigger LitElement to update the UI
   }
 
@@ -74,7 +102,9 @@ export class RecipeGrid extends LitElement {
                   alt="${recipe.name}"
                 />
                 <span slot="title">${recipe.name}</span>
-                <span slot="cuisine">${this.capitalizeFirstLetter(recipe.cuisine)}</span>
+                <span slot="cuisine"
+                  >${this.capitalizeFirstLetter(recipe.cuisine)}</span
+                >
                 <span slot="price">${this.convertPrice(recipe.cost)}</span>
               </recipe-card>
             `

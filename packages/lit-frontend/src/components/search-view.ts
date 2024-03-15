@@ -68,7 +68,7 @@ export class SearchView extends LitElement {
                 ${this.recipeCount}
                 ${this.recipeCount > 1 ? html`results` : html`result`}
               </p>`
-            : ""}
+            : html`<p>Loading...</p>`}
 
           <recipe-grid
             .recipeList=${this.recipeList}

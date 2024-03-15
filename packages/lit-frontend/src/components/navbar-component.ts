@@ -4,7 +4,7 @@ import { Router } from "@vaadin/router";
 import { consume } from "@lit/context";
 import { authContext } from "./auth-required";
 import { APIUser, APIRequest } from "./rest.ts";
-import { Profile } from "../models/profile.ts";  
+import { Profile } from "../models/profile.ts";
 
 import "./drop-down.ts";
 
@@ -17,6 +17,8 @@ export class Navbar extends LitElement {
   @property({ attribute: false })
   user?: APIUser;
 
+  @state()
+  isLoading: boolean = false;
 
   _getData(path: string) {
     const request = new APIRequest();
@@ -44,14 +46,12 @@ export class Navbar extends LitElement {
     }
   }
 
-
-
   @state()
-  profile? : Profile;
+  profile?: Profile;
 
   render() {
     return html`
-      <header class="navbar">
+      <header class=${this.isLoading ? "navbar-loading" : "navbar"}>
         <div class="navbar-content">
           <div class="logo" @click=${() => Router.go("/app/")}>
             <svg class="main-icon">
@@ -61,11 +61,23 @@ export class Navbar extends LitElement {
           </div>
 
           <section class="search-box">
-            <form>
+            <form
+              @submit=${(e: Event) => {
+                e.preventDefault();
+                const formData = new FormData(e.target as HTMLFormElement);
+                const searchValue = formData.get("search"); // Get the value from the input field
+                console.log("Search value:", searchValue);
+                this.isLoading = true;
+                  setTimeout(() => {
+                    this.isLoading = false;
+                  }, 2000);
+              }}
+            >
               <input
                 type="text"
                 name="search"
                 placeholder="Search for Recipes, Chefs, & More"
+             
               />
             </form>
           </section>
@@ -82,7 +94,7 @@ export class Navbar extends LitElement {
                 </div>`
               : html``}
 
-            <drop-down profile = ${this.profile}></drop-down>
+            <drop-down profile=${this.profile}></drop-down>
           </div>
         </div>
       </header>
@@ -97,6 +109,23 @@ export class Navbar extends LitElement {
       background-color: var(--color-main-bg);
     }
 
+    .search-box input:focus {
+      outline: none;
+      border: 1px solid var(--color-primary);
+    }
+
+    /* Define your animation */
+    @keyframes borderAnimation {
+      0% {
+        background-position: 0 0;
+        width: 0;
+      }
+      100% {
+        background-position: 100% 0;
+        width: 100%;
+      }
+    }
+
     .navbar {
       z-index: 2;
       background-color: var(--color-main-bg);
@@ -106,6 +135,33 @@ export class Navbar extends LitElement {
       left: 0;
       top: 0;
       width: 100%;
+    }
+
+    .navbar-loading {
+      z-index: 2;
+      background-color: var(--color-main-bg);
+      padding: 15px 0;
+      border-bottom: 1px solid var(--color-border);
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+    }
+
+    .navbar-loading::after {
+      content: "";
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 2px; /* Adjust the thickness of the border */
+      background: linear-gradient(
+        to right,
+        var(--color-loading-bg-1),
+        var(--color-loading-bg-2)
+      );
+      background-size: 200% auto;
+      animation: borderAnimation 2s infinite; /* Adjust animation duration as needed */
     }
 
     .navbar-content {

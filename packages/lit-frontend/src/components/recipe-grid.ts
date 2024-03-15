@@ -57,6 +57,10 @@ export class RecipeGrid extends LitElement {
     }
   }
 
+  capitalizeFirstLetter(str: string): string {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
   render() {
     return html`
       <div class="container">
@@ -70,7 +74,7 @@ export class RecipeGrid extends LitElement {
                   alt="${recipe.name}"
                 />
                 <span slot="title">${recipe.name}</span>
-                <span slot="cuisine">${recipe.cuisine}</span>
+                <span slot="cuisine">${this.capitalizeFirstLetter(recipe.cuisine)}</span>
                 <span slot="price">${this.convertPrice(recipe.cost)}</span>
               </recipe-card>
             `

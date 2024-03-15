@@ -106,6 +106,10 @@ export class SignUpView extends LitElement {
       box-sizing: border-box;
     }
 
+    button {
+      cursor: pointer;
+    }
+
     h1 {
       color: var(--color-primary);
       font-size: 2rem;
@@ -250,7 +254,7 @@ export class SignUpView extends LitElement {
         font-size: 14px;
       }
 
-      .login-content{
+      .login-content {
         height: 80vh;
       }
     }

@@ -14,6 +14,9 @@
 
   --color-login-input-bg: #eff2f9;
   --color-login-button-bg: #6865f6;
+
+  --color-loading-bg-1: #ff7e5f;
+  --color-loading-bg-2: #feb47b;
 }
 
 .dark-mode {

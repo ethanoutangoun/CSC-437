@@ -17,7 +17,7 @@ const recipe_1 = __importDefault(require("./models/mongo/recipe"));
 function getTrending(pageNumber, pageSize) {
     const skipCount = (pageNumber - 1) * pageSize;
     return recipe_1.default.find()
-        .sort({ numLikes: -1 })
+        .sort({ date: -1, likes: -1 })
         .skip(skipCount)
         .limit(pageSize)
         .exec()
@@ -76,4 +76,10 @@ function getRecipesByUserId(userid) {
         throw error;
     });
 }
-exports.default = { getTrending, create, getRecipeById, getRecipesByTag, getRecipesByUserId };
+exports.default = {
+    getTrending,
+    create,
+    getRecipeById,
+    getRecipesByTag,
+    getRecipesByUserId,
+};

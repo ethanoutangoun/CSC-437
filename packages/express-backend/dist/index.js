@@ -49,7 +49,7 @@ try {
 }
 catch (error) {
     console.log(`Could not resolve ${frontend}:`, error.code);
-    dist = path.resolve(cwd, "..", frontend, "dist");
+    dist = path.resolve(cwd, "packages", frontend, "dist");
     indexHtml = path.resolve(dist, "index.html");
 }
 console.log(`Serving ${frontend} from`, dist);

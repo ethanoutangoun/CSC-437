@@ -76,10 +76,28 @@ function getRecipesByUserId(userid) {
         throw error;
     });
 }
+function getRecipesFromSearch(input) {
+    return recipe_1.default.find({
+        $or: [
+            { name: { $regex: input, $options: 'i' } }, // Case-insensitive search for name (title) containing input
+            { tags: { $regex: input, $options: 'i' } }, // Case-insensitive search for tags containing input
+            { userid: { $regex: input, $options: 'i' } }, // Case-insensitive search for userid containing input
+        ],
+    })
+        .exec()
+        .then((recipes) => {
+        return recipes;
+    })
+        .catch((error) => {
+        console.error("Error fetching recipes by search:", error);
+        throw error;
+    });
+}
 exports.default = {
     getTrending,
     create,
     getRecipeById,
     getRecipesByTag,
     getRecipesByUserId,
+    getRecipesFromSearch
 };

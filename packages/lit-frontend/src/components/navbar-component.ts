@@ -67,17 +67,20 @@ export class Navbar extends LitElement {
                 const formData = new FormData(e.target as HTMLFormElement);
                 const searchValue = formData.get("search"); // Get the value from the input field
                 console.log("Search value:", searchValue);
+                Router.go(`/app/search/${searchValue}`);
+                // clear the input field
+                (e.target as HTMLFormElement).reset();
+
                 this.isLoading = true;
-                  setTimeout(() => {
-                    this.isLoading = false;
-                  }, 2000);
+                setTimeout(() => {
+                  this.isLoading = false;
+                }, 1100);
               }}
             >
               <input
                 type="text"
                 name="search"
                 placeholder="Search for Recipes, Chefs, & More"
-             
               />
             </form>
           </section>
@@ -161,7 +164,7 @@ export class Navbar extends LitElement {
         var(--color-loading-bg-2)
       );
       background-size: 200% auto;
-      animation: borderAnimation 2s infinite; /* Adjust animation duration as needed */
+      animation: borderAnimation 1.1s infinite; /* Adjust animation duration as needed */
     }
 
     .navbar-content {

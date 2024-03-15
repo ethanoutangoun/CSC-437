@@ -396,10 +396,17 @@ export class UserProfileElement extends LitElement {
       return; // Stop further execution of the callback
     }
 
+    
+
     if (this.location) {
       const pathnameParts = this.location.pathname.split("/");
       const useridIndex = pathnameParts.indexOf("profile") + 1; // Get the index of the next segment after 'profile'
       const userid = pathnameParts[useridIndex];
+
+      // protected routes from viewing other profiles
+      if (userid !== this.user?.username) { 
+        Router.go('/app/')
+      }
 
       this.path = `/profiles/${userid}`;
     }

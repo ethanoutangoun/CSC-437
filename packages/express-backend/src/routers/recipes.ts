@@ -57,6 +57,16 @@ router.get("/tag/:tag", (req: Request, res: Response) => {
 
   });
 
+router.get("/search/:input", (req: Request, res: Response) => {
+  let input = req.params.input;
+
+  recipes
+    .getRecipesFromSearch(input)
+    .then((recipes) => res.json(recipes))
+    .catch((error) => res.status(500).send(error));
+}
+);
+
 router.get("/user/:userId", (req: Request, res: Response) => {
   let userId = req.params.userId;
 

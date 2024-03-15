@@ -68,10 +68,30 @@ function getRecipesByUserId(userid: string): Promise<Recipe[]> {
     });
 }
 
+
+function getRecipesFromSearch(input: string): Promise<Recipe[]> {
+  return RecipeModel.find({
+    $or: [
+      { name: { $regex: input, $options: 'i' } }, // Case-insensitive search for name (title) containing input
+      { tags: { $regex: input, $options: 'i' } }, // Case-insensitive search for tags containing input
+      { userid: { $regex: input, $options: 'i' } }, // Case-insensitive search for userid containing input
+    ],
+  })
+    .exec()
+    .then((recipes) => {
+      return recipes;
+    })
+    .catch((error) => {
+      console.error("Error fetching recipes by search:", error);
+      throw error;
+    });
+}
+
 export default {
   getTrending,
   create,
   getRecipeById,
   getRecipesByTag,
   getRecipesByUserId,
+  getRecipesFromSearch
 };

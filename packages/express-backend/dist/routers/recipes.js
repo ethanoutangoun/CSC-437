@@ -48,6 +48,13 @@ router.get("/tag/:tag", (req, res) => {
         .then((recipes) => res.json(recipes))
         .catch((error) => res.status(500).send(error));
 });
+router.get("/search/:input", (req, res) => {
+    let input = req.params.input;
+    recipes_1.default
+        .getRecipesFromSearch(input)
+        .then((recipes) => res.json(recipes))
+        .catch((error) => res.status(500).send(error));
+});
 router.get("/user/:userId", (req, res) => {
     let userId = req.params.userId;
     recipes_1.default

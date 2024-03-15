@@ -18,6 +18,7 @@ import "./auth-required";
 import "./signup-view";
 import "./test-component";
 import "./navbar-component";
+import "./search-view";
 
 @customElement("my-app")
 export class MyApp extends LitElement {
@@ -41,6 +42,8 @@ export class MyApp extends LitElement {
           window.scrollTo(0, 0);
         },
       },
+
+      { path: "/app/search/:input", component: "search-view" },
 
       { path: "/app/account", component: "account-view" },
 

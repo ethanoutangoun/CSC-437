@@ -360,6 +360,10 @@ export class Navbar extends LitElement {
       .main-icon {
         display: none;
       }
+
+      .search-box {
+        width: 150px;
+      }
     }
   `;
 }

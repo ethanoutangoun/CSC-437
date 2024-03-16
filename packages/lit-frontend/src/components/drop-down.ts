@@ -246,7 +246,7 @@ export class DropDownElement extends LitElement {
         display: none;
       }
       .navbar-menu {
-       
+      
         border: none;
       }
 

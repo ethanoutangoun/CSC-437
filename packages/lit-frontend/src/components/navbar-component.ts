@@ -57,7 +57,7 @@ export class Navbar extends LitElement {
             <svg class="main-icon">
               <use href="/icons/icon.svg#cooked-logo" />
             </svg>
-            <h1>COOKED</h1>
+            <h1 class="title">COOKED</h1>
           </div>
 
           <section class="search-box">
@@ -322,6 +322,24 @@ export class Navbar extends LitElement {
         margin-left: 50px;
         margin-right: 50px;
       }
+
+      .group-icon {
+        display: none;
+      }
+    }
+
+    @media screen and (max-width: 900px) {
+      .logo h1 {
+        display: none;
+      }
+    }
+
+    @media screen and (max-width: 670px) {
+      .search-box {
+        width: 200px;
+
+      
+      }
     }
 
     @media screen and (max-width: 500px) {
@@ -338,10 +356,8 @@ export class Navbar extends LitElement {
       .logo h1 {
         display: none;
       }
-    }
 
-    @media screen and (max-width: 988px) {
-      .search-box {
+      .main-icon {
         display: none;
       }
     }

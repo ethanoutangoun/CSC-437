@@ -18,9 +18,6 @@ export class DropDownElement extends LitElement {
   @property({ reflect: true })
   profile?: Profile;
 
-
-  
-
   render() {
     return html`
       <div class="all">
@@ -35,26 +32,25 @@ export class DropDownElement extends LitElement {
             <svg class="icon">
               <use href="/icons/menu.svg#icon-menu"></use>
             </svg>
-            <svg
-              width="20px"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 32 32"
-              aria-hidden="true"
-              role="presentation"
-              focusable="false"
-              style="display: block; height: 100%; width: 100%;   fill: var(--color-primary);"
-              
-            >
-              <path
-                d="M16 .7C7.56.7.7 7.56.7 16S7.56 31.3 16 31.3 31.3 24.44 31.3 16 24.44.7 16 .7zm0 28c-4.02 0-7.6-1.88-9.93-4.81a12.43 12.43 0 0 1 6.45-4.4A6.5 6.5 0 0 1 9.5 14a6.5 6.5 0 0 1 13 0 6.51 6.51 0 0 1-3.02 5.5 12.42 12.42 0 0 1 6.45 4.4A12.67 12.67 0 0 1 16 28.7z"
-              ></path>
-            </svg>
+
+            <img src="/icons/blank-avatar.svg" class="profile-icon" />
           </div>
         </label>
 
         <slot name="menu">
           <ul>
             <li class="no-display"><toggle-switch></toggle-switch></li>
+
+            ${this.user.authenticated
+              ? html`<li class="command">
+            
+            <p class="create" @click = ${() => {
+              this._toggle(false);
+              Router.go("/app/create");
+            }}>Create</a>
+              </li>`
+              : html``}
+
             ${this.user.authenticated
               ? html`<li class="command">
             
@@ -134,6 +130,10 @@ export class DropDownElement extends LitElement {
       position: relative;
     }
 
+    .create {
+      display: none;
+    }
+
     .all {
       background-color: inherit;
     }
@@ -148,9 +148,16 @@ export class DropDownElement extends LitElement {
       display: none;
     }
 
-    svg.icon {
+    .profile-icon {
       width: 30px;
       height: 30px;
+      border-radius: 50%;
+     
+    }
+
+    svg.icon {
+      width: 20px;
+      height: 20px;
       stroke: var(--color-primary);
       background-color: inherit;
       fill: none;
@@ -226,14 +233,35 @@ export class DropDownElement extends LitElement {
       text-decoration: none;
     }
 
-    
-
     .switch {
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 5px;
       border-bottom: 1px solid var(--color-light);
+    }
+
+    @media screen and (max-width: 670px) {
+      .profile-icon {
+        display: none;
+      }
+      .navbar-menu {
+       
+        border: none;
+      }
+
+      svg.icon {
+        width: 30px;
+        height: 30px;
+      }
+
+     
+    }
+
+    @media screen and (max-width: 800px) {
+      .create {
+        display: block;
+      }
     }
   `;
 
